@@ -1,6 +1,6 @@
 
 <?php
-class Jeu_T {
+class Jeu_P {
 	// AhMaD: les attributs pour Jeu_T
 	private $idJeuP;
 	private $idJeuT;
@@ -8,23 +8,15 @@ class Jeu_T {
 	private $etat;
 	
 
-	// AhMaD: Le première connecteur
-	function __construct_1($idJeuP, $idProprietaire, $etat,  $idJeuT) {
-		$this->$idJeuP = $idJeuP;
-		$this->$idJeuT = $idJeuT;
-		$this->$idProprietaire = $idProprietaire;
-		$this->$etat = $etat;
+// AhMaD: Le connecteur aves (id user =-1) cela pour eviter faire deuxime constructeur pour le BD.
+        //comme ca si tu crée un nouveau objet avec id il vas prendre le prendre sinon l'id=-1 par defaut  
+	function __construct( $idProprietaire, $etat,  $idJeuT,$idJeuP=-1) {
+		$this->idJeuP = $idJeuP;
+		$this->idJeuT = $idJeuT;
+		$this->idProprietaire = $idProprietaire;
+		$this->etat = $etat;
 		
 	}
-	// AhMaD: Le deuxième connecteur ici idUser = -1 cela pour connecter avec BD, parce que l'id est auto
-	function __construct_2($idProprietaire, $etat,  $idJeuT) {
-		$this->$idJeuP = - 1;
-		$idJeuT = $idJeuT;
-		$this->$idProprietaire = $idProprietaire;
-		$this->$etat = $etat;
-		
-	}
-
 	// AhMaD: getter et setter, on vas les utiliser pour chercher les informations ou les modifier
 	// idJeuP
 	function getIdJeuP() {
