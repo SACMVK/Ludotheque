@@ -52,12 +52,7 @@ class Individu {
 	
 	// AhMaD: getter et setter, on vas les utiliser pour chercher les informations ou les modifier
 	// iduser
-	function getIdUser() {
-		return $this->idUser;
-	}
-	function setIdUser($idUser) {
-		return $this->idUser = $idUser;
-	}
+	
 	
 	// email
 	function getEmail() {
