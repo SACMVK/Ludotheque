@@ -1,6 +1,55 @@
-@CHARSET "ISO-8859-1";
+/* modification pour les head et bar menu */
+/*la taille de brand nom*/
+.navbar-brand
+{
+	margin-top:20px;
+	font-size: 50px;	
+}
+
+#rechercher{
+	
+	margin-top:20px;
+}
+/*la couleur de brand nom*/
+.navbar-inverse .navbar-brand
+{
+	color: red;
+}
+
+/*pour gérer la direction des elements dans la liste*/
+.navbar-right .dropdown-menu{
+	left:0;
+	right:auto;
+}
+#nav{
+  margin-top:4%;	
+  margin-left: 10%;
+}
+
+/*la boder rouge en dessus de l'element el la couleur d'arrière et la taille de la list des elements*/
+.dropdown-menu{
+	min-width:200px;
+	background-color: #333;
+	border-top:3px solid #E41B17
+}
+/* -webkit-transition:padding 0.5s ease;  : cela une option dans le css pour faire l'animation */
+.dropdown-menu > li > a{
+	padding:6px 20px;
+    color: #FFF;
+    -webkit-transition:padding 0.5s ease;
+	-moz-transition:padding 0.5s ease;
+	-o-transition:padding 0.5s ease;
+	transition:padding 0.5s ease;	
+}
 
 
-
-
-
+/*ici pour changer les couleurs et l'animation sur l'elements de la menu  en cas de les utilise
+ */
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus
+{
+	background-color: #E41B17;
+	color:#FFF;
+	padding-left:25px;
+	
+}
