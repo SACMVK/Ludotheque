@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -32,6 +32,10 @@ $liste_droits = loadDroits();
 <body>
 
 <header></header>
+
+
+<div><?php include 'job/dao/rep_dao.php';?></div>
+
 
 <div><?php include 'ihm/pages/connexion.php';?></div>
 <div><?php include 'ihm/pages/config.php';?></div>
