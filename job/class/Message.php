@@ -80,6 +80,7 @@ class Message {
     }
 
     function setTexte($texte) {
+        
         return $this->texte = $texte;
         
         
