@@ -1,0 +1,36 @@
+.footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	background-color: black;
+	position: absolute;
+	bottom: 0px;
+	width: 100%; /* ken : permet au footer de prendre toute la largeur, très important sinon il reste dans son coin */
+	flex-wrap: wrap; /* ken : permet un retour à la ligne si la page web devient trop petite */
+}
+
+#a {
+   text-decoration: none;
+   color: red;
+   font-style: italic;
+}
+
+#element1{
+	color: white;
+	display: flex;
+	justify-content: flex-left;
+}
+
+
+#element2{
+	color: white;
+	display: flex;
+	justify-content: flex-right;
+}
+
+
+#element3{
+	color: white;
+	display: flex;
+	justify-content: center;
+}
