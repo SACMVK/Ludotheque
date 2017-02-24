@@ -1,6 +1,5 @@
-
 <?php
-class Jeu_T {
+class Jeu_T{
 	// AhMaD: les attributs pour Jeu_T
 	private $idPC;
 	private $dureeVie;
@@ -15,32 +14,18 @@ class Jeu_T {
 	private $listePieces;
 	
 	// AhMaD: Le première connecteur
-	function __construct_1($idPC, $nbJoueursMin, $editeur,$nbJoueursMax,$illustrateur, $difficulte, $regles, $nom, $public, $listePieces, $dureeVie) {
-		$this->$idPC = $idPC;
-		$this->$dureeVie = $dureeVie;
-		$this->$nbJoueursMin = $nbJoueursMin;
-		$this->$editeur = $editeur;
-		$this->$illustrateur = $illustrateur;
-		$this->$nbJoueursMax = $nbJoueursMax;
-		$this->$difficulte = $difficulte;
-		$this->$regles = $regles;
-		$this->$nom = $nom;
-		$this->$public = $public;
-		$this->$listePieces = $listePieces;
-	}
-	// AhMaD: Le deuxième connecteur ici idUser = -1 cela pour connecter avec BD, parce que l'id est auto
-	function __construct_2($nbJoueursMin, $editeur, $illustrateur, $nbJoueursMax, $difficulte, $regles, $nom, $public, $listePieces, $dureeVie) {
-		$this->$idPC = - 1;
-		$this->$dureeVie = $dureeVie;
-		$this->$nbJoueursMin = $nbJoueursMin;
-		$this->$editeur = $editeur;
-		$this->$illustrateur = $illustrateur;
-		$this->$nbJoueursMax = $nbJoueursMax;
-		$this->$difficulte = $difficulte;
-		$this->$regles = $regles;
-		$this->$nom = $nom;
-		$this->$public = $public;
-		$this->$listePieces = $listePieces;
+	function __construct($nbJoueursMin, $editeur,$nbJoueursMax,$illustrateur, $difficulte, $regles, $nom, $public, $listePieces, $dureeVie,$idPC=-1) {
+		$this->idPC = $idPC;
+		$this->dureeVie = $dureeVie;
+		$this->nbJoueursMin = $nbJoueursMin;
+		$this->editeur = $editeur;
+		$this->illustrateur = $illustrateur;
+		$this->nbJoueursMax = $nbJoueursMax;
+		$this->difficulte = $difficulte;
+		$this->regles = $regles;
+		$this->nom = $nom;
+		$this->public = $public;
+		$this->listePieces = $listePieces;
 	}
 	
 	// AhMaD: getter et setter, on vas les utiliser pour chercher les informations ou les modifier
