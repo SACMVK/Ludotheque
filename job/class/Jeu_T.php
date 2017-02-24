@@ -1,31 +1,33 @@
 <?php
 class Jeu_T{
 	// AhMaD: les attributs pour Jeu_T
+        private $idJeuT;
 	private $idPC;
-	private $dureeVie;
 	private $nbJoueursMin;
-	private $nbJoueursMax;
+	private $nbJoueursMax;	
+        private $nom;
 	private $editeur;
-	private $illustrateur;
-	private $difficulte;
 	private $regles;
-	private $nom;
+	private $difficulte;
 	private $public;
 	private $listePieces;
-	
-	// AhMaD: Le première connecteur
-	function __construct($nbJoueursMin, $editeur,$nbJoueursMax,$illustrateur, $difficulte, $regles, $nom, $public, $listePieces, $dureeVie,$idPC=-1) {
-		$this->idPC = $idPC;
-		$this->dureeVie = $dureeVie;
+	private $dureePartie;	
+
+	// M - Pour pouvoir faire de la surcharge et donc avoir accès à un second constructeur on définit la clé primaire nécessaire aux recherches par id à -1 par défaut
+	function __construct($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$idPC,$dureePartie,$idJeuT=-1) {
+                $this->idJeuT;
+                $this->idPC = $idPC;
+		
 		$this->nbJoueursMin = $nbJoueursMin;
-		$this->editeur = $editeur;
-		$this->illustrateur = $illustrateur;
 		$this->nbJoueursMax = $nbJoueursMax;
-		$this->difficulte = $difficulte;
+                $this->nom = $nom;
+		$this->editeur = $editeur;
 		$this->regles = $regles;
-		$this->nom = $nom;
+		$this->difficulte = $difficulte;
 		$this->public = $public;
 		$this->listePieces = $listePieces;
+                $this->dureePartie = $dureePartie;
+		
 	}
 	
 	// AhMaD: getter et setter, on vas les utiliser pour chercher les informations ou les modifier
@@ -51,14 +53,6 @@ class Jeu_T{
 	}
 	function setEditeur($editeur) {
 		return $this->editeur = $editeur;
-	}
-	
-	// illustrateur
-	function getIllustrateur() {
-		return $this->pseudo;
-	}
-	function setIllustrateur($illustrateur) {
-		return $this->illustrateur = $illustrateur;
 	}
 	
 	// $nbJoueursMax
@@ -108,21 +102,19 @@ class Jeu_T{
 		return $this->listePieces = $listePieces;
 	}
 	
-	// $dureeVie
-	function getDureeVie() {
-		return $this->dureeVie;
+	// $dureePartie
+	function getDureePartie() {
+		return $this->dureePartie;
 	}
-	function setDureeVie($dureeVie) {
-		return $this->dureeVie;
+	function setDureePartie($dureePartie) {
+		return $this->dureePartie;
 	}
 	
 	// AhMaD: ToString pour afficher l'objet, le point pour concaténer, cela comme (+) en java
 	function __toString() {
-		return ("id= " . $this->idPC . ", N° des joueurs minimum :" . $this->nbJoueursMin . ", Editeur : " .
-				$this->editeur . ", Illustrateur: " . $this->illustrateur . ", N° des joueurs maximum: " . 
-				$this->nbJoueursMax . ", Difficulte : " . $this->difficulte . ", Regles: " . $this->regles . 
-				", Nom: " . $this->nom . ", Public" . $this->public . ", Liste des pieces: " . $this->listePieces .
-				", Duree de Vie: " . $this->dureeVie);
+		return ("id= " . $this->idPC . "\n Nombre de joueurs : de " . $this->nbJoueursMin . " à " . $this->nbJoueursMax ." joueurs.\n Nom du jeu : ".$this->nom.
+                        "\n Editeur : ".$this->editeur."\n Regles : ".$this->regles."\n Difficulté : ".$this->difficulte."Public : ".$this->public." Liste des pièces : ".$this->listePieces.
+                        "\n Durée de la partie : ".$this->dureePartie);
 	}
 }
 ?>
