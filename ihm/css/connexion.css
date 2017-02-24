@@ -1,0 +1,15 @@
+#connexion .input, #connexion .bouton_connexion{
+		/* stefan : deux lignes afin de centrer les champs de données */
+	display: block;
+	margin: auto;
+	text-align: center;
+}
+
+
+#connexion .text{
+	text-align: center;
+	/* stefan : on est obligé de mettre une largeur afin qu'il se centre */
+	width: 100px;
+	display: block;
+	margin: auto;
+}
