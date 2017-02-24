@@ -23,8 +23,11 @@
         include ('ihm/footer/footer.php');
         require_once('job/class/message.php');
 
-        $msg = new Message( 2, 26, "Emprunt", "Monopoly emprunt", " Bonjour je souhaiterai vous empruntez votre monopoly es-ce possible?",3);
-     echo $msg;
+        
+        
+        //test class message
+        //$msg = new Message( 2, 26, "Emprunt", "Monopoly emprunt", " Bonjour je souhaiterai vous empruntez votre monopoly es-ce possible?",3);
+        //echo $msg;
 
 
 
@@ -34,7 +37,7 @@
          * isset (is set) vérifie non =null mais vérifie si la variable existe ou pas avec une valeur
          */
 
-
+      
         if (!(isset($_GET['page']))) {
             include('ihm/pages/accueil.php');
         } else {

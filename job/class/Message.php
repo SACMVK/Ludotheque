@@ -9,11 +9,11 @@ class Message {
     private $idDest = -1;
     private $typeMessage = "";
     private $sujet = "";
-    private $texte= "";
+    private $texte = "";
 
     //charlotte :constructeur 
 
-    function __construct( $idExped, $idDest, $typeMessage, $sujet, $texte,$idMessage = -1 ) {
+    function __construct($idExped, $idDest, $typeMessage, $sujet, $texte, $idMessage = -1) {
         $this->idMessage = $idMessage;
         $this->idExped = $idExped;
         $this->idDest = $idDest;
@@ -22,72 +22,69 @@ class Message {
         $this->texte = $texte;
     }
 
-
     // charlotte : getters et setters
     // idmessage
-    function getIdMessage() {
+    public function getIdMessage() {
         return $this->idMessage;
     }
 
-    function setIdMessage($idMessage) {
+    public function setIdMessage($idMessage) {
         return $this->idMessage = $idMessage;
     }
 
     // id expéditeur
-    function getIdExped() {
+    public function getIdExped() {
         return $this->idExped;
     }
 
-    function setIdExped($idExped) {
+    public function setIdExped($idExped) {
         return $this->idExped = $idExped;
     }
 
     // id destinataire
-    function getIdDest() {
+    public function getIdDest() {
         return $this->idDest;
     }
 
-    function setIdDest($idDest) {
+    public function setIdDest($idDest) {
         return $this->idDest = $idDest;
     }
 
     // type de Message
 
 
-    function getTypeMessage() {
+    public function getTypeMessage() {
         return $this->typeMessage;
     }
 
-    function setTypeMessage($typeMessage) {
+    public function setTypeMessage($typeMessage) {
         return $this->typeMessage = $typeMessage;
     }
 
     // sujet
 
 
-    function getSujet() {
+    public function getSujet() {
         return $this->sujet;
     }
 
-    function setSujet($sujet) {
+    public function setSujet($sujet) {
         return $this->sujet = $sujet;
     }
 
     // texte
 
-    function getTexte() {
+    public function getTexte() {
         return $this->texte;
     }
 
-    function setTexte($texte) {
-        
+    public function setTexte($texte) {
+
         return $this->texte = $texte;
-        
-        
     }
 
     // charlotte: ToString pour afficher 
-    function __toString() {
+    public function __toString() {
         return ( "idMessage= " . $this->idMessage . ", idExpediteur :" . $this->idExped . ", idDestinataire: " . $this->idDest . ", typeMessage: " . $this->typeMessage . "sujet : " . $this->sujet . "texte : " . $this->texte);
     }
 
