@@ -2,8 +2,10 @@
 
 interface dao
 {
-	public Function save($object);
-	public Function load($requete);
+	public Function create($object);
+	public Function delete($object);
+        public Function update($object);
+        public Function find($request);
 }
 
 
