@@ -16,7 +16,7 @@
 <?php require_once ('ihm/job/class/Jeu_P.php');?>
 <?php require_once ('ihm/job/class/Jeu_T.php');?>
 <?php
-// AhMaD: j'ai fait ici   le test des classes pour savoir si ca marche
+// test les classes
 $jeu = new Individu ( 1, "Vannes", "Victor Hugo", 56000, "Morbhien", "ahmad@gmail.fr", "090I27483", "ahmad", "2017", "1234", "Admin", "Ahmad", "Ali", "1987" );
 echo "<p>$jeu</p>";
 ?>
