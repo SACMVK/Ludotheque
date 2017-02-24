@@ -141,4 +141,8 @@ class Individu {
 	}
 }
 
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> origin/master
