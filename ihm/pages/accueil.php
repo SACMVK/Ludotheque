@@ -15,32 +15,8 @@
 
 
 <?php
-$phrase = 'Ce site est inaccessible'
-.'www.ecosia.org n\'autorise pas la connexion.'
-.'Essayez les suggestions ci-dessous :'
-.'Vérifier la connexion'
-.'Vérifier le proxy et le pare-feu'
-.'ERR_CONNECTION_REFUSEDCe site est inaccessible'
-.'www.ecosia.org n\'autorise pas la connexion.'
-.'Essayez les suggestions ci-dessous :'
-.'Vérifier la connexion'
-.'Vérifier le proxy et le pare-feu'
-.'ERR_CONNECTION_REFUSEDCe site est inaccessible'
-.'www.ecosia.org n\'autorise pas la connexion.'
-.'Essayez les suggestions ci-dessous :'
-.'Vérifier la connexion'
-.'Vérifier le proxy et le pare-feu'
-.'ERR_CONNECTION_REFUSEDCe site est inaccessible'
-.'www.ecosia.org n\'autorise pas la connexion.'
-.'Essayez les suggestions ci-dessous :'
-.'Vérifier la connexion'
-.'Vérifier le proxy et le pare-feu'
-.'ERR_CONNECTION_REFUSEDCe site est inaccessible'
-.'www.ecosia.org n\'autorise pas la connexion.'
-.'Essayez les suggestions ci-dessous :'
-.'Vérifier la connexion'
-.'Vérifier le proxy et le pare-feu'
-.'ERR_CONNECTION_REFUSED';
+$phrase = 'test variable'
+
 ?>
 
 
