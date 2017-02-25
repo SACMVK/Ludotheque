@@ -9,12 +9,38 @@
     
 <title>Ludotheque BTS</title>
 
+<style> 
+    #listejeu{
+        height: 90%;
+        overflow:auto;
+        margin: 10%;
+    }
+
+h1{
+    text-align: center;
+}
+
+table {
+ border-collapse:collapse;
+ width:100%;
+ }
+th, td {
+ border:1px solid black;
+ width:20%;
+ }
+td {
+ text-align:center;
+ }
+caption {
+ font-weight:bold
+ }
+</style>
+
 <?php require ('./ihm/pages/effets.php'); ?>
 </head>
 
 
 <body>
-
 
 <?php
 include ('ihm/header/header.php');
@@ -26,8 +52,9 @@ include ('ihm/footer/footer.php');
 /* charlotte : empty ne fonctionne pas car il vérifie si $_GET['page']=null, hors $_GET['page'] n'existe pas
  * in_array ne fonctionne pas non plus, pour une raison indéterminée
  * isset (is set) vérifie non =null mais vérifie si la variable existe ou pas avec une valeur
- */ 
+ */
 
+/*
 
 if (!(isset($_GET['page']))){
     include('ihm/pages/accueil.php');
@@ -43,15 +70,24 @@ else {
      <script src="ihm/js/jquery.min.js"></script>
     <script src="ihm/js/bootstrap.min.js"></script>
     <script src="ihm/js/MUSA_carousel-extended.js"></script>
+*/?>
 
-    <?php
-    // On recupere la calss individu pour instancier de nouveaux users que l'on va rajouter à une liste d'users
-    include ('ihm/pages/resultsSearchGame.php');
-    $jeuT1 = new Jeu_T(2,6,"Contrast","Pink Monkey Games","Chaque joueur ne dispose que de 8 des 12 symboles pour faire son choix. Les 4 autres sont placés devant lui, visibles de tous.","8+","20 cartes","15 minutes","2");
-    $jeuT2 = new Jeu_T(2,6,"Giraformetre","Lifestyle Boardgames Ltd","Chaque joueur ne dispose que de 8 des 12 symboles pour faire son choix. Les 4 autres sont placés devant lui, visibles de tous.","8+","20 cartes","15 minutes","2");
-    $jeuT1 = new Jeu_T(2,6,"Contrast","Pink Monkey Games","Chaque joueur ne dispose que de 8 des 12 symboles pour faire son choix. Les 4 autres sont placés devant lui, visibles de tous.","8+","20 cartes","15 minutes","2");
+ <div id=listejeu>
+        <?php
+    // On recupere la calss Jeu_T pour instancier de nouveaux jeux que l'on va rajouter à une liste de jeux
+
+    include ('job/class/Jeu_T.php');
+    $jeuT1 = new Jeu_T(2,6,"Contrast","Pink Monkey Games","Chaque joueur ne dispose que de 8 des 12 symboles pour faire son choix. Les 4 autres sont placés devant lui, visibles de tous.","facile","8+","20 cartes","15 minutes",1);
+    $jeuT2 = new Jeu_T(2,8,"Giraformetre","Lifestyle Boardgames Ltd","Chaque carte du jeu décrit une information étonnante et drôle correspondante à un chiffre. Essayez de trouver celle dont la réponse chiffrée est la plus haute ou la plus basse parmi les cartes piochées...","moyen", "10 à 100 ans","10 cartes, 3 pions","30 minutes",1);
+    $jeuT3 = new Jeu_T(2,6,"POM POM","Jeux Opla","Compter les pommes","facile", "6 à 100 ans", "plateau de fruits", "15 minutes",1);
     
+    $listGames=[$jeuT1,$jeuT2,$jeuT3];
+
+    include ('ihm/pages/resultsSearchGame.php');
+    $afficheListeJeuT = screenGame($listGames);
+    echo $afficheListeJeuT;
     ?>
+</div>
     </body>
 
 

@@ -1,3 +1,4 @@
+
 <?php
 
 /* 
@@ -11,7 +12,31 @@
  *      - genre de jeu
  */
 
-function searchGame($list){
-    
-}
-
+function screenGame($list){
+    $affichageJeuT = "<h1>Jeux recherchés</h1>";
+    foreach ($list as $jeu) {
+        $affichageJeuT.= 
+"    <table border= 1px solid black>
+    <caption>".$jeu->getNom()."</caption>
+   <tr>
+       <th>Nombre de joueurs</th>
+       <th>Editeur</th>
+       <th>Règles</th>
+       <th>Difficulté</th>
+       <th>Public</th>
+       <th>Liste des pièces</th>
+       <th>Durée de la partie</th>
+   </tr>
+   <tr>
+       <td>".$jeu->getNbJoueursMin()." à ".$jeu->getNbJoueursMax()."</td>
+       <td>".$jeu->getEditeur()."</td>
+       <td>".$jeu->getRegles()."</td>
+       <td>".$jeu->getDifficulte()."</td>
+       <td>".$jeu->getpublic()."</td>
+       <td>".$jeu->getListePiecese()."</td>
+       <td>".$jeu->getDureePartie()."</td>
+   </tr>
+</table>";
+    }
+       return $affichageJeuT;
+    }
