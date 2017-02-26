@@ -13,7 +13,7 @@
  */
 
 function screenGame($list){
-    $affichageJeuT = "<h1>Jeux recherchés</h1>";
+    $affichageJeuT = "<h1>Jeux disponibles</h1>";
     foreach ($list as $jeu) {
         $affichageJeuT.= 
 "    <table border= 1px solid black>

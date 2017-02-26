@@ -83,7 +83,7 @@ else {
     
     $listGames=[$jeuT1,$jeuT2,$jeuT3];
 
-    include ('ihm/pages/resultsSearchGame.php');
+    include ('ihm/pages/resultsGames.php');
     $afficheListeJeuT = screenGame($listGames);
     echo $afficheListeJeuT;
     ?>
