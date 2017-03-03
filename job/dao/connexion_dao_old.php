@@ -4,7 +4,7 @@
 
 Function openConnexion(){
 	try {
-		/* stefan : Variable de chemin de la base de données.
+		/* stefan : Variable de chemin de la base de donnï¿½es.
 		 */
 		$cheminConnexion = 'mysql:host=localhost;dbname=ludotheque';
 		
@@ -20,12 +20,12 @@ Function openConnexion(){
 		 */
 		$arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
 		
-		/* stefan : Instanciation de la connexion en utilisant le chemin de la base de données,
-		 * le login, le mot de passe et les paramètres supplémentaires.
+		/* stefan : Instanciation de la connexion en utilisant le chemin de la base de donnï¿½es,
+		 * le login, le mot de passe et les paramï¿½tres supplï¿½mentaires.
 		 */
 		$pdo = new PDO($cheminConnexion, $login, $pwd, $arrExtraParam);
 		
-		// Génération rapport erreurs
+		// Gï¿½nï¿½ration rapport erreurs
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	catch(PDOException $e) {
@@ -35,6 +35,18 @@ Function openConnexion(){
 	return $pdo;
 }
 
+
+
+//AhMAD: function cherche la plus grand ID dans le tableau
+function getMaxId($maxId ,$TABLE){
+   
+    $maxId = 0;
+    $row = query("SELECT MAX(id) AS `maxId` FROM".$TABLE.";")->row();
+  if ($row) {
+     $maxId = $row->maxid; 
+   }
+    return $maxId;
+ } 
 
 
 

@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="ihm/css/Navigation-with-Button1.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="ihm/css/header.css">
-<link rel="stylesheet" href="ihm/css/slideShow.css">
+<link rel="stylesheet" href="ihm/css/table_resulte_recherche.css">
 <link rel="stylesheet" href="ihm/css/feedback.css">
 <link rel="stylesheet" href="ihm/css/index.css">
 

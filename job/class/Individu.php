@@ -42,93 +42,135 @@ class Individu {
 	// AhMaD: getter et setter, on vas les utiliser pour chercher les informations ou les modifier
 	// iduser
 	
+    // email
+	public function  getIdUser() {
+		return $this->idUser;
+	}
+	public function setIdUser($idUser) {
+		return $this->idUser = $idUser;
+	}
 	
 	// email
-	function getEmail() {
+	public function getEmail() {
 		return $this->email;
 	}
-	function setEmail($email) {
+	public function setEmail($email) {
 		return $this->email = $email;
 	}
 	
 	// telephone
-	function getTelephone() {
+	public function getTelephone() {
 		return $this->telephone;
 	}
-	function setTelephone($telephone) {
+	public function setTelephone($telephone) {
 		return $this->telephone = $telephone;
 	}
 	
 	// pseudo
-	function getPseudo() {
+	public function getPseudo() {
 		return $this->pseudo;
 	}
-	function setPseudo($Pseudo) {
+	public function setPseudo($Pseudo) {
 		return $this->pseudo = $Pseudo;
 	}
 	
 	// dateinscription
-	function getDateInscription() {
+	public function getDateInscription() {
 		return $this->dateInscription;
 	}
-	function setDateInscription($dateInscription) {
+	public function setDateInscription($dateInscription) {
 		return $this->dateInscription = $dateInscription;
 	}
 	
 	// Mdp
-	function getMdp() {
+	public function getMdp() {
 		return $this->mdp;
 	}
-	function setMdp($mdp) {
+	public function setMdp($mdp) {
 		return $this->mdp = $mdp;
 	}
 	// droit
-	function getDroit() {
+	public function getDroit() {
 		return $this->droit;
 	}
-	function setDroit($droit) {
+	public function setDroit($droit) {
 		$this->droit = $droit;
 	}
 	
 	// nom
-	function getNom() {
+	public function getNom() {
 		return $this->nom;
 	}
-	function setNom($nom) {
+	public function setNom($nom) {
 		return $this->nom = $nom;
 	}
 	
 	// prenom
-	function getPrenom() {
+	public function getPrenom() {
 		return $this->prenom;
 	}
-	function setPrenom($prenom) {
+	public function setPrenom($prenom) {
 		return $this->prenom = $prenom;
 	}
 	
 	// date naissance
-	function getDateNaissance() {
+	public function getDateNaissance() {
 		return $this->dateNaissance;
 	}
-	function setDateNaissance($dateNaissance) {
+	public function setDateNaissance($dateNaissance) {
 		return $this->dateNaissance = $dateNaissance;
 	}
 	
-	// address
-	function getAddress() {
+        
+	// ville
+        public function getVille() {
+		return $this->ville;
+	}
+	 public function setVille($ville) {
+		return $this->ville=$ville;
+	}
+        
+        
+         // rue
+        public function getRue() {
+		return $this->rue;
+	}
+	 public function setRue($rue) {
+		return $this->rue=$rue;
+	}
+        
+          // codePostal
+        public function getCodePostal() {
+		return $this->codePostal;
+	}
+	 public function setCodePostal($codePostal) {
+		return $this->codePostal=$codePostal;
+	}
+	
+            // departement
+        public function getDept() {
+		return $this->dpt;
+	}
+	public function setDept($dpt) {
+		return $this->dpt=$dpt;
+	}
+	
+        
+        // address
+	public function getAddress() {
 		return $this->address = array (
-				'$this->$ville',
-				'$this->$rue',
-				'$this->$codePostal',
-				'$this->$dpt' 
+				"$this->ville",
+				"$this->rue",
+				"$this->codePostal",
+				"$this->dpt" 
 		);
 	}
-	function setAddress($address) {
+	public function setAddress($address) {
 		return $this->$address = array (
-			'$this->$ville',
-				'$this->$rue',
-				'$this->$codePostal',
-				'$this->$dpt' 
+			"$this->ville",
+				"$this->rue",
+				"$this->codePostal",
+				"$this->dpt" 
 		);
 	}
 	
@@ -140,9 +182,3 @@ class Individu {
                                ", rue".$this->rue.", code postal".$this->codePostal.", departement:".$this->dpt);
 	}
 }
-
-<<<<<<< HEAD
-?>
-=======
-?>
->>>>>>> origin/master
