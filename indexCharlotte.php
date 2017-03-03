@@ -16,19 +16,32 @@
 
     <body>
 
-
+       
+        
+        
         <?php
-        include ('ihm/header/header.php');
+       //include ('ihm/header/header.php');
 //require_once('ihm/menus/menuAdmin.php');//
         include ('ihm/footer/footer.php');
-        require_once('job/class/message.php');
+        include('job/class/message.php');
+        include ('job/dao/message_dao.php');
 
         
         
         //test class message
-        $msg = new Message( 2, 26, "Emprunt", "Monopoly emprunt", " Bonjour je souhaiterai vous empruntez votre monopoly es-ce possible?",3);
-        echo $msg;
+        //$msg = new Message( 2, 26, "Emprunt", "Monopoly emprunt", " Bonjour je souhaiterai vous empruntez votre monopoly es-ce possible?",3);
+        
+       
+        
+        echo '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+        $listeMessagesAAfficher = select('');
+        //afficherListeElements($listeMessagesAAfficher);
 
+        
+     
+     
+        
+        
 
 
 
