@@ -22,23 +22,32 @@
         <?php
        //include ('ihm/header/header.php');
 //require_once('ihm/menus/menuAdmin.php');//
-        include ('ihm/footer/footer.php');
+       // include ('ihm/footer/footer.php');
         include('job/class/message.php');
         include ('job/dao/message_dao.php');
+        
+        
+        
+
+        $message = insert($idDzst);
+        echo $message;
+        
+        
+        
+        
+        alter();
 
         
         
-        //test class message
-        //$msg = new Message( 2, 26, "Emprunt", "Monopoly emprunt", " Bonjour je souhaiterai vous empruntez votre monopoly es-ce possible?",3);
         
        
         
         echo '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
-        $listeMessagesAAfficher = select('');
-        //afficherListeElements($listeMessagesAAfficher);
-
-        
      
+        //afficherListeElements($listeMessagesAAfficher);
+      
+        
+       
      
         
         
@@ -51,11 +60,11 @@
          */
 
       
-        if (!(isset($_GET['page']))) {
+        /* if (!(isset($_GET['page']))) {
             include('ihm/pages/accueil.php');
         } else {
             include'ihm/pages/' . $_GET['page'] . '.php';
-        }
+        }*/
         ?>
 
 
