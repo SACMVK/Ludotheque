@@ -26,8 +26,8 @@
         
         
         //test class message
-        //$msg = new Message( 2, 26, "Emprunt", "Monopoly emprunt", " Bonjour je souhaiterai vous empruntez votre monopoly es-ce possible?",3);
-        //echo $msg;
+        $msg = new Message( 2, 26, "Emprunt", "Monopoly emprunt", " Bonjour je souhaiterai vous empruntez votre monopoly es-ce possible?",3);
+        echo $msg;
 
 
 

@@ -14,8 +14,8 @@ class Jeu_T{
 	private $dureePartie;	
 
 	// M - Pour pouvoir faire de la surcharge et donc avoir accès à un second constructeur on définit la clé primaire nécessaire aux recherches par id à -1 par défaut
-	function __construct($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$idPC,$dureePartie,$idJeuT=-1) {
-                $this->idJeuT;
+	function __construct($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$idPC,$idJeuT=-1) {
+                $this->idJeuT = $idJeuT;
                 $this->idPC = $idPC;
 		
 		$this->nbJoueursMin = $nbJoueursMin;
@@ -32,89 +32,89 @@ class Jeu_T{
 	
 	// AhMaD: getter et setter, on vas les utiliser pour chercher les informations ou les modifier
 	// IdPC
-	function getIdPC() {
+	public function getIdPC() {
 		return $this->idPC;
 	}
-	function setIdPC($idPC) {
+	public function setIdPC($idPC) {
 		return $this->idPC = $idPC;
 	}
 	
 	// NbJoueursMin
-	function getNbJoueursMin() {
+	public function getNbJoueursMin() {
 		return $this->nbJoueursMin;
 	}
-	function setNbJoueursMin($nbJoueursMin) {
+	public function setNbJoueursMin($nbJoueursMin) {
 		return $this->nbJoueursMin = $nbJoueursMin;
 	}
 	
 	// editeur
-	function getEditeur() {
+	public function getEditeur() {
 		return $this->editeur;
 	}
-	function setEditeur($editeur) {
+	public function setEditeur($editeur) {
 		return $this->editeur = $editeur;
 	}
 	
 	// $nbJoueursMax
-	function getNbJoueursMax() {
+	public function getNbJoueursMax() {
 		return $this->nbJoueursMax;
 	}
-	function setNbJoueursMax($nbJoueursMax) {
+	public function setNbJoueursMax($nbJoueursMax) {
 		return $this->$nbJoueursMax = $nbJoueursMax;
 	}
 	
 	// difficulte
-	function getDifficulte() {
+	public function getDifficulte() {
 		return $this->difficulte;
 	}
-	function setDifficulte($difficulte) {
+	public function setDifficulte($difficulte) {
 		return $this->difficulte = $difficulte;
 	}
 	// droit
-	function getRegles() {
+	public function getRegles() {
 		return $this->regles;
 	}
-	function setRegles($regles) {
+	public function setRegles($regles) {
 		$this->regles = $regles;
 	}
 	
 	// nom
-	function getNom() {
+	public function getNom() {
 		return $this->nom;
 	}
-	function setNom($nom) {
+	public function setNom($nom) {
 		return $this->nom = $nom;
 	}
 	
 	// public
-	function getpublic() {
+	public function getpublic() {
 		return $this->public;
 	}
-	function setPublic($public) {
+	public function setPublic($public) {
 		return $this->public = $public;
 	}
 	
 	// listePieces
-	function getListePiecese() {
+	public function getListePiecese() {
 		return $this->listePieces;
 	}
-	function setListePieces($listePieces) {
+	public function setListePieces($listePieces) {
 		return $this->listePieces = $listePieces;
 	}
 	
 	// $dureePartie
-	function getDureePartie() {
+	public function getDureePartie() {
 		return $this->dureePartie;
 	}
-	function setDureePartie($dureePartie) {
+	public function setDureePartie($dureePartie) {
 		return $this->dureePartie;
 	}
 	
 	// AhMaD: ToString pour afficher l'objet, le point pour concaténer, cela comme (+) en java
 	function __toString() {
-		return ("id= " . $this->idPC . "\n Nombre de joueurs : de " . $this->nbJoueursMin . " à " . $this->nbJoueursMax ." joueurs.\n Nom du jeu : ".$this->nom.
-                        "\n Editeur : ".$this->editeur."\n Regles : ".$this->regles."\n Difficulté : ".$this->difficulte."Public : ".$this->public." Liste des pièces : ".$this->listePieces.
-                        "\n Durée de la partie : ".$this->dureePartie);
+		return ("<h2>".$this->nom."</h2><br/>id= " . $this->idPC . "<br/> Nombre de joueurs : de " . $this->nbJoueursMin . " à " . $this->nbJoueursMax ." joueurs.".
+                        "<br/> Editeur : ".$this->editeur."<br/> Regles : ".$this->regles."<br/> Difficulté : ".$this->difficulte."<br/> Public : ".$this->public."<br/> Liste des pièces : ".$this->listePieces.
+                        "<br/> Durée de la partie : ".$this->dureePartie);
 	}
 }
 ?>
