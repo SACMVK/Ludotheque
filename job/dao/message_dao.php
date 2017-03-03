@@ -1,14 +1,16 @@
 <?php
-    include 'job/dao/connexion_dao_old.php';
+
+include 'job/dao/connexion_dao_old.php';
 // ouverture de la connexion
 // // declaration variable qui correspond à la table message
-    $table = 'message';
+$table = 'message';
+
 // Charlotte
 // function select == function find()
 Function select($requete) {
 
     $pdo = openConnexion();
-
+    $table = 'message';
 
 
 // on recupere le contenu de la table message
@@ -46,7 +48,6 @@ Function select($requete) {
     }
 }
 
-
 // &$ = passage par reference
 //  = Vous pouvez passer une variable par référence à une fonction, de manière à ce que celle-ci puisse la modifier
 Function insert($idExped, $idDest, $typeMessage, $sujet, $texte) {
@@ -55,7 +56,7 @@ Function insert($idExped, $idDest, $typeMessage, $sujet, $texte) {
 // ouverture de la connexion
     $pdo = openConnexion();
 
-
+    $table = 'message';
 
 // on recupere le contenu de la table message
 //prepare =avant query pour éviter faille de sécurité
@@ -63,24 +64,18 @@ Function insert($idExped, $idDest, $typeMessage, $sujet, $texte) {
 
 // execution de la requete
     $stmt->execute(array(
-        "idExped" => $idExped = $idExped ,
+        "idExped" => $idExped = $idExped,
         "idDest" => $idDest = $idDest,
         "typeMessage" => $typeMessage = $typeMessage,
-        "sujet" => $sujet =$sujet,
-        "texte" => $texte =$texte 
-
-        ));
+        "sujet" => $sujet = $sujet,
+        "texte" => $texte = $texte
+    ));
 
     //$id = getMaxId($table);
-    
     //$message new Message ();
-    
+
     closeConnexion($pdo);
- 
 }
-
-
-
 
 // pour Modifier la table
 Function alter($requete) {
@@ -90,23 +85,21 @@ Function alter($requete) {
 // declaration variable qui correspond à la table message
     $table = 'message';
 
-    
-    
- $stmt = $pdo->prepare("UPDATE ".$table." SET 'idExped' = :idExped, 'idDest' = :idDest, 'typeMessage' = :typeMessage, 'sujet' = :sujet, 'texte' = :texte, 'idMessage' = :idMessage)");
- 
- $stmt->execute(array(
-     ":idExped" => $idExped,
-     ":idDest" => $idDest,
-     ":typeMessage" => $typeMessage,
-     ":sujet" => $sujet = " Test update",
-     ":texte" => $texte,
-     ":idMessage" => $idMessage=3
-    
-     
-     
-     
- ));
- echo ("le message a été modifier");
- 
+
+
+    $stmt = $pdo->prepare("UPDATE " . $table . " SET 'idExped' = :idExped, 'idDest' = :idDest, 'typeMessage' = :typeMessage, 'sujet' = :sujet, 'texte' = :texte, 'idMessage' = :idMessage)");
+
+    $stmt->execute(array(
+        ":idExped" => $idExped,
+        ":idDest" => $idDest,
+        ":typeMessage" => $typeMessage,
+        ":sujet" => $sujet = " Test update",
+        ":texte" => $texte,
+        ":idMessage" => $idMessage = 3
+    ));
+    echo ("le message a été modifier");
 }
+
+
+
 ?>

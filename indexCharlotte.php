@@ -29,8 +29,10 @@
         
         
 
-        $message = insert($idDzst);
+       // $message = insert(1,1,"question","test","test insert ");
         echo $message;
+        
+        
         
         
         
