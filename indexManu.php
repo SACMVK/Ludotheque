@@ -43,11 +43,16 @@ caption {
 <body>
 
 <?php
+
 include ('ihm/header/header.php');
 
 //require_once('ihm/menus/menuAdmin.php');//
 include ('ihm/footer/footer.php');
+include ('job/class/Jeu_T.php'); //j'inclu la classe au début car j'en 
 
+echo '<br><br><br><br>';
+include ('job/dao/Jeu_T_Dao.php');
+select('');
 
 /* charlotte : empty ne fonctionne pas car il vérifie si $_GET['page']=null, hors $_GET['page'] n'existe pas
  * in_array ne fonctionne pas non plus, pour une raison indéterminée
@@ -76,10 +81,10 @@ else {
         <?php
     // On recupere la calss Jeu_T pour instancier de nouveaux jeux que l'on va rajouter à une liste de jeux
 
-    include ('job/class/Jeu_T.php');
-    $jeuT1 = new Jeu_T(2,6,"Contrast","Pink Monkey Games","Chaque joueur ne dispose que de 8 des 12 symboles pour faire son choix. Les 4 autres sont placés devant lui, visibles de tous.","facile","8+","20 cartes","15 minutes",1);
-    $jeuT2 = new Jeu_T(2,8,"Giraformetre","Lifestyle Boardgames Ltd","Chaque carte du jeu décrit une information étonnante et drôle correspondante à un chiffre. Essayez de trouver celle dont la réponse chiffrée est la plus haute ou la plus basse parmi les cartes piochées...","moyen", "10 à 100 ans","10 cartes, 3 pions","30 minutes",1);
-    $jeuT3 = new Jeu_T(2,6,"POM POM","Jeux Opla","Compter les pommes","facile", "6 à 100 ans", "plateau de fruits", "15 minutes",1);
+
+    $jeuT1 = new Jeu_T(2,6,"Contrast","Pink Monkey Games","Chaque joueur ne dispose que de 8 des 12 symboles pour faire son choix. Les 4 autres sont placés devant lui, visibles de tous.","facile","8+","20 cartes","15 minutes",2016,"cool",1);
+    $jeuT2 = new Jeu_T(2,8,"Giraformetre","Lifestyle Boardgames Ltd","Chaque carte du jeu décrit une information étonnante et drôle correspondante à un chiffre. Essayez de trouver celle dont la réponse chiffrée est la plus haute ou la plus basse parmi les cartes piochées...","moyen", "10 à 100 ans","10 cartes, 3 pions","30 minutes",2015,"facile",1);
+    $jeuT3 = new Jeu_T(2,6,"POM POM","Jeux Opla","Compter les pommes","facile", "6 à 100 ans", "plateau de fruits", "15 minutes",2016,"huuu",1);
     
     $listGames=[$jeuT1,$jeuT2,$jeuT3];
 

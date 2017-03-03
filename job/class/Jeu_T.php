@@ -12,9 +12,13 @@ class Jeu_T{
 	private $public;
 	private $listePieces;
 	private $dureePartie;	
+        private $anneeSortie;
+        private $description;
 
-	// M - Pour pouvoir faire de la surcharge et donc avoir accès à un second constructeur on définit la clé primaire nécessaire aux recherches par id à -1 par défaut
-	function __construct($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$idPC,$idJeuT=-1) {
+	/* M - Pour pouvoir faire de la surcharge et donc avoir accès à un second
+         *  constructeur on définit la clé primaire nécessaire aux recherches par id à -1 par défaut
+         */
+	function __construct($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$anneeSortie,$description,$idPC,$idJeuT=-1) {
                 $this->idJeuT = $idJeuT;
                 $this->idPC = $idPC;
 		
@@ -27,7 +31,8 @@ class Jeu_T{
 		$this->public = $public;
 		$this->listePieces = $listePieces;
                 $this->dureePartie = $dureePartie;
-		
+		$this->anneeSortie = $anneeSortie;
+                $this->description = $description;
 	}
 	
 	// AhMaD: getter et setter, on vas les utiliser pour chercher les informations ou les modifier
@@ -108,6 +113,23 @@ class Jeu_T{
 	}
 	public function setDureePartie($dureePartie) {
 		return $this->dureePartie;
+	}
+        
+        /*AJOUT DES PARAMETRES DE LA TABLE produit_culturel_t */
+        // $anneeSortie
+	public function getAnneeSortie() {
+		return $this->anneeSortie;
+	}
+	public function setAnneeSortie($anneeSortie) {
+		return $this->anneeSortie;
+	}
+        
+        // $description
+	public function getDescription() {
+		return $this->description;
+	}
+	public function setDescription($description) {
+		return $this->description;
 	}
 	
 	// AhMaD: ToString pour afficher l'objet, le point pour concaténer, cela comme (+) en java

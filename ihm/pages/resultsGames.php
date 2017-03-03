@@ -26,6 +26,8 @@ function screenGame($list){
        <th>Public</th>
        <th>Liste des pièces</th>
        <th>Durée de la partie</th>
+       <th>Année de sortie</th>
+       <th>Description</th>
    </tr>
    <tr>
        <td>".$jeu->getNbJoueursMin()." à ".$jeu->getNbJoueursMax()."</td>
@@ -35,6 +37,8 @@ function screenGame($list){
        <td>".$jeu->getpublic()."</td>
        <td>".$jeu->getListePiecese()."</td>
        <td>".$jeu->getDureePartie()."</td>
+       <td>".$jeu->getAnneeSortie()."</td>
+       <td>".$jeu->getDescription()."</td>
    </tr>
 </table>";
     }

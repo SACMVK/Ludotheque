@@ -10,17 +10,17 @@ Function loadDroits(){
 	$pdo = openConnexion();
 
 	
-	/* stefan : D�claration d'une variable de table
+	/* stefan : Déclaration d'une variable de table
 	 */
 	$table = 'droit_d';
 	
-	/* stefan : Pr�paration de la requ�te.
+	/* stefan : Préparation de la requête.
 	 */
 	$requete = "SELECT * FROM ".$table.";";
 	$stmt = $pdo->prepare($requete);
 	
 	
-	/* stefan : Ex�cution de la requ�te
+	/* stefan : Exécution de la requête
 	 */
 	$stmt->execute() ;
 
