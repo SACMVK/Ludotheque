@@ -16,16 +16,41 @@
 
     <body>
 
-
+       
+        
+        
         <?php
-        include ('ihm/header/header.php');
+       //include ('ihm/header/header.php');
 //require_once('ihm/menus/menuAdmin.php');//
-        include ('ihm/footer/footer.php');
-        require_once('job/class/message.php');
+       // include ('ihm/footer/footer.php');
+        include('job/class/message.php');
+        include ('job/dao/message_dao.php');
+        
+        
+        
 
-        $msg = new Message( 2, 26, "Emprunt", "Monopoly emprunt", " Bonjour je souhaiterai vous empruntez votre monopoly es-ce possible?",3);
-     echo $msg;
+        $message = insert($idDzst);
+        echo $message;
+        
+        
+        
+        
+        alter();
 
+        
+        
+        
+       
+        
+        echo '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+     
+        //afficherListeElements($listeMessagesAAfficher);
+      
+        
+       
+     
+        
+        
 
 
 
@@ -34,12 +59,12 @@
          * isset (is set) vérifie non =null mais vérifie si la variable existe ou pas avec une valeur
          */
 
-
-        if (!(isset($_GET['page']))) {
+      
+        /* if (!(isset($_GET['page']))) {
             include('ihm/pages/accueil.php');
         } else {
             include'ihm/pages/' . $_GET['page'] . '.php';
-        }
+        }*/
         ?>
 
 

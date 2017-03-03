@@ -2,10 +2,10 @@
 
 interface dao
 {
-	public Function create($object);
+	public Function insert($object);
 	public Function delete($object);
-        public Function update($object);
-        public Function find($request);
+        public Function alter($object);
+        public Function select($request);
 }
 
 

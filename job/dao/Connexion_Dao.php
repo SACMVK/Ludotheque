@@ -1,6 +1,11 @@
 <?php
 
 
+Function openConnexion() {
+    try {
+        /* stefan : Variable de chemin de la base de donn�es.
+         */
+        $cheminConnexion = 'mysql:host=localhost;dbname=ludotheque';
 
 Function openConnexion(){
 	try {
@@ -35,7 +40,11 @@ Function openConnexion(){
 	return $pdo;
 }
 
+Function closeConnexion($pdo) {
+    $pdo = null;
+}
 
+<<<<<<< HEAD (a59949a) - AhMaD: j'ai ajouté:
 
 //AhMAD: function cherche la plus grand ID dans le tableau
 function getMaxId($maxId ,$TABLE){
@@ -55,4 +64,15 @@ function getMaxId($maxId ,$TABLE){
 
 Function closeConnexion($pdo){
 	$pdo = null;
+=======
+Function getMaxID($table,$id) {
+    $pdo = openConnexion();
+    
+    
+    
+    
+    
+    
+    closeConnexion($pdo);
+>>>>>>> origin/master (990dcb0) - message.dao ve
 }

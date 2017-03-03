@@ -33,6 +33,7 @@ use ludotheque;
 #  * editeur_d
 #  * difficulte_d
 #  * public_d
+#  * type_noteur_d
 
 # Création de la table compte (M)
 DROP TABLE IF EXISTS compte;
@@ -94,7 +95,7 @@ DROP TABLE IF EXISTS jeu_p;
 
 CREATE TABLE jeu_p (
   idJeuP smallint(8) unsigned NOT NULL AUTO_INCREMENT,  
-  idJeuT smallint(8) unsigned NOT NULL, #FK
+  idJeuT smallint(8) unsigned NOT NULL, #FK   à modicer en idPC si modif dans la table jeu_t
   idProprietaire smallint(8) unsigned NOT NULL, #FK
   etat varchar(50) NOT NULL, #FK dico
 
@@ -181,7 +182,7 @@ create table a_pour_image(
 DROP TABLE IF EXISTS jeu_t;
 
 create table jeu_t(
-  idJeuT smallint(8) unsigned NOT NULL AUTO_INCREMENT,
+  idJeuT smallint(8) unsigned NOT NULL AUTO_INCREMENT,  # A mdoifier - enlever pour e garder que idPC en PK et FK
   idPC SMALLINT(8) UNSIGNED NOT NULL, #FK
   nbJoueursMin SMALLINT NOT NULL,
   nbJoueursMax SMALLINT NOT NULL,
@@ -212,8 +213,8 @@ create table commentaire_p_c_t(
 DROP TABLE IF EXISTS jeu_a_pour_genre;
 
 create table jeu_a_pour_genre(
-  idJeuT SMALLINT(8) UNSIGNED NOT NULL, #FK
-  idGenre SMALLINT(8) UNSIGNED NOT NULL, #FK dico
+  idJeuT SMALLINT(8) UNSIGNED NOT NULL, #FK - à modifier en idPC
+  idGenre SMALLINT(8) UNSIGNED NOT NULL, #FK dico  - à modifier en genre
 
   PRIMARY KEY (idJeuT, idGenre) #combinaison des 2 FK constitue la PK
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -221,7 +222,7 @@ create table jeu_a_pour_genre(
 # Création de la table genre
 DROP TABLE IF EXISTS genre;
 
-create table genre(
+create table genre(                   #A modifier en dico, enlever l'idGenre
   idGenre SMALLINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   nom VARCHAR(200) NOT NULL UNIQUE,
 
@@ -235,7 +236,7 @@ create table message(
   idMessage SMALLINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   idExped SMALLINT(8) UNSIGNED NOT NULL, #FK idUser table compte / Expediteur
   idDest SMALLINT(8) UNSIGNED NOT NULL, #FK idUser table compte / Destinataire
-  typeMessage VARCHAR(200) NOT NULL,
+  typeMessage VARCHAR(200) NOT NULL,  #pas utile, à retirer
   sujet varchar(300) NOT NULL,
   texte text NOT NULL,
 

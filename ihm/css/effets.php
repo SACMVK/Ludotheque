@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="ihm/css/table_resulte_recherche.css">
 <link rel="stylesheet" href="ihm/css/feedback.css">
 <link rel="stylesheet" href="ihm/css/index.css">
+<link rel="stylesheet" href="ihm/css/informations.css">
 
 
 

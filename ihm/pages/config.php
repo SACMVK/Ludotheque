@@ -5,24 +5,24 @@
 echo utf8_encode('<h1>Configuration</h1>');
 
 /* stefan : les variables $config et $liste_droits
- * ont été créées dans l'index.
+ * ont ï¿½tï¿½ crï¿½ï¿½es dans l'index.
  */
 
-/* stefan : A chaque "submit", PHP sauvegarde les données du formulaire
+/* stefan : A chaque "submit", PHP sauvegarde les donnï¿½es du formulaire
  * dans l'array $_POST, variable accessible depuis l'ensemble du programme.
- * On peut donc récupérer ces valeurs afin de mettre à jour l'objet $config.
+ * On peut donc rï¿½cupï¿½rer ces valeurs afin de mettre ï¿½ jour l'objet $config.
  * Enfin, comme submit recharge la page,
  * il va donc relancer toutes les actions de la page.
  */
 
-// stefan : fonction de mise à jour de l'objet $config par rapport aux valeurs stockées dans $_POST
+// stefan : fonction de mise ï¿½ jour de l'objet $config par rapport aux valeurs stockï¿½es dans $_POST
 $config = miseAJourConfig($config);
 
-/* stefan : fonction d'affichage de l'objet $config et $_POST (sur les clés $config
- * A décommenter pour tester
+/* stefan : fonction d'affichage de l'objet $config et $_POST (sur les clï¿½s $config
+ * A dï¿½commenter pour tester
  */
-//affichageObjetConfig($config);
-//affichageObjetPOST($config);
+affichageObjetConfig($config);
+affichageObjetPOST($config);
 
 // stefan : fonction d'affichage de la page
 echo utf8_encode(afficherConfig($config,$liste_droits));
@@ -41,82 +41,82 @@ Function afficherConfig($config,$liste_droits){
 	/* stefan : On fait une boucle afin de traiter chaque option
 	 * en fonction de son type :
 	 * on met une checkbox s'il s'agit d'un boolean,
-	 * une zone de saisie avec flèches s'il s'agit d'un nombre
-	 * une liste déroulante (SELECT + OPTION) s'il s'agit d'attribuer
-	 * un niveau de droits à une action.
+	 * une zone de saisie avec flï¿½ches s'il s'agit d'un nombre
+	 * une liste dï¿½roulante (SELECT + OPTION) s'il s'agit d'attribuer
+	 * un niveau de droits ï¿½ une action.
 	 */
 	foreach ( $config as $xml_nom_option => $option ) {
 		/* stefan : on ajoute l'option ainsi que son texte explicatif.
-		 * Chaque option recevra en name le nom dans le XML (différent du texte explicatif).
-		 * Cela permet la récupération des données lors de la soumission du formulaire.
+		 * Chaque option recevra en name le nom dans le XML (diffï¿½rent du texte explicatif).
+		 * Cela permet la rï¿½cupï¿½ration des donnï¿½es lors de la soumission du formulaire.
 		 */
 		$affichage_config .= '<DIV class=text><LABEL for="'.$xml_nom_option.'">'.$option[0].'</LABEL></DIV>';
-		/* stefan : ci-dessous ligne à décommenter afin de voir le type des différentes valeurs:
+		/* stefan : ci-dessous ligne ï¿½ dï¿½commenter afin de voir le type des diffï¿½rentes valeurs:
 		 * NB : quand il s'agit d'une valeur booldean false, php n'affiche rien.
-		 * On peut forcer son affichage à l'aide d'un caste (int)
+		 * On peut forcer son affichage ï¿½ l'aide d'un caste (int)
 		 */
 		
 		 //echo utf8_encode($xml_nom_option.' '.$option[0].' '.$option[1].' '.gettype($option[1]).'<br>');
 		 
 		
-		/* stefan : en fonction du type, on va afficher différents types d'input
+		/* stefan : en fonction du type, on va afficher diffï¿½rents types d'input
 		 * 
 		 */
 		switch (gettype($option[1])){
-			/* stefan : Dans le cas où il s'agit d'une valeur booléenne,
-			 * on va afficher un liste déroulante comportant deux choix possibles : oui ou non.
+			/* stefan : Dans le cas oï¿½ il s'agit d'une valeur boolï¿½enne,
+			 * on va afficher un liste dï¿½roulante comportant deux choix possibles : oui ou non.
 			 */
 			case 'boolean':$xml_nom_option;
-			/* stefan : Ouverture de la balise de liste déroulante
+			/* stefan : Ouverture de la balise de liste dï¿½roulante
 			 */
 			$affichage_config .= '<SELECT class=valeur_option_boolean name="'.$xml_nom_option.'">';
 			/* stefan : si le boolean == true,
-			 * alors on créé la liste avec "oui" sélectionné.
+			 * alors on crï¿½ï¿½ la liste avec "oui" sï¿½lectionnï¿½.
 			 */
 			if ($option[1]){
 				$affichage_config .= '<OPTION value=1 selected="selected">oui</OPTION>';
 				$affichage_config .= '<OPTION value=0>non</OPTION>';
 			}
-			/* stefan : Sinon, on créé la liste avec le "non" sélectionné.
+			/* stefan : Sinon, on crï¿½ï¿½ la liste avec le "non" sï¿½lectionnï¿½.
 			 */
 			else {
 				$affichage_config .= '<OPTION value=1>oui</OPTION>';
 				$affichage_config .= '<OPTION value=0 selected="selected">non</OPTION>';
 			}
-			/* stefan : Fermeture de la balise de liste déroulante
+			/* stefan : Fermeture de la balise de liste dï¿½roulante
 			 */
 			$affichage_config .= '</SELECT>';
 			break;
-			/* stefan : l'input number permet d'afficher les deux flèches pour
+			/* stefan : l'input number permet d'afficher les deux flï¿½ches pour
 			 * augmenter ou diminuer les valeurs.
-			 * J'ai également mis un minimum (min=0) afin d'éviter les valeurs négatives.
+			 * J'ai ï¿½galement mis un minimum (min=0) afin d'ï¿½viter les valeurs nï¿½gatives.
 			 */
 			case 'integer':
 			$affichage_config .= '<INPUT type=number class=valeur_option_number name="'.$xml_nom_option.'"  value='.$option[1].' min=0></INPUT>';
 			break;
-			/* stefan : par défaut, il s'agit du select box des droits.
+			/* stefan : par dï¿½faut, il s'agit du select box des droits.
 			 */
 			default:
-				/* stefan : Balise d'ouverture de la liste déroulante
+				/* stefan : Balise d'ouverture de la liste dï¿½roulante
 				 */
 				$affichage_config .= '<SELECT class=valeur_option_select name="'.$xml_nom_option.'">';
-				/* stefan : On parcours la liste des droits issus de la base de données
-				 * afin de créer la liste déroulante des droits.
+				/* stefan : On parcours la liste des droits issus de la base de donnï¿½es
+				 * afin de crï¿½er la liste dï¿½roulante des droits.
 				 */
 				foreach ( $liste_droits as $droit ) {
-					/* stefan : Si la valeur du XML ne correspond à aucune valeur de la base de données,
-					 * la page n'en tiendra pas compte et affichera la première valeur (adml).
-					 * Sinon, la valeur du XML sera celle sélectionnée dans la liste déroulante.
+					/* stefan : Si la valeur du XML ne correspond ï¿½ aucune valeur de la base de donnï¿½es,
+					 * la page n'en tiendra pas compte et affichera la premiï¿½re valeur (adml).
+					 * Sinon, la valeur du XML sera celle sï¿½lectionnï¿½e dans la liste dï¿½roulante.
 					 */
 					$selected = '';
 					if ($option[1]==$droit){
 						$selected = 'selected="selected"';
 					}
-					/* stefan : Ajout du droit à la liste déronlte
+					/* stefan : Ajout du droit ï¿½ la liste dï¿½ronlte
 					 */
 					$affichage_config .= '<OPTION value='.$droit.' '.$selected.'>'.$droit.'</OPTION>';
 				}
-				/* stefan : Balise de fermeture de la liste déroulante
+				/* stefan : Balise de fermeture de la liste dï¿½roulante
 				 */
 				$affichage_config .= '</SELECT>';
 			break;
@@ -145,26 +145,26 @@ Function afficherConfig($config,$liste_droits){
 
 
 /* Quand on clique sur sauvegader,
- * les données sont entrées dans la variable $_POST,
+ * les donnï¿½es sont entrï¿½es dans la variable $_POST,
  * qui est une supervariable globale accessible de partout.
- * Chaque donnée est entrée de la manière suivante :
+ * Chaque donnï¿½e est entrï¿½e de la maniï¿½re suivante :
  * $_POST [name] = valeur.
  * Le "name" est celui des input et select.
- * C'est la clé par laquelle on pourra donc retrouver nos valeurs dans $_POST.
+ * C'est la clï¿½ par laquelle on pourra donc retrouver nos valeurs dans $_POST.
  */
 Function miseAJourConfig($config){
 	foreach ( $config as $xml_nom_option => $option ) {
-		/* stefan : on commence par un test pour savoir si la clé existe dans $_POST :
-		 * si la page est chargée, le $_POST est vide.
-		 * $_POST contiendra les valeurs à mettre à jour une fois submit cliqué.
+		/* stefan : on commence par un test pour savoir si la clï¿½ existe dans $_POST :
+		 * si la page est chargï¿½e, le $_POST est vide.
+		 * $_POST contiendra les valeurs ï¿½ mettre ï¿½ jour une fois submit cliquï¿½.
 		 */
 		if(array_key_exists($xml_nom_option,$_POST)){
-			/* stefan : on a toujours ce problème de stockage de valeurs booléenne dans PHP :
+			/* stefan : on a toujours ce problï¿½me de stockage de valeurs boolï¿½enne dans PHP :
 			 * il met des 0 et des 1. Qui peuvent pour le coup passer pour des integers.
-			 * On a donc un switch en fonction du type initial de la valeur stockée
+			 * On a donc un switch en fonction du type initial de la valeur stockï¿½e
 			 * dans $config et on caste les valeurs de $_POST en fonction.
 			 * Ce qui est ne simplifie pas les choses, c'est que l'on peut
-			 * entrer des valeurs booléennes avec 0/1 ou true/false,
+			 * entrer des valeurs boolï¿½ennes avec 0/1 ou true/false,
 			 * PHP accepte les deux mais stocke 0/1.
 			 */
 			switch (gettype($option[1])){
@@ -190,7 +190,7 @@ Function miseAJourConfig($config){
 
 /* stefan : Fonctions d'affichage dont je me suis servi
  * pour le debuggage (notamment un soucis de rafraichissement du formulaire
- * et de problème sur le stockage des valeurs booléennes.
+ * et de problï¿½me sur le stockage des valeurs boolï¿½ennes.
  */
 
 
