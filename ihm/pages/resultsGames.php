@@ -7,7 +7,7 @@
  * and open the template in the editor.
  * 
  * Permet de rechercher les users en fonction selon les critères suivants:
- *      - depatement
+ *      - departement
  *      - ville
  *      - genre de jeu
  */
