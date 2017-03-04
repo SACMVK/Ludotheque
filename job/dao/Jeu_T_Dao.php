@@ -5,6 +5,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+	/* M : création des variables tables
+	 */
+	$tableJeuT = 'jeu_t';
+        $tablePCT = 'produit_culturel_t';
 
 Function select($requete){
 	include 'job/dao/Connexion_Dao.php';
@@ -13,14 +17,9 @@ Function select($requete){
 	$pdo = openConnexion();
 
 	
-	/* M : création de la variable table
-	 */
-	$table = 'jeu_t';
-        $tableJoin = 'produit_culturel_t';
-	
 	/* M : préparation de la requete - permet d'adapter les requetes en fonctions de variables
 	 */
-	$requete = "SELECT * FROM ".$table." jt JOIN ".$tableJoin." pct ON pct.idPC=jt.idPC;";
+	$requete = "SELECT * FROM ".$tableJeuT." jt JOIN ".$tablePCT." pct ON pct.idPC=jt.idPC;";
 	$stmt = $pdo->prepare($requete);
 	
 	
@@ -73,11 +72,45 @@ Function select($requete){
        
 }
 
-Function insert($object){
-    	include 'job/dao/connexion_dao_old.php';
+Function insert($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$typePC,$anneeSortie,$description,$idPC,$idJeuT){
+    	include 'job/dao/Connexion_Dao.php';
 	/* M : Ouverture de la connexion
 	 */
 	$pdo = openConnexion();
+        
+         //M : Requetes sur les tables jeu_t et produit_c_t 
+	$requeteJeuT= "INSERT INTO ".$tableJeuT." (idPC,nbJoueursMin,nbJoueursMax,nom,editeur,regles,difficulte,public,listePieces,dureePartie) VALUES (:idPC,:nbJoueursMin,:nbJoueursMax,:nom,:editeur,:regles,:difficulte,:public,:listePieces,:dureePartie);";
+        $requetePCT= "INSERT INTO ".$tablePCT. " (typePC,anneeSortie,description) VALUES (:typePC,:anneeSortie,:description);";
+        
+        //préparation des requêtes
+        $stmtJeuT = $pdo->prepare($requeteJeuT);
+        $stmtPCT = $pdo->prepare($requetePCT);        
+
+        //On execute
+        $stmtJeuT->execute(array(
+            "idPC" => $idPC = $idPC,
+            "nbJoueursMin" => $nbJoueursMin = $nbJoueursMin,
+            "nbJoueursMax" => $nbJoueursMax = $nbJoueursMax,
+            "nom" => $nom = $nom,
+            "editeur" => $editeur = $editeur,
+            "regles" => $regles = $regles,
+            "difficulte" => $difficulte = $difficulte,
+            "public" => $public = $public,
+            "listePieces" => $listePieces = $listePieces,
+            "dureePartie" => $dureePartie = $dureePartie
+        ));
+        
+        $stmtPCT->execute(array(
+            "typePC" => $typePC = $typePC,
+            "anneeSortie" => $anneeSortie = $anneeSortie,
+            "description" => $description = $description
+        ));
+        
+        /*//M : on sort l'ID plus grand
+        $idJeuT = getMaxId('idUser',$tablePCT);*/
+        
+        //M : création d'un objet Jeu_T 
+        //new Jeu_T($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$anneeSortie,$description,$idPC,$idJeuT);
 
 	/* M : Fermeture de la connexion
 	 */
