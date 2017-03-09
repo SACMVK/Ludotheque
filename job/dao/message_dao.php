@@ -1,6 +1,6 @@
 <?php
 
-include 'job/dao/connexion_dao_old.php';
+include 'job/dao/Connexion_Dao.php';
 // ouverture de la connexion
 // // declaration variable qui correspond à la table message
 $table = 'message';
@@ -99,6 +99,28 @@ Function alter($requete) {
     ));
     echo ("le message a été modifier");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
