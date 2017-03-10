@@ -1,7 +1,7 @@
 <?php
 class Jeu_T{
-	// AhMaD: les attributs pour Jeu_T
-        private $idJeuT;
+	// M: les attributs pour Jeu_T
+        //private $idJeuT;
 	private $idPC;
 	private $nbJoueursMin;
 	private $nbJoueursMax;	
@@ -14,12 +14,13 @@ class Jeu_T{
 	private $dureePartie;	
         private $anneeSortie;
         private $description;
+        private $typePC;
 
 	/* M - Pour pouvoir faire de la surcharge et donc avoir accès à un second
          *  constructeur on définit la clé primaire nécessaire aux recherches par id à -1 par défaut
          */
-	function __construct($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$anneeSortie,$description,$idPC,$idJeuT=-1) {
-                $this->idJeuT = $idJeuT;
+	function __construct($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$anneeSortie,$description,$typePC,$idPC=-1/*,$idJeuT=-1*/) {
+                //$this->idJeuT = $idJeuT;
                 $this->idPC = $idPC;
 		
 		$this->nbJoueursMin = $nbJoueursMin;
@@ -33,6 +34,7 @@ class Jeu_T{
                 $this->dureePartie = $dureePartie;
 		$this->anneeSortie = $anneeSortie;
                 $this->description = $description;
+                $this->typePC = $typePC;
 	}
 	
 	// AhMaD: getter et setter, on vas les utiliser pour chercher les informations ou les modifier
@@ -132,6 +134,14 @@ class Jeu_T{
 		return $this->description;
 	}
 	
+        // $typePC
+	public function getTypePC() {
+		return $this->typePC;
+	}
+	public function setTypePC($typePC) {
+		return $this->typePC;
+	}
+        
 	// AhMaD: ToString pour afficher l'objet, le point pour concaténer, cela comme (+) en java
 	function __toString() {
 		return ("<h2>".$this->nom."</h2><br/>id= " . $this->idPC . "<br/> Nombre de joueurs : de " . $this->nbJoueursMin . " à " . $this->nbJoueursMax ." joueurs.".

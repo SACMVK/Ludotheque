@@ -9,6 +9,7 @@
 	 */
 	const TABLEJEUT = 'jeu_t';
         const TABLEPCT = 'produit_culturel_t';
+        const TABLE_EDITEUR_D = 'editeur_d';
 
         include 'job/dao/Connexion_Dao.php';
 Function select($requete){
@@ -53,10 +54,11 @@ Function select($requete){
             $anneeSortie = $donnees['anneeSortie'];
             $description = $donnees['description'];
             $idPC = $donnees['idPC'];
-            $idJeuT = $donnees['idJeuT'];
+            //$idJeuT = $donnees['idJeuT'];
+            $typePC = $donnees['typePC'];
             
             /* création du nouvel objet Jeu_T */
-            $jeuT = new Jeu_T($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$anneeSortie,$description,$idPC,$idJeuT);
+            $jeuT = new Jeu_T($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$anneeSortie,$description,$typePC,$idPC/*,$idJeuT*/);
             // ajout de l'objet à la liste
             $liste_jeuT []= $jeuT;
 	}
@@ -74,38 +76,60 @@ Function select($requete){
 
 //$listeJeuT = new Jeu_T($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$typePC,$anneeSortie,$description,$idPC,$idJeuT);
 
-Function insert($listeJeuT){
+Function insert($listJeuT){
 	/* M : Ouverture de la connexion
 	 */
 	$pdo = openConnexion();
         
+        //lecture de la table editeur : retourne un liste d'editeurs correpsondant à la valeur indiqué par l'utilisateur
+        $edi = "SELECT * FROM editeur_d WHERE editeur=".$listJeuT['editeur'].";";
+        $stmt = $pdo->prepare($edi);
+	$stmt->execute() ;
+	$liste_editeur = array();
+	while ($donnees = $stmt->fetch(PDO::FETCH_ASSOC))
+        {   $editeur = $donnees['editeur'];
+            $liste_editeur []= $editeur;
+	}
+        return $liste_editeur;
+        
+        
          //M : Requetes sur les tables jeu_t et produit_c_t 
-	$requeteJeuT= "INSERT INTO ".TABLEJEUT." (idPC,nbJoueursMin,nbJoueursMax,nom,editeur,regles,difficulte,public,listePieces,dureePartie) VALUES (:idPC,:nbJoueursMin,:nbJoueursMax,:nom,:editeur,:regles,:difficulte,:public,:listePieces,:dureePartie);";
-        $requetePCT= "INSERT INTO ".TABLEPCT. " (typePC,anneeSortie,description) VALUES (:typePC,:anneeSortie,:description);";
+	$requetePCT= "INSERT INTO ".TABLEPCT. " (typePC,anneeSortie,description) VALUES (:typePC,:anneeSortie,:description);";
+        $requeteJeuT= "INSERT INTO ".TABLEJEUT." (idPC,nbJoueursMin,nbJoueursMax,nom,editeur,regles,difficulte,public,listePieces,dureePartie) VALUES (:idPC,:nbJoueursMin,:nbJoueursMax,:nom,:editeur,:regles,:difficulte,:public,:listePieces,:dureePartie);";
+        $requeteEditeur_d= "INSERT INTO".TABLE_EDITEUR_D."(editeur) VALUES (:editeur);";
         
         //préparation des requêtes
+        $stmtPCT = $pdo->prepare($requetePCT); 
+        $lastIdPC = mysql_insert_id();
         $stmtJeuT = $pdo->prepare($requeteJeuT);
-        $stmtPCT = $pdo->prepare($requetePCT);        
+        $stmtEditeur_d = $pdo->prepare($requeteEditeur_d);
 
+        if (count($liste_editeur)==0 ){
+            $stmtEditeur_d->execute(array(
+                "editeur" => $editeur
+            ));
+        }
+        
         //On execute
         $stmtJeuT->execute(array(
-            "idPC" => $listeJeuT['idPC'],
-            "nbJoueursMin" => $listeJeuT['nbJoueursMin'],
-            "nbJoueursMax" => $listeJeuT['nbJoueursMax'],
-            "nom" => $listeJeuT['nom'],
-            "editeur" => $listeJeuT['editeur'],
-            "regles" => $listeJeuT['regles'],
-            "difficulte" => $listeJeuT['difficulte'],
-            "public" => $listeJeuT['public'],
-            "listePieces" => $listeJeuT['listePieces'],
-            "dureePartie" => $listeJeuT['dureePartie']
+            "idPC" => $lastIdPC,
+            "nbJoueursMin" => $listJeuT['nbJoueursMin'],
+            "nbJoueursMax" => $listJeuT['nbJoueursMax'],
+            "nom" => $listJeuT['nom'],
+            "editeur" => $listJeuT['editeur'],
+            "regles" => $listJeuT['regles'],
+            "difficulte" => $listJeuT['difficulte'],
+            "public" => $listJeuT['public'],
+            "listePieces" => $listJeuT['listePieces'],
+            "dureePartie" => $listJeuT['dureePartie']
         ));
         
         $stmtPCT->execute(array(
-            "typePC" => $listeJeuT['typePC'],
-            "anneeSortie" => $listeJeuT['anneeSortie'],
-            "description" => $listeJeuT['description']
+            "typePC" => $listJeuT['typePC'],
+            "anneeSortie" => $listJeuT['anneeSortie'],
+            "description" => $listJeuT['description']
         ));
+        
         
         /*//M : on sort l'ID plus grand
         $idJeuT = getMaxId('idUser',$tablePCT);*/
