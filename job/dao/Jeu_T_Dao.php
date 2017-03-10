@@ -104,7 +104,7 @@ Function insert($listJeuT){
         $stmtJeuT = $pdo->prepare($requeteJeuT);
         $stmtEditeur_d = $pdo->prepare($requeteEditeur_d);
 
-        if (count($liste_editeur)==0 ){
+        if (count($liste_editeur)== 0 ){
             $stmtEditeur_d->execute(array(
                 "editeur" => $editeur
             ));
