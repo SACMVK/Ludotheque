@@ -44,3 +44,6 @@ function screenGame($list){
     }
        return $affichageJeuT;
     }
+    
+    
+    

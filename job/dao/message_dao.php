@@ -50,7 +50,7 @@ Function select($requete) {
 
 // &$ = passage par reference
 //  = Vous pouvez passer une variable par référence à une fonction, de manière à ce que celle-ci puisse la modifier
-Function insert($idExped, $idDest, $typeMessage, $sujet, $texte) {
+Function insert($list) {
 
 
 // ouverture de la connexion
@@ -64,15 +64,15 @@ Function insert($idExped, $idDest, $typeMessage, $sujet, $texte) {
 
 // execution de la requete
     $stmt->execute(array(
-        "idExped" => $idExped = $idExped,
-        "idDest" => $idDest = $idDest,
-        "typeMessage" => $typeMessage = $typeMessage,
-        "sujet" => $sujet = $sujet,
-        "texte" => $texte = $texte
+        "idExped" => $idExped = $list['idExped'],
+        "idDest" => $idDest = $list['idDest'],
+        "typeMessage" => $typeMessage = $list['typeMessage'],
+        "sujet" => $sujet = $list['sujet'],
+        "texte" => $texte = $list['texte']
     ));
 
-    //$id = getMaxId($table);
-    //$message new Message ();
+//$id = getMaxId($table);
+//$message new Message ();
 
     closeConnexion($pdo);
 }
@@ -98,30 +98,25 @@ Function alter($requete) {
         ":idMessage" => $idMessage = 3
     ));
     echo ("le message a été modifier");
+
+
+
+    closeConnexion($pdo);
 }
 
+function delete($request) {
+    $pdo = openConnexion();
+    $table = 'message';
+
+// 
+//prepare =avant query pour éviter faille de sécurité
+    $stmt = $pdo->prepare("DELETE * FROM " . $table . "WHERE id= " . $message->getIdMessage(). ";");
+
+// execution de la requete
+    $stmt->execute();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    closeConnexion($pdo);
+}
 
 ?>

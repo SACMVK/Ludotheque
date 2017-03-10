@@ -13,63 +13,123 @@
         <?php require ('./ihm/pages/effets.php'); ?>
     </head>
 
+    <style>
 
+        #messagerie{
+            max-width: 500px;
+            width:100%;
+            margin:0 auto;
+            background-color:#ffffff;
+            padding:30px;
+            border-radius:4px;
+            color:#505e6c;
+           box-shadow:1px 1px 5px rgba(0,0,0,0.1);
+        }
+
+
+        h1{
+            text-align: center;
+        }
+        
+       .type_msg{
+           box-shadow: none;
+           border: none;
+           background: #f7f9fc;
+            display: block;
+            width: 100%;
+            height:34px;
+            padding: 5px 12px;
+            
+        }
+        
+        
+        .text_msg{
+            word-wrap: break-word;  
+            
+               box-shadow: none;
+           border: none;
+      
+            display: block;
+            width: 100%;
+            height:200px;
+            padding: 5px 12px;
+            
+        }
+
+
+    </style>
     <body>
 
-       
-        
-        
-        <?php
-       //include ('ihm/header/header.php');
+
+
+        <div id="messagerie">
+            <?php
+            //include ('ihm/header/header.php');
 //require_once('ihm/menus/menuAdmin.php');//
-       // include ('ihm/footer/footer.php');
-        include('job/class/message.php');
-        include ('job/dao/message_dao.php');
-        
-        
-        
+            // include ('ihm/footer/footer.php');
+            include('job/class/message.php');
+            include ('job/dao/message_dao.php');
 
-       // $message = insert(1,1,"question","test","test insert ");
-        echo $message;
-        
-        
-        
-        
-        
-        
-        alter();
+           
+$list['idExped']= 2;
+$list['idDest'] = 1;
+$list['typeMessage'] = 3;
+$list['sujet'] = " un test";
+$list['texte'] = " bonjour, ceci est un test pour voir si la fonction insert fonctionne";
+              
+           echo insert($list);
 
-        
-        
-        
-       
-        
-        echo '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
-     
-        //afficherListeElements($listeMessagesAAfficher);
+            $message1 = new message(1, 1, "question", "test", "test insertbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ");
+          
+           // $list = [$message1, $message2];
+          
+
+            include('ihm/pages/message_affichage.php');
+            //$afficher_msg = afficher_msg($list);
       
+                
+           print_r(  afficher_msg(select('select * from message')));
+
+            
+           
+
+
+
+
+            echo '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+
+            //afficherListeElements($listeMessagesAAfficher);
+
+
+
+
+
+
+
+
+
+            /* charlotte : empty ne fonctionne pas car il vérifie si $_GET['page']=null, hors $_GET['page'] n'existe pas
+             * in_array ne fonctionne pas non plus, pour une raison indéterminée
+             * isset (is set) vérifie non =null mais vérifie si la variable existe ou pas avec une valeur
+             */
+
+
+            /* if (!(isset($_GET['page']))) {
+              include('ihm/pages/accueil.php');
+              } else {
+              include'ihm/pages/' . $_GET['page'] . '.php';
+              } */
+            ?>
+   </div>
+
         
-       
-     
         
         
-
-
-
-        /* charlotte : empty ne fonctionne pas car il vérifie si $_GET['page']=null, hors $_GET['page'] n'existe pas
-         * in_array ne fonctionne pas non plus, pour une raison indéterminée
-         * isset (is set) vérifie non =null mais vérifie si la variable existe ou pas avec une valeur
-         */
-
-      
-        /* if (!(isset($_GET['page']))) {
-            include('ihm/pages/accueil.php');
-        } else {
-            include'ihm/pages/' . $_GET['page'] . '.php';
-        }*/
-        ?>
-
-
+        
+        
+        
+        
+            
         <script src="../ihm/js/boostrap.js"></script>
         <script src="../ihm/js/jquery-3.1.1.min.js"></script>
         <script src="ihm/js/jquery.min.js"></script>
