@@ -91,6 +91,24 @@ else {
     include ('ihm/pages/resultsGames.php');
     $afficheListeJeuT = screenGame($listGames);
     echo $afficheListeJeuT;
+    
+    $jeuTOne = array('nbJoueursMin'=>2,
+                    'nbJoueursMax'=>6,
+                    'nom'=>"Contrast",
+                    'editeur'=>"Pink Monkey Games",
+                    'regles'=>"Chaque joueur ne dispose que de 8 des 12 symboles pour faire son choix. Les 4 autres sont placés devant lui, visibles de tous.",
+                    'difficulte'=>"facile",
+                    'public'=>"8+",
+                    'listePieces'=>"20 cartes",
+                    'dureePartie'=>"15 minutes",
+                    'anneeSortie'=>2016,
+                    'description'=>"cool",
+                    'idPC'=>1);
+    $jeuTTwo = array(2,8,"Giraformetre","Lifestyle Boardgames Ltd","Chaque carte du jeu décrit une information étonnante et drôle correspondante à un chiffre. Essayez de trouver celle dont la réponse chiffrée est la plus haute ou la plus basse parmi les cartes piochées...","moyen", "10 à 100 ans","10 cartes, 3 pions","30 minutes",2015,"facile",1);
+    $jeuTThree = array(2,6,"POM POM","Jeux Opla","Compter les pommes","facile", "6 à 100 ans", "plateau de fruits", "15 minutes",2016,"huuu",1);
+    
+    echo screenGame(select("SELECT * FROM ".TABLEJEUT." jt JOIN ".TABLEPCT." pct ON pct.idPC=jt.idPC;"));
+    insert($jeuTOne);
     ?>
 </div>
     </body>

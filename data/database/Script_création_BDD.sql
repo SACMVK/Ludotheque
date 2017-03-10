@@ -25,6 +25,7 @@ use ludotheque;
 #  * jeu_a_pour_genre
 #  * genre
 #  * message
+#  * notification
 
 #    Tables dictionnaires :
 #  * droit_d
@@ -48,7 +49,7 @@ CREATE TABLE compte (
   pseudo varchar(30) NOT NULL UNIQUE, #index UNIQUE évite doublon psuedos
   dateInscription date NOT NULL,
   mdp varchar(50) NOT NULL,
-  codePostal smallint(5) NOT NULL,
+  codePostal int(5) unsigned NOT NULL,
   droit varchar(20) NOT NULL, #FK dico
 
   PRIMARY KEY (idUser)
@@ -95,7 +96,7 @@ DROP TABLE IF EXISTS jeu_p;
 
 CREATE TABLE jeu_p (
   idJeuP smallint(8) unsigned NOT NULL AUTO_INCREMENT,  
-  idJeuT smallint(8) unsigned NOT NULL, #FK   à modicer en idPC si modif dans la table jeu_t
+  idPC SMALLINT(8) UNSIGNED NOT NULL, #FK   à modicer en idPC si modif dans la table jeu_t
   idProprietaire smallint(8) unsigned NOT NULL, #FK
   etat varchar(50) NOT NULL, #FK dico
 
@@ -116,13 +117,15 @@ CREATE TABLE commentaire_jeu_p (
 DROP TABLE IF EXISTS pret_p;
 
 CREATE TABLE pret_p (
+  idPret smallint(8) unsigned NOT NULL AUTO_INCREMENT, #PK
   idJeuP smallint(8) unsigned NOT NULL,  #FK
   idEmprunteur smallint(8) unsigned NOT NULL, #FK idUser
   dateDebut date NOT NULL,
   dateRendu date NOT NULL,
   jeuRenduATemps boolean DEFAULT false NOT NULL,
+  notification SMALLINT(8) UNSIGNED NOT NULL,#FK
 
-  PRIMARY KEY (idJeuP, idEmprunteur, dateDebut) # la combinaison des de FK constituent la PK
+  PRIMARY KEY (idPret) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Création de la table departement (M)
@@ -140,9 +143,9 @@ DROP TABLE IF EXISTS user_prefere_genre;
 
 CREATE TABLE user_prefere_genre (
 	idUser smallint(8) unsigned NOT NULL, #FK
-  idGenre SMALLINT(8) UNSIGNED NOT NULL, #FK
+  genre VARCHAR(200) NOT NULL, #FK
 
-	PRIMARY KEY (idUser, idGenre) # la combinaison des 2 FK contsituent la PK
+	PRIMARY KEY (idUser, genre) # la combinaison des 2 FK contsituent la PK
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Création de la table produit_culturel_t (C)
@@ -182,7 +185,6 @@ create table a_pour_image(
 DROP TABLE IF EXISTS jeu_t;
 
 create table jeu_t(
-  idJeuT smallint(8) unsigned NOT NULL AUTO_INCREMENT,  # A mdoifier - enlever pour e garder que idPC en PK et FK
   idPC SMALLINT(8) UNSIGNED NOT NULL, #FK
   nbJoueursMin SMALLINT NOT NULL,
   nbJoueursMax SMALLINT NOT NULL,
@@ -195,7 +197,7 @@ create table jeu_t(
   listePieces TEXT,
   dureePartie VARCHAR(200),
 
-  PRIMARY KEY (idJeuT)
+  PRIMARY KEY (idPC)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Création de la table commentaire_p_c_t
@@ -213,33 +215,44 @@ create table commentaire_p_c_t(
 DROP TABLE IF EXISTS jeu_a_pour_genre;
 
 create table jeu_a_pour_genre(
-  idJeuT SMALLINT(8) UNSIGNED NOT NULL, #FK - à modifier en idPC
-  idGenre SMALLINT(8) UNSIGNED NOT NULL, #FK dico  - à modifier en genre
+  idPC SMALLINT(8) UNSIGNED NOT NULL, #FK 
+  genre VARCHAR(200) NOT NULL, #FK dico  
 
-  PRIMARY KEY (idJeuT, idGenre) #combinaison des 2 FK constitue la PK
+  PRIMARY KEY (idPC, genre) #combinaison des 2 FK constitue la PK
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Création de la table genre
 DROP TABLE IF EXISTS genre;
 
-create table genre(                   #A modifier en dico, enlever l'idGenre
-  idGenre SMALLINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-  nom VARCHAR(200) NOT NULL UNIQUE,
+create table genre(                   
+  genre VARCHAR(200) NOT NULL UNIQUE,
 
-  PRIMARY KEY (idGenre)
+  PRIMARY KEY (genre)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Création de la table message
+DROP TABLE IF EXISTS notification;
+
+create table notification(
+  notification SMALLINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  sujetPreteur VARCHAR(200) NOT NULL,
+  corpsPreteur VARCHAR(500) NOT NULL,
+  sujetEmprunteur VARCHAR(200) NOT NULL,
+  corpsEmprunteur VARCHAR(500) NOT NULL,
+  
+  PRIMARY KEY (notification)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Création de la table message
 DROP TABLE IF EXISTS message;
 
 create table message(
-  idMessage SMALLINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-  idExped SMALLINT(8) UNSIGNED NOT NULL, #FK idUser table compte / Expediteur
-  idDest SMALLINT(8) UNSIGNED NOT NULL, #FK idUser table compte / Destinataire
-  typeMessage VARCHAR(200) NOT NULL,  #pas utile, à retirer
-  sujet varchar(300) NOT NULL,
-  texte text NOT NULL,
-
+  idMessage SMALLINT(8) UNSIGNED NOT NULL AUTO_INCREMENT, #PK 
+  idDest SMALLINT(8) UNSIGNED NOT NULL,
+  idExped SMALLINT(8) UNSIGNED NOT NULL,
+  sujet VARCHAR(200) NOT NULL,
+  texte VARCHAR(500) NOT NULL,
+  
   PRIMARY KEY (idMessage)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -364,9 +377,9 @@ ALTER TABLE commentaire_user
 ADD CONSTRAINT fk_idNU_commentaire_user FOREIGN KEY (idNU) REFERENCES notation_user(idNU);
 
 # Clés étrangères de la table jeu_p
-  # Clé étrangère idJeuT
+  # Clé étrangère idPC
 ALTER TABLE jeu_p 
-ADD CONSTRAINT fk_idNU_jeu_p FOREIGN KEY (idJeuT) REFERENCES jeu_t(idJeuT);
+ADD CONSTRAINT fk_idPC_jeu_p FOREIGN KEY (idPC) REFERENCES jeu_t(idPC);
 
   # Clé étrangère idProprietaire **
 ALTER TABLE jeu_p 
@@ -386,19 +399,22 @@ ADD CONSTRAINT fk_idJeuP_commentaire_jeu_p FOREIGN KEY (idJeuP) REFERENCES jeu_p
 ALTER TABLE pret_p 
 ADD CONSTRAINT fk_idJeuP_pret_p FOREIGN KEY (idJeuP) REFERENCES jeu_p(idJeuP);
 
-# Clés étrangères de la table pret_p
   # Clé étrangère idEmprunteur
 ALTER TABLE pret_p 
 ADD CONSTRAINT fk_idEmprunteur_pret_p FOREIGN KEY (idEmprunteur) REFERENCES compte(idUser);
 
+  # Clé étrangère notification
+ALTER TABLE pret_p 
+ADD CONSTRAINT fk_notification_pret_p FOREIGN KEY (notification) REFERENCES notification(notification);
+
 # Clés étrangères de la table user_prefere_genre
-  # Clé étrangère idEmprunteur
+  # Clé étrangère idUser
 ALTER TABLE user_prefere_genre 
 ADD CONSTRAINT fk_idUser_user_prefere_genre FOREIGN KEY (idUser) REFERENCES compte(idUser);
 
-  # Clé étrangère idGenre 
+  # Clé étrangère genre 
 ALTER TABLE user_prefere_genre 
-ADD CONSTRAINT fk_idGenre_user_prefere_genre FOREIGN KEY (idGenre) REFERENCES genre(idGenre);
+ADD CONSTRAINT fk_genre_user_prefere_genre FOREIGN KEY (genre) REFERENCES genre(genre);
 
 # Clés étrangères de la table produit_culturel_t
   # Clé étrangère typePC
@@ -433,22 +449,22 @@ ADD CONSTRAINT fk_public_jeu_t FOREIGN KEY (public) REFERENCES public_d(public);
 #ADD CONSTRAINT fk_illustrateurPrincipal_jeu_t FOREIGN KEY (illustrateurPrincipal) REFERENCES illustrateurPrincipal_d(illustrateurPrincipal);
 
 # Clés étrangères de la table commentaire_p_c_t
-  # Clé étrangère typePC
+  # Clé étrangère idPC
 ALTER TABLE commentaire_p_c_t 
 ADD CONSTRAINT fk_idPC_commentaire_p_c_t FOREIGN KEY (idPC) REFERENCES produit_culturel_t(idPC);
 
-  # Clé étrangère typePC
+  # Clé étrangère idUser
 ALTER TABLE commentaire_p_c_t 
 ADD CONSTRAINT fk_idUser_commentaire_p_c_t FOREIGN KEY (idUser) REFERENCES compte(idUser);
 
 # Clés étrangères de la table jeu_a_pour_genre
-  # Clé étrangère idJeuT
+  # Clé étrangère idPC
 ALTER TABLE jeu_a_pour_genre 
-ADD CONSTRAINT fk_idJeuT_jeu_a_pour_genre FOREIGN KEY (idJeuT) REFERENCES jeu_t(idJeuT);
+ADD CONSTRAINT fk_idPC_jeu_a_pour_genre FOREIGN KEY (idPC) REFERENCES jeu_t(idPC);
 
-  # Clé étrangère idGenre
+  # Clé étrangère genre
 ALTER TABLE jeu_a_pour_genre 
-ADD CONSTRAINT fk_idGenre_jeu_a_pour_genre FOREIGN KEY (idGenre) REFERENCES genre(idGenre);
+ADD CONSTRAINT fk_genre_jeu_a_pour_genre FOREIGN KEY (genre) REFERENCES genre(genre);
 
 # Clés étrangères de la table message
   # Clé étrangère idExped

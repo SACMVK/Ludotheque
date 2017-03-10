@@ -7,11 +7,11 @@
  */
 	/* M : création des variables tables
 	 */
-	$tableJeuT = 'jeu_t';
-        $tablePCT = 'produit_culturel_t';
+	const TABLEJEUT = 'jeu_t';
+        const TABLEPCT = 'produit_culturel_t';
 
+        include 'job/dao/Connexion_Dao.php';
 Function select($requete){
-	include 'job/dao/Connexion_Dao.php';
 	/* M : Ouverture de la connexion
 	 */
 	$pdo = openConnexion();
@@ -19,7 +19,7 @@ Function select($requete){
 	
 	/* M : préparation de la requete - permet d'adapter les requetes en fonctions de variables
 	 */
-	$requete = "SELECT * FROM ".$tableJeuT." jt JOIN ".$tablePCT." pct ON pct.idPC=jt.idPC;";
+	$requete = "SELECT * FROM ".TABLEJEUT." jt JOIN ".TABLEPCT." pct ON pct.idPC=jt.idPC;";
 	$stmt = $pdo->prepare($requete);
 	
 	
@@ -72,15 +72,16 @@ Function select($requete){
        
 }
 
-Function insert($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$typePC,$anneeSortie,$description,$idPC,$idJeuT){
-    	include 'job/dao/Connexion_Dao.php';
+//$listeJeuT = new Jeu_T($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$typePC,$anneeSortie,$description,$idPC,$idJeuT);
+
+Function insert($listeJeuT){
 	/* M : Ouverture de la connexion
 	 */
 	$pdo = openConnexion();
         
          //M : Requetes sur les tables jeu_t et produit_c_t 
-	$requeteJeuT= "INSERT INTO ".$tableJeuT." (idPC,nbJoueursMin,nbJoueursMax,nom,editeur,regles,difficulte,public,listePieces,dureePartie) VALUES (:idPC,:nbJoueursMin,:nbJoueursMax,:nom,:editeur,:regles,:difficulte,:public,:listePieces,:dureePartie);";
-        $requetePCT= "INSERT INTO ".$tablePCT. " (typePC,anneeSortie,description) VALUES (:typePC,:anneeSortie,:description);";
+	$requeteJeuT= "INSERT INTO ".TABLEJEUT." (idPC,nbJoueursMin,nbJoueursMax,nom,editeur,regles,difficulte,public,listePieces,dureePartie) VALUES (:idPC,:nbJoueursMin,:nbJoueursMax,:nom,:editeur,:regles,:difficulte,:public,:listePieces,:dureePartie);";
+        $requetePCT= "INSERT INTO ".TABLEPCT. " (typePC,anneeSortie,description) VALUES (:typePC,:anneeSortie,:description);";
         
         //préparation des requêtes
         $stmtJeuT = $pdo->prepare($requeteJeuT);
@@ -88,22 +89,22 @@ Function insert($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$p
 
         //On execute
         $stmtJeuT->execute(array(
-            "idPC" => $idPC = $idPC,
-            "nbJoueursMin" => $nbJoueursMin = $nbJoueursMin,
-            "nbJoueursMax" => $nbJoueursMax = $nbJoueursMax,
-            "nom" => $nom = $nom,
-            "editeur" => $editeur = $editeur,
-            "regles" => $regles = $regles,
-            "difficulte" => $difficulte = $difficulte,
-            "public" => $public = $public,
-            "listePieces" => $listePieces = $listePieces,
-            "dureePartie" => $dureePartie = $dureePartie
+            "idPC" => $listeJeuT['idPC'],
+            "nbJoueursMin" => $listeJeuT['nbJoueursMin'],
+            "nbJoueursMax" => $listeJeuT['nbJoueursMax'],
+            "nom" => $listeJeuT['nom'],
+            "editeur" => $listeJeuT['editeur'],
+            "regles" => $listeJeuT['regles'],
+            "difficulte" => $listeJeuT['difficulte'],
+            "public" => $listeJeuT['public'],
+            "listePieces" => $listeJeuT['listePieces'],
+            "dureePartie" => $listeJeuT['dureePartie']
         ));
         
         $stmtPCT->execute(array(
-            "typePC" => $typePC = $typePC,
-            "anneeSortie" => $anneeSortie = $anneeSortie,
-            "description" => $description = $description
+            "typePC" => $listeJeuT['typePC'],
+            "anneeSortie" => $listeJeuT['anneeSortie'],
+            "description" => $listeJeuT['description']
         ));
         
         /*//M : on sort l'ID plus grand
@@ -115,4 +116,48 @@ Function insert($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$p
 	/* M : Fermeture de la connexion
 	 */
 	closeConnexion($pdo);
+}
+
+Function update($listeJeuT){
+	/* M : Ouverture de la connexion
+	 */
+	$pdo = openConnexion();
+        
+         //M : Requetes sur les tables jeu_t et produit_c_t 
+	$requeteUpdateJeuT= "UPDATE ".TABLEJEUT." SET 'idPC'=:idPC,'nbJoueursMin'=:nbJoueursMin,'nbJoueursMax'=:nbJoueursMax,'nom'=:nom,'editeur'=:editeur,'regles'=:regles,'difficulte'=:difficulte,'public'=:public,'listePieces'=:listePieces,'dureePartie'=:dureePartie;";
+        $requeteUpdatePCT= "UPDATE ".TABLEPCT. " SET 'typePC'=:typePC,'anneeSortie'=:anneeSortie,'description'=:description;";
+        
+        //préparation des requêtes
+        $stmtJeuT = $pdo->prepare($requeteUpdateJeuT);
+        $stmtPCT = $pdo->prepare($requeteUpdatePCT);        
+
+        //On execute
+        $stmtJeuT->execute(array(
+            "idPC" => $listeJeuT['idPC'],
+            "nbJoueursMin" => $listeJeuT['nbJoueursMin'],
+            "nbJoueursMax" => $listeJeuT['nbJoueursMax'],
+            "nom" => $listeJeuT['nom'],
+            "editeur" => $listeJeuT['editeur'],
+            "regles" => $listeJeuT['regles'],
+            "difficulte" => $listeJeuT['difficulte'],
+            "public" => $listeJeuT['public'],
+            "listePieces" => $listeJeuT['listePieces'],
+            "dureePartie" => $listeJeuT['dureePartie']
+        ));
+        
+        $stmtPCT->execute(array(
+            "typePC" => $listeJeuT['typePC'],
+            "anneeSortie" => $listeJeuT['anneeSortie'],
+            "description" => $listeJeuT['description']
+        ));
+        
+        /*//M : on sort l'ID plus grand
+        $idJeuT = getMaxId('idUser',$tablePCT);*/
+        
+        //M : création d'un objet Jeu_T 
+        //new Jeu_T($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$anneeSortie,$description,$idPC,$idJeuT);
+
+	/* M : Fermeture de la connexion
+	 */
+	closeConnexion($pdo);    
 }
