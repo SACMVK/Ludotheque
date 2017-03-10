@@ -25,3 +25,6 @@
 <!-- ahmad:pour int�grer le fichier bootstrap pour javascript -->
 <script src="ihm/js/bootstrap.min.js"></script>
 <script src="ihm/js/star.js"></script>
+
+<!-- Victor: calendrier-->
+<?php require ('ihm/forms/calendar.php');?>
