@@ -104,19 +104,27 @@ Function alter($requete) {
     closeConnexion($pdo);
 }
 
-function delete($request) {
+function delete($id) {
     $pdo = openConnexion();
     $table = 'message';
 
 // 
 //prepare =avant query pour éviter faille de sécurité
-    $stmt = $pdo->prepare("DELETE * FROM " . $table . "WHERE id= " . $message->getIdMessage(). ";");
+    $requeteDelete = "DELETE  FROM " . $table . " WHERE idMessage = :idMessage ;";
+    $stmt = $pdo->prepare($requeteDelete);
 
+    $stmt->bindValue(':idMessage',$id);
+    
+    
+    
 // execution de la requete
     $stmt->execute();
 
 
     closeConnexion($pdo);
 }
+
+
+
 
 ?>
