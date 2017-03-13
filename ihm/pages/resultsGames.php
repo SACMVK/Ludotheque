@@ -12,6 +12,12 @@
  *      - genre de jeu
  */
 
+// Fonction qui permet de n'afficher que les $length premiers caractères
+function str_truncate($text, $length){
+    if(strlen($text) <= $length) return $text;
+    return trim(substr($text, 0, $length));
+}
+
 function screenGame($list){
     $affichageJeuT = "<h1>Jeux disponibles</h1>";
     foreach ($list as $jeu) {
@@ -32,13 +38,13 @@ function screenGame($list){
    <tr>
        <td>".$jeu->getNbJoueursMin()." à ".$jeu->getNbJoueursMax()."</td>
        <td>".$jeu->getEditeur()."</td>
-       <td>".$jeu->getRegles()."</td>
+       <td>".str_truncate($jeu->getRegles(),100)." ...</td>
        <td>".$jeu->getDifficulte()."</td>
        <td>".$jeu->getpublic()."</td>
        <td>".$jeu->getListePiecese()."</td>
        <td>".$jeu->getDureePartie()."</td>
        <td>".$jeu->getAnneeSortie()."</td>
-       <td>".$jeu->getDescription()."</td>
+       <td>".str_truncate($jeu->getDescription(),100)." ...</td>
    </tr>
 </table>";
     }
