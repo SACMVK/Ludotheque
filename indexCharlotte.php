@@ -69,6 +69,8 @@
             // include ('ihm/footer/footer.php');
             include('job/class/message.php');
             include ('job/dao/message_dao.php');
+            
+               //delete(44); fonctionne 
 
            
 $list['idExped']= 2;
@@ -77,7 +79,7 @@ $list['typeMessage'] = 3;
 $list['sujet'] = " un test";
 $list['texte'] = " bonjour, ceci est un test pour voir si la fonction insert fonctionne";
               
-           echo insert($list);
+          // echo insert($list);
 
             $message1 = new message(1, 1, "question", "test", "test insertbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ");
           
@@ -91,7 +93,7 @@ $list['texte'] = " bonjour, ceci est un test pour voir si la fonction insert fon
            print_r(  afficher_msg(select('select * from message')));
 
             
-           
+        
 
 
 
