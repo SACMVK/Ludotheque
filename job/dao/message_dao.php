@@ -90,12 +90,12 @@ Function alter($requete) {
     $stmt = $pdo->prepare("UPDATE " . $table . " SET 'idExped' = :idExped, 'idDest' = :idDest, 'typeMessage' = :typeMessage, 'sujet' = :sujet, 'texte' = :texte, 'idMessage' = :idMessage)");
 
     $stmt->execute(array(
-        ":idExped" => $idExped,
-        ":idDest" => $idDest,
-        ":typeMessage" => $typeMessage,
-        ":sujet" => $sujet = " Test update",
-        ":texte" => $texte,
-        ":idMessage" => $idMessage = 3
+        ":idExped" => $idExped['idExped'],
+        ":idDest" => $idDest['idDest'],
+        ":typeMessage" => $typeMessage['typeMessage'],
+        ":sujet" => $sujet['sujet'],
+        ":texte" => $texte[texte],
+        ":idMessage" => $idMessage['idMessage']
     ));
     echo ("le message a été modifier");
 

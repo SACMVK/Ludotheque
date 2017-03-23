@@ -81,7 +81,17 @@ $list['texte'] = " bonjour, ceci est un test pour voir si la fonction insert fon
               
           // echo insert($list);
 
-            $message1 = new message(1, 1, "question", "test", "test insertbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ");
+            $message1 = array(
+                'idExped'=>2, 
+                'idDest'=> 2,
+                'typeMessage'=> "question",
+                'sujet'=> "test",
+                'texte'=>"test update",
+                'idMessage'=>2);
+            
+            
+              alter($message1);
+
           
            // $list = [$message1, $message2];
           
@@ -94,11 +104,10 @@ $list['texte'] = " bonjour, ceci est un test pour voir si la fonction insert fon
 
             
         
+             
 
 
-
-
-            echo '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+           // echo '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
 
             //afficherListeElements($listeMessagesAAfficher);
 
