@@ -1,49 +1,121 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<?php echo utf8_encode('<title>Ludothèque</title>');?>
-<link rel="stylesheet" type="text/css" href="ihm/css/config.css">
-<link rel="stylesheet" type="text/css" href="ihm/css/connexion.css">
-<link rel="stylesheet" type="text/css" href="ihm/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="ihm/css/style.css">
-<script src="ihm/js/jquery-3.1.1.min.js"></script>
-<script src="ihm/js/bootstrap.min.js"></script>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Ludothèque</title>
+        <?php
+// Include de la totalité des fichiers css
+        include 'ihm/css/css.php';
+        ?>
 
 
-<?php 
+
+
+        <?php
 // stefan : liste des fichiers à inclure
-include 'job/dao/connexion_dao.php';
-include 'job/dao/config_dao.php';
-include 'job/dao/droits_dao.php';
+//        include 'job/dao/connexion_dao.php';
+//        include 'job/dao/config_dao.php';
+//        include 'job/dao/droits_dao.php';
 
-/* stefan : récupération de la configuration enregistrée
- * ainsi que de la liste des droits dans la base de données.
- */
-$config = loadConfig();
-$liste_droits = loadDroits();
+        /* stefan : récupération de la configuration enregistrée
+         * ainsi que de la liste des droits dans la base de données.
+         */
+//        $config = loadConfig();
+//        $liste_droits = loadDroits();
+        ?>
 
-
-?>
-
-</head>
+    </head>
 
 
-<body>
+    <body>
+        <!-- ************************************************************************************************ -->
+        <!-- **************************************** HEADER (DEBUT) **************************************** -->
+        <!-- ************************************************************************************************ -->
+        <div><?php
+            if (empty($_SESSION)) {
+                include ('ihm/header/header.php');
+            } else {
+                include ('ihm/header/headerConnected.php');
+            }
+            ?></div>
+        <!-- ************************************************************************************************ -->
+        <!-- ***************************************** HEADER (FIN) ***************************************** -->
+        <!-- ************************************************************************************************ -->
 
-<header></header>
-
-
-<div><?php include 'job/dao/rep_dao.php';?></div>
-
-
-<div><?php include 'ihm/pages/connexion.php';?></div>
-<div><?php include 'ihm/pages/config.php';?></div>
-
-<footer></footer>
 
 
 
-</body>
+        <!-- ************************************************************************************************ -->
+        <!--  ********************* MENU A GAUCHE (AFFICHE QU'EN MODE CONNECTE) (DEBUT) ********************* -->
+        <!-- ************************************************************************************************ -->
+        <div><?php
+            // S'il y a une session d'ouverte, on affiche le menu.
+            if (!empty($_SESSION)) {
+                // Si le compte a des droits admin, on affiche le menu admin
+                if ($_SESSION["droits"] == "admin") {
+                    include ('ihm/menus/menuAdmin.php');
+                    // Sinon, on affiche le menu connecté simple
+                } else {
+                    include ('ihm/menus/menuUser.php');
+                }
+            }
+            ?></div>
+        <!-- ************************************************************************************************ -->
+        <!--  ********************** MENU A GAUCHE (AFFICHE QU'EN MODE CONNECTE) (FIN) ********************** -->
+        <!-- ************************************************************************************************ -->
+
+
+
+
+
+        <!-- ************************************************************************************************ -->
+        <!-- ************************************ CONTENU CENTRAL (DEBUT) *********************************** -->
+        <!-- ************************************************************************************************ -->
+        <div><?php
+            /* stefan : On récupère par $_GET['page'],
+             * - ou bien une page à afficher directement
+             * - ou bien un appel au contrôleur si la chaine contient "+"
+             * par ex : Individu+selectOne
+             */
+            if (empty($_GET['page'])) {
+                include('ihm/pages/accueil.php');
+            } else if (strpbrk($_GET['page'], '+')) {
+                include 'controller/controller.php';
+            } else {
+                include'ihm/pages/' . $_GET['page'];
+            }
+            ?></div>
+        <!-- ************************************************************************************************ -->
+        <!-- ************************************* CONTENU CENTRAL (FIN) ************************************ -->
+        <!-- ************************************************************************************************ -->
+
+
+
+
+
+        <!-- ************************************************************************************************ -->
+        <!-- **************************************** FOOTER (DEBUT) **************************************** -->
+        <!-- ************************************************************************************************ -->
+        <div><?php
+            include ('ihm/footer/footer.php');
+            ?></div>
+        <!-- ************************************************************************************************ -->
+        <!-- ***************************************** FOOTER (FIN) ***************************************** -->
+        <!-- ************************************************************************************************ -->
+
+        <!--
+        <div><?php //include 'ihm/pages/connexion.php';          ?></div>
+        <div><?php //include 'ihm/pages/config.php';          ?></div>
+        -->
+
+
+
+
+        <?php
+// Include de la totalité des fichiers js
+        include 'ihm/js/js.php';
+        ?>
+
+    </body>
 </html>
 

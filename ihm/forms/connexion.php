@@ -10,7 +10,7 @@
 echo utf8_encode('<h1>Connexion</h1>');
 
 
-/* stefan : test de récupération des données de connexion dans une variable PHP
+/* stefan : test de rÃ©cupÃ©ration des donnÃ©es de connexion dans une variable PHP
  */
 echo utf8_encode(miseAJourBienvenu());
 
@@ -32,11 +32,11 @@ echo utf8_encode($affichage_connexion);
 
 Function miseAJourBienvenu(){
 	$paramConnexion = ['pseudo','mdp'];
-	$bienvenu = 'mmmh, ce n\'est pas très sécurisé tout ça !<BR>';
+	$bienvenu = 'mmmh, ce n\'est pas trï¿½s sï¿½curisï¿½ tout ï¿½a !<BR>';
 	foreach ( $paramConnexion as  $param ) {
-		/* stefan : on commence par un test pour savoir si la clé existe dans $_POST :
-		 * si la page est chargée, le $_POST est vide.
-		 * $_POST contiendra les valeurs à mettre à jour une fois submit cliqué.
+		/* stefan : on commence par un test pour savoir si la clï¿½ existe dans $_POST :
+		 * si la page est chargÃ©e, le $_POST est vide.
+		 * $_POST contiendra les valeurs Ã  mettre Ã  jour une fois submit cliquÃ©.
 		 */
 		if(array_key_exists($param,$_POST)){
 			$bienvenu .= $param.' : 	'.$_POST[$param].'<BR>';

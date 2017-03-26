@@ -1,7 +1,7 @@
 
 <footer>
 <!-- KEN-->
-	<!-- le footer est ici consid�r� comme un bloc, dans lequel il y a d'autres blocs. Ces autres blocs seront les �l�ments du footer, ici des <p>. -->
+	<!-- le footer est ici considéré comme un bloc, dans lequel il y a d'autres blocs. Ces autres blocs seront les éléments du footer, ici des <p>. -->
 	<div class="footer">
 		<div id="element1">Ludotheque Extraordinaire</div>
 		<div id="element2">

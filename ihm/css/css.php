@@ -19,8 +19,7 @@ $cssDirectory = "ihm/css";
                 /* stefan : Si le nom de fichier fini bien par "css",
                  * on créé le lien html vers css.
                  */
-                echo '<link rel="stylesheet" type="text/css" href="../ihm/css/'.$file.'">';
-                echo '../ihm/css/'.$file.'<br>';
+                echo '<link rel="stylesheet" type="text/css" href="'.$cssDirectory.'/'.$file.'">';
                 }   
             }
         closedir ( $dossier );

@@ -14,16 +14,16 @@
                              <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"  href="#">Informations Pratique<span class="caret">
                                  </span></a>
                              <ul class="dropdown-menu" role="menu">
-                                 <li role="presentation"><a href="index.php?page=#about">A Propos</a></li>
-                                 <li role="presentation"><a href="index.php?page=#mentions">Mentions légales</a></li>
-                                 <li role="presentation"><a href="index.php?page=#aide">Aide </a></li>
-                                 <li role="presentation"><a href="index.php?page=#contact">Contact </a></li>
+                                 <li role="presentation"><a href="index.php?page=pages/informations.php#about">A Propos</a></li>
+                                 <li role="presentation"><a href="index.php?page=pages/informations.php#mentions">Mentions légales</a></li>
+                                 <li role="presentation"><a href="index.php?page=pages/informations.php#aide">Aide </a></li>
+                                 <li role="presentation"><a href="index.php?page=pages/informations.php#contact">Contact </a></li>
                              </ul>
                          </li>
                      </ul>
                      <p class="navbar-text navbar-right actions">
-                         <a class="navbar-link login" href="#">S'inscrire</a>
-                         <a class="btn btn-default action-button" role="button" href="#">Se connecter</a></p>
+                         <a class="navbar-link login" href="index.php?page=forms/inscription.php">S'inscrire</a>
+                         <a class="btn btn-default action-button" role="button" href="index.php?page=forms/connexion.php">Se connecter</a></p>
                  </div>
             </div>
          </nav>

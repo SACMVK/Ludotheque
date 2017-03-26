@@ -1,5 +1,13 @@
 <?php
 
+function afficherElement($message){
+        // stefan : @Charlotte : afficher un message
+}
+
+function afficherListeElements($liste_message){
+    // stefan : @Charlotte : afficher une liste de messages
+}
+
 function afficher_msg($list){
    
      $message = "<h1>Messages </h1><br> ";

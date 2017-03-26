@@ -1,61 +1,121 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
+<!DOCTYPE HTML>
 <html>
-<head>
-<meta charset="UTF-8" />
-    <link rel="stylesheet" href="ihm/css/bootstrap.min.css">
-    <link rel="stylesheet" href="ihm/css/MUSA_carousel-extended.css">
-    <link rel="stylesheet" href="ihm/css/Navigation-with-Button1.css">
-    <link rel="stylesheet" href="ihm/css/informations.css">
-
-   
-    
-<title>Ludotheque BTS</title>
-
-<?php require ('./ihm/pages/effets.php'); ?>
-</head>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Ludothèque</title>
+        <?php
+// Include de la totalité des fichiers css
+        include 'ihm/css/css.php';
+        ?>
 
 
 
 
-<body>
+        <?php
+// stefan : liste des fichiers à inclure
+//        include 'job/dao/connexion_dao.php';
+//        include 'job/dao/config_dao.php';
+//        include 'job/dao/droits_dao.php';
+
+        /* stefan : récupération de la configuration enregistrée
+         * ainsi que de la liste des droits dans la base de données.
+         */
+//        $config = loadConfig();
+//        $liste_droits = loadDroits();
+        ?>
+
+    </head>
 
 
-<?php
-include ('ihm/header/header.php');
+    <body>
+        <!-- ************************************************************************************************ -->
+        <!-- **************************************** HEADER (DEBUT) **************************************** -->
+        <!-- ************************************************************************************************ -->
+        <div id='div_header'><?php
+            if (empty($_SESSION)) {
+                include ('ihm/header/header.php');
+            } else {
+                include ('ihm/header/headerConnected.php');
+            }
+            ?></div>
+        <!-- ************************************************************************************************ -->
+        <!-- ***************************************** HEADER (FIN) ***************************************** -->
+        <!-- ************************************************************************************************ -->
+
+
+
+
+        <!-- ************************************************************************************************ -->
+        <!--  ********************* MENU A GAUCHE (AFFICHE QU'EN MODE CONNECTE) (DEBUT) ********************* -->
+        <!-- ************************************************************************************************ -->
+        <div id='div_menu'><?php
+            // S'il y a une session d'ouverte, on affiche le menu.
+            if (!empty($_SESSION)) {
+                // Si le compte a des droits admin, on affiche le menu admin
+                if ($_SESSION["droits"] == "admin") {
+                    include ('ihm/menus/menuAdmin.php');
+                    // Sinon, on affiche le menu connecté simple
+                } else {
+                    include ('ihm/menus/menuUser.php');
+                }
+            }
+            ?></div>
+        <!-- ************************************************************************************************ -->
+        <!--  ********************** MENU A GAUCHE (AFFICHE QU'EN MODE CONNECTE) (FIN) ********************** -->
+        <!-- ************************************************************************************************ -->
 
 
 
 
 
+        <!-- ************************************************************************************************ -->
+        <!-- ************************************ CONTENU CENTRAL (DEBUT) *********************************** -->
+        <!-- ************************************************************************************************ -->
+        <div id='div_contenu'><?php
+            /* stefan : On récupère par $_GET['page'],
+             * - ou bien une page à afficher directement
+             * - ou bien un appel au contrôleur si la chaine contient "+"
+             * par ex : Individu+selectOne
+             */
+            if (empty($_GET['page'])) {
+                include('ihm/pages/accueil.php');
+            } else if (strpbrk($_GET['page'], '+')) {
+                include 'controller/controller.php';
+            } else {
+                include'ihm/' . $_GET['page'];
+            }
+            ?></div>
+        <!-- ************************************************************************************************ -->
+        <!-- ************************************* CONTENU CENTRAL (FIN) ************************************ -->
+        <!-- ************************************************************************************************ -->
 
 
 
 
 
+        <!-- ************************************************************************************************ -->
+        <!-- **************************************** FOOTER (DEBUT) **************************************** -->
+        <!-- ************************************************************************************************ -->
+        <div id='div_footer'><?php
+            include ('ihm/footer/footer.php');
+            ?></div>
+        <!-- ************************************************************************************************ -->
+        <!-- ***************************************** FOOTER (FIN) ***************************************** -->
+        <!-- ************************************************************************************************ -->
+
+        <!--
+        <div><?php //include 'ihm/pages/connexion.php';          ?></div>
+        <div><?php //include 'ihm/pages/config.php';          ?></div>
+        -->
 
 
-/* charlotte : empty ne fonctionne pas car il vérifie si $_GET['page']=null, hors $_GET['page'] n'existe pas
- * in_array ne fonctionne pas non plus, pour une raison indéterminée
- * isset (is set) vérifie non =null mais vérifie si la variable existe ou pas avec une valeur
- */ 
 
-if (!(isset($_GET['page']))){
-    include('ihm/pages/accueil.php');
-}
-else {
-    
-    include'ihm/pages/informations.php'.$_GET['page'];
-}
-?>
-  
 
-    <script src="../ihm/js/boostrap.js"></script>
-    <script src="../ihm/js/jquery-3.1.1.min.js"></script>
-     <script src="ihm/js/jquery.min.js"></script>
-    <script src="ihm/js/bootstrap.min.js"></script>
-    <script src="ihm/js/MUSA_carousel-extended.js"></script>
+        <?php
+// Include de la totalité des fichiers js
+        include 'ihm/js/js.php';
+        ?>
 
     </body>
-
-
 </html>
+

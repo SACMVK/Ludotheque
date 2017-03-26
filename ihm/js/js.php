@@ -18,8 +18,7 @@ $jsDirectory = "ihm/js";
                 /* stefan : Si le nom de fichier fini bien par "js",
                  * on créé le lien html vers css.
                  */
-                echo '<script src="ihm/js/'.$file.'"></script>';
-                echo '../ihm/js/'.$file.'<br>';
+                echo '<script src="'.$jsDirectory.'/'.$file.'"></script>';
                 }   
             }
         closedir ( $dossier );

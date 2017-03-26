@@ -1,16 +1,5 @@
 <?php
-/* stefan : à mettre dans l'index.
- * On récupère par $_GET['page'],
- * - ou bien une page à afficher directement
- * - ou bien un appel au contrôleur si la chaine contient "+"
- * par ex : Individu+selectOne
- */
-if (strpbrk($_GET['page'], '+')){
-            include 'controller/ControllerRefait.php';
-        }
-        else {
-            include 'ihm/pages/'.$_GET['page'].'php';
-        }
+
         
 /* stefan : Cette fonction a pour objectif
  * de créer une string de requête SQL (partie "WHERE")
@@ -64,7 +53,7 @@ $objectToWorkWith = explode("+", $_GET['page'])[0];
 $actionToDoWithObject = explode("+", $_GET['page'])[1];
 
 // stefan : On inclue le DAO relatif à l'objet
-include 'job/dao/'.$objetToWorkWith.'_Dao.php';
+include 'job/dao/'.$objetToWorkWith.'_dao.php';
 
 // stefan : On réalise l'action passée depuis le formulaire.
 switch ($actionToDoWithObject)   {
@@ -73,7 +62,7 @@ switch ($actionToDoWithObject)   {
         $request = createRequestFromPOST();
         $element = select ($request)[0];
         // stefan : Partie IHM
-        include 'ihm/pages/'.$objectToWorkWith.'_Affichage.php';
+        include 'ihm/pages/'.$objectToWorkWith.'_affichage.php';
         afficherElement($element);
         break;
     case "selectList":
@@ -81,8 +70,8 @@ switch ($actionToDoWithObject)   {
         $request = createRequestFromPOST();
         $listOfElements = select ($request);
         // stefan : Partie IHM
-        include 'ihm/pages/'.$objectToWorkWith.'_Affichage.php';
-        afficherListeElement($listOfElements);
+        include 'ihm/pages/'.$objectToWorkWith.'_affichage.php';
+        afficherListeElements($listOfElements);
         break;
     case "insert":
         // stefan : Partie DAO

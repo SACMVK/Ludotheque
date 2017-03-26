@@ -5,8 +5,8 @@
 	background-color: black;
 	position: fixed;
 	bottom: 0px;
-	width: 100%; /* ken : permet au footer de prendre toute la largeur, très important sinon il reste dans son coin */
-	flex-wrap: wrap; /* ken : permet un retour à la ligne si la page web devient trop petite */
+	width: 100%; /* ken : permet au footer de prendre toute la largeur, trÃ¨s important sinon il reste dans son coin */
+	flex-wrap: wrap; /* ken : permet un retour Ã  la ligne si la page web devient trop petite */
 }
 
 #a {
