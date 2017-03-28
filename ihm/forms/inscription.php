@@ -117,7 +117,7 @@ Votre date de naissance :
 </div>
 </div>
 </div>
-<input type=text name="adresse" rows="5" size="250" maxlength="1000" required/>
+<input type=text name="adresse" rows="5" size="250" maxlength="100" required/>
 </div>
 
 
@@ -134,7 +134,7 @@ Votre date de naissance :
 </div>
 </div>
 
-<input type=text name="codepostal" rows="5" size="250" maxlength="1000" required/>
+<input type=text name="codepostal" rows="5" size="250" maxlength="10" required/>
 
 
 
@@ -153,7 +153,7 @@ Votre date de naissance :
 </div>
 </div>
 
-<input type=text name="ville" rows="5" size="250" maxlength="1000" required/>
+<input type=text name="ville" rows="5" size="250" maxlength="100" required/>
 
 
 

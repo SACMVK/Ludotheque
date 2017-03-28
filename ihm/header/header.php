@@ -1,5 +1,3 @@
-<div>
-
     <nav class="navbar navbar-inverse navigation-clean-button"  >
         <div class="container-fluid" >
             <div class="navbar-header"  >
@@ -16,7 +14,7 @@
                     <li role="presentation"><a href="index.php?page=forms/rechercher_jeu_t.php">Rechercher un jeu</a></li>
                     <li role="presentation"><a href="index.php?page=forms/rechercher_jeu_p.php">Rechercher un exemplaire de jeu</a></li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"  href="#">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"  href="index.php?page=pages/informations.php">
                             Informations Pratiques
                             <span class="caret">
                             </span>
@@ -35,7 +33,7 @@
             </div>
         </div>
     </nav>
-</div
+
 
 
 

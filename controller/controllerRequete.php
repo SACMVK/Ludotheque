@@ -63,7 +63,7 @@ switch ($actionToDoWithObject)   {
         $element = select ($request)[0];
         // stefan : Partie IHM
         include 'ihm/pages/'.$objectToWorkWith.'_affichage.php';
-        afficherElement($element);
+        $pageAAfficher = afficherElement($element);
         break;
     case "selectList":
         // stefan : Partie DAO
@@ -71,7 +71,7 @@ switch ($actionToDoWithObject)   {
         $listOfElements = select ($request);
         // stefan : Partie IHM
         include 'ihm/pages/'.$objectToWorkWith.'_affichage.php';
-        afficherListeElements($listOfElements);
+        $pageAAfficher = afficherListeElements($listOfElements);
         break;
     case "insert":
         // stefan : Partie DAO

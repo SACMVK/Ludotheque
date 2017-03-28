@@ -20,13 +20,13 @@
                                     <!-- Carousel items -->
                                     <div class="carousel-inner">
                                         <div class="active item" data-slide-number="0">
-                                        <img src="ihm/img/jeu.jpg" style="width:100%"></div>
+                                        <img src="data/images/jeu.jpg" style="width:100%"></div>
 
                                         <div class="item" data-slide-number="1">
-                                       <img src="ihm/img/jeu1.jpg" style="width:100%"></div>
+                                       <img src="data/images/jeu1.jpg" style="width:100%"></div>
 
                                         <div class="item" data-slide-number="2">
-                                       <img src="ihm/img/jeu.jpg" style="width:100%"></div>
+                                       <img src="data/images/jeu.jpg" style="width:100%"></div>
                                        
 
                                     <!-- logo du carrousel pour aller à l'image suivante(>) ou précédente(<)-->
