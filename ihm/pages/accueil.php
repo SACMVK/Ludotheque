@@ -1,30 +1,10 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    
-    
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untitled</title>
-    <link rel="stylesheet" href="ihm/css/bootstrap.min.css">
-    <link rel="stylesheet" href="ihm/css/MUSA_carousel-extended.css">
-    <link rel="stylesheet" href="ihm/css/Navigation-with-Button1.css">
-
-</head>
 
 
-<?php
-$phrase = 'test variable'
-
-?>
 
 
-<!-- Charlotte-->
+<div class="contenu">
 
-<div class=""contenu">
 
-     <p><?php echo $phrase ?> </p>
  
     
     <!-- Début du container pour le carrousel  Framework Boostrap utilisé-->

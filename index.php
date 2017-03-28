@@ -5,7 +5,7 @@
         <title>Ludothèque</title>
         <?php
 // Include de la totalité des fichiers css
-        include 'ihm/css/css.php';
+        //include 'ihm/css/css.php';
         ?>
 
 
@@ -113,7 +113,7 @@
 
         <?php
 // Include de la totalité des fichiers js
-        include 'ihm/js/js.php';
+        //include 'ihm/js/js.php';
         ?>
 
     </body>
