@@ -22,8 +22,12 @@
                 <td>nom valeur</td>
             </tr>
             <?php
-            foreach ($array as $key => $value) {
-                include '_old/tr.php';
+            if (!empty($array)) {
+                foreach ($array as $key => $value) {
+                    include '_old/tr.php';
+                }
+            } else {
+                echo '<tr><td>Aucun résultat</td></tr>';
             }
             ?>
 
