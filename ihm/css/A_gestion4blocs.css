@@ -19,9 +19,18 @@ img {
     top: 220px;
     width: 100px;
     height: 500px;
+    background-color: #c9e2b3;
 }
 
-#div_contenu{
+
+
+#div_contenuSansMenu{
+    margin-top: 220px;
+    margin-bottom: 70px;
+}
+
+
+#div_contenuAvecMenu{
     margin-top: 220px;
     margin-bottom: 70px;
     margin-left: 100px;

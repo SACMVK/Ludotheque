@@ -16,7 +16,7 @@ if ($_POST['connexion'] == "on") {
     if ($connexionValide) {
         $pageAAfficher = "ihm/pages/accueilConnected.php";
     } else {
-        $pageAAfficher = "ihm/pages/echecConnexion.php";
+        $pageAAfficher = "ihm/connexion/echecConnexion.php";
     }
 
 }

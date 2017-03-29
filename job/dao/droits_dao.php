@@ -4,7 +4,7 @@
 
 
 Function loadDroits(){
-	include 'job/dao/connexion_dao_old.php';
+	include 'job/dao/connexion_dao.php';
 	/* stefan : Ouverture de la connexion
 	 */
 	$pdo = openConnexion();

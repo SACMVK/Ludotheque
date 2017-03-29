@@ -62,30 +62,30 @@ switch ($actionToDoWithObject)   {
         $request = createRequestFromPOST();
         $element = select ($request)[0];
         // stefan : Partie IHM
-        include 'ihm/pages/'.$objectToWorkWith.'_affichage.php';
-        $pageAAfficher = afficherElement($element);
+        $pageAAfficher =  'ihm/resultat/'.$objectToWorkWith.'.php';
         break;
     case "selectList":
         // stefan : Partie DAO
         $request = createRequestFromPOST();
         $listOfElements = select ($request);
         // stefan : Partie IHM
-        include 'ihm/pages/'.$objectToWorkWith.'_affichage.php';
-        $pageAAfficher = afficherListeElements($listOfElements);
+        $pageAAfficher =  'ihm/resultat/'.$objectToWorkWith.'_liste.php';
         break;
     case "insert":
         // stefan : Partie DAO
         $valueToInsert = getValuesFormPOST();
         insert($valueToInsert);
         // stefan : Partie IHM
-        // Vers quoi faut-il faire la redirection ?
+        // mettre en type=hidden value=[nom_page] + controller en $_POST['page']
+        // $_GET['page'] = $_POST['page'];
         break;
     case "alter":
         // stefan : Partie DAO
         $valueToAlter = getValuesFormPOST();
         insert($valueToAlter);
         // stefan : Partie IHM
-        // Vers quoi faut-il faire la redirection ?
+        // mettre en type=hidden value=[nom_page] + controller en $_POST['page']
+        // $_GET['page'] = $_POST['page'];
         break;
     case "delete":
         // stefan : Partie DAO
@@ -93,7 +93,8 @@ switch ($actionToDoWithObject)   {
         $idOfLineToDelete = getValuesFormPOST()[0];
         delete($idOfLineToDelete);
         // stefan : Partie IHM
-        // Vers quoi faut-il faire la redirection ?
+        // mettre en type=hidden value=[nom_page] + controller en $_POST['page']
+        // $_GET['page'] = $_POST['page'];
         break;
 }     
         

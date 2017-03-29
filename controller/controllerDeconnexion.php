@@ -7,6 +7,6 @@ if ($_GET['connexion'] == "off") {
      */
     $_SESSION = array();
     session_destroy();
-    $pageAAfficher = "ihm/pages/deconnexion.php";
+    $pageAAfficher = "ihm/connexion/deconnexion.php";
 }
 

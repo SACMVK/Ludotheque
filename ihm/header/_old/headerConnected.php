@@ -29,8 +29,7 @@
                     </li>
                 </ul>
                 <p class="navbar-text navbar-right actions">
-                    <a class="btn btn-default action-button" role="button" href="index.php?connexion=off">Se
-                        déconnecter</a>
+                    <a class="btn btn-default action-button" role="button" href="index.php?connexion=off">Se déconnecter</a>
                 </p>
             </div>
         </div>
