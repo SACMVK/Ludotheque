@@ -82,7 +82,7 @@ switch ($actionToDoWithObject)   {
     case "alter":
         // stefan : Partie DAO
         $valueToAlter = getValuesFormPOST();
-        insert($valueToAlter);
+        alter($valueToAlter); //! alter ou update et non insert
         // stefan : Partie IHM
         // mettre en type=hidden value=[nom_page] + controller en $_POST['page']
         // $_GET['page'] = $_POST['page'];

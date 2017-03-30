@@ -77,7 +77,7 @@ Function select($requete){
 
 //$listeJeuT = new Jeu_T($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$typePC,$anneeSortie,$description,$idPC,$idJeuT);
 
-Function insert($listJeuT){
+Function insert($valueToInsert){
 	/* M : Ouverture de la connexion
 	 */
 	$pdo = openConnexion();
@@ -85,7 +85,7 @@ Function insert($listJeuT){
         // M :Vérification si l'editeur existe déjà dans le dico editeur_d, 1 ligne si oui, 0 sinon
         $edi = "SELECT * FROM editeur_d WHERE editeur=:editeur;";
         $query = $pdo->prepare($edi);
-	$query->execute(array('editeur'=>$listJeuT['editeur'])) ;
+	$query->execute(array('editeur'=>$valueToInsert['editeur'])) ;
         $count = $query->rowCount();
               
         //M : Requetes sur les tables jeu_t et produit_c_t 
@@ -101,30 +101,30 @@ Function insert($listJeuT){
             $requeteEditeur_d= "INSERT INTO ".TABLE_EDITEUR_D."(editeur) VALUES (:editeur);";
             $stmtEditeur_d = $pdo->prepare($requeteEditeur_d);
             $stmtEditeur_d->execute(array(
-                "editeur" => $listJeuT['editeur']
+                "editeur" => $valueToInsert['editeur']
             ));
         }        
         
         // M : On execute        
         $stmtPCT->execute(array(
-            "typePC" => $listJeuT['typePC'],
-            "anneeSortie" => $listJeuT['anneeSortie'],
-            "description" => $listJeuT['description']
+            "typePC" => $valueToInsert['typePC'],
+            "anneeSortie" => $valueToInsert['anneeSortie'],
+            "description" => $valueToInsert['description']
         ));
         
-        // M : Récupération du dernier ID avec lastINsertID() sur le pdo
+        // M : Récupération du dernier ID avec lastInsertID() sur le pdo
         $lastIdPC = $pdo->lastInsertId();
         $stmtJeuT->execute(array(
             "idPC" => $lastIdPC,
-            "nbJoueursMin" => $listJeuT['nbJoueursMin'],
-            "nbJoueursMax" => $listJeuT['nbJoueursMax'],
-            "nom" => $listJeuT['nom'],
-            "editeur" => $listJeuT['editeur'],
-            "regles" => $listJeuT['regles'],
-            "difficulte" => $listJeuT['difficulte'],
-            "public" => $listJeuT['public'],
-            "listePieces" => $listJeuT['listePieces'],
-            "dureePartie" => $listJeuT['dureePartie']
+            "nbJoueursMin" => $valueToInsert['nbJoueursMin'],
+            "nbJoueursMax" => $valueToInsert['nbJoueursMax'],
+            "nom" => $valueToInsert['nom'],
+            "editeur" => $valueToInsert['editeur'],
+            "regles" => $valueToInsert['regles'],
+            "difficulte" => $valueToInsert['difficulte'],
+            "public" => $valueToInsert['public'],
+            "listePieces" => $valueToInsert['listePieces'],
+            "dureePartie" => $valueToInsert['dureePartie']
         ));
 
 	/* M : Fermeture de la connexion
@@ -132,7 +132,7 @@ Function insert($listJeuT){
 	closeConnexion($pdo);
 }
 
-Function update($listJeuT){
+Function alter($valueToAlter){
 	/* M : Ouverture de la connexion
 	 */
 	$pdo = openConnexion();
@@ -140,7 +140,7 @@ Function update($listJeuT){
         // M :Vérification si l'editeur existe déjà dans le dico editeur_d, 1 ligne si oui, 0 sinon
         $edi = "SELECT * FROM editeur_d WHERE editeur=:editeur;";
         $query = $pdo->prepare($edi);
-	$query->execute(array('editeur'=>$listJeuT['editeur'])) ;
+	$query->execute(array('editeur'=>$valueToAlter['editeur'])) ;
         $count = $query->rowCount();
         
          //M : Requetes sur les tables jeu_t et produit_c_t 
@@ -157,28 +157,28 @@ Function update($listJeuT){
         if ($count==0){
             $requeteEditeur_d = "INSERT INTO ".TABLE_EDITEUR_D."(editeur) VALUES (:editeur);";
             $stmtEditeur_d = $pdo->prepare($requeteEditeur_d);
-            $stmtEditeur_d->execute(array("editeur" => $listJeuT['editeur']));
+            $stmtEditeur_d->execute(array("editeur" => $valueToAlter['editeur']));
         }
 
         //On execute 
         $stmtJeuT->execute(array(
-            "idPC" => $listJeuT['idPC'],
-            "nbJoueursMin" => $listJeuT['nbJoueursMin'],
-            "nbJoueursMax" => $listJeuT['nbJoueursMax'],
-            "nom" => $listJeuT['nom'],
-            "editeur" => $listJeuT['editeur'],
-            "regles" => $listJeuT['regles'],
-            "difficulte" => $listJeuT['difficulte'],
-            "public" => $listJeuT['public'],
-            "listePieces" => $listJeuT['listePieces'],
-            "dureePartie" => $listJeuT['dureePartie']
+            "idPC" => $valueToAlter['idPC'],
+            "nbJoueursMin" => $valueToAlter['nbJoueursMin'],
+            "nbJoueursMax" => $valueToAlter['nbJoueursMax'],
+            "nom" => $valueToAlter['nom'],
+            "editeur" => $valueToAlter['editeur'],
+            "regles" => $valueToAlter['regles'],
+            "difficulte" => $valueToAlter['difficulte'],
+            "public" => $valueToAlter['public'],
+            "listePieces" => $valueToAlter['listePieces'],
+            "dureePartie" => $valueToAlter['dureePartie']
         ));
         
         $stmtPCT->execute(array(
-            "idPC" => $listJeuT['idPC'],
-            ":typePC" => $listJeuT['typePC'],
-            ":anneeSortie" => $listJeuT['anneeSortie'],
-            ":description" => $listJeuT['description']
+            "idPC" => $valueToAlter['idPC'],
+            ":typePC" => $valueToAlter['typePC'],
+            ":anneeSortie" => $valueToAlter['anneeSortie'],
+            ":description" => $valueToAlter['description']
         ));
         
 	/* M : Fermeture de la connexion
@@ -187,7 +187,7 @@ Function update($listJeuT){
 }
 
 //suppresssion d'un jeu par son idPC
-Function delete($id){
+Function delete($idOfLineToDelete){
     /* M : Ouverture de la connexion
 	 */
 	$pdo = openConnexion();
@@ -201,8 +201,8 @@ Function delete($id){
 	$stmtDeleteJeuT = $pdo->prepare($requeteDeleteJeuT);
         $stmtDeletePCT = $pdo->prepare($requeteDeletePCT);
 	
-        $stmtDeleteJeuT->bindParam(':idPC', $id);
-        $stmtDeletePCT->bindParam(':idPC', $id);
+        $stmtDeleteJeuT->bindParam(':idPC', $idOfLineToDelete);
+        $stmtDeletePCT->bindParam(':idPC', $idOfLineToDelete);
 	/* M : 
 	 */
 	$stmtDeleteJeuT->execute();

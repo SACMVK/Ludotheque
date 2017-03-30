@@ -37,8 +37,8 @@ class Jeu_T{
                 $this->typePC = $typePC;
 	}
 	
-	// AhMaD: getter et setter, on vas les utiliser pour chercher les informations ou les modifier
-	// IdPC
+	//M : Getters and Setters
+	//M : IdPC
 	public function getIdPC() {
 		return $this->idPC;
 	}
@@ -46,7 +46,7 @@ class Jeu_T{
 		return $this->idPC = $idPC;
 	}
 	
-	// NbJoueursMin
+	//M : NbJoueursMin
 	public function getNbJoueursMin() {
 		return $this->nbJoueursMin;
 	}
@@ -54,7 +54,7 @@ class Jeu_T{
 		return $this->nbJoueursMin = $nbJoueursMin;
 	}
 	
-	// editeur
+	//M : editeur
 	public function getEditeur() {
 		return $this->editeur;
 	}
@@ -62,7 +62,7 @@ class Jeu_T{
 		return $this->editeur = $editeur;
 	}
 	
-	// $nbJoueursMax
+	//M : $nbJoueursMax
 	public function getNbJoueursMax() {
 		return $this->nbJoueursMax;
 	}
@@ -70,14 +70,14 @@ class Jeu_T{
 		return $this->$nbJoueursMax = $nbJoueursMax;
 	}
 	
-	// difficulte
+	//M : difficulte
 	public function getDifficulte() {
 		return $this->difficulte;
 	}
 	public function setDifficulte($difficulte) {
 		return $this->difficulte = $difficulte;
 	}
-	// droit
+	//M : droit
 	public function getRegles() {
 		return $this->regles;
 	}
@@ -85,7 +85,7 @@ class Jeu_T{
 		$this->regles = $regles;
 	}
 	
-	// nom
+	//M : nom
 	public function getNom() {
 		return $this->nom;
 	}
@@ -93,7 +93,7 @@ class Jeu_T{
 		return $this->nom = $nom;
 	}
 	
-	// public
+	//M : public
 	public function getpublic() {
 		return $this->public;
 	}
@@ -101,7 +101,7 @@ class Jeu_T{
 		return $this->public = $public;
 	}
 	
-	// listePieces
+	//M : listePieces
 	public function getListePiecese() {
 		return $this->listePieces;
 	}
@@ -109,7 +109,7 @@ class Jeu_T{
 		return $this->listePieces = $listePieces;
 	}
 	
-	// $dureePartie
+	//M : $dureePartie
 	public function getDureePartie() {
 		return $this->dureePartie;
 	}
@@ -117,8 +117,8 @@ class Jeu_T{
 		return $this->dureePartie;
 	}
         
-        /*AJOUT DES PARAMETRES DE LA TABLE produit_culturel_t */
-        // $anneeSortie
+        /*M : AJOUT DES PARAMETRES DE LA TABLE produit_culturel_t */
+        //M : $anneeSortie
 	public function getAnneeSortie() {
 		return $this->anneeSortie;
 	}
@@ -126,7 +126,7 @@ class Jeu_T{
 		return $this->anneeSortie;
 	}
         
-        // $description
+        //M : $description
 	public function getDescription() {
 		return $this->description;
 	}
@@ -134,7 +134,7 @@ class Jeu_T{
 		return $this->description;
 	}
 	
-        // $typePC
+        //M : $typePC
 	public function getTypePC() {
 		return $this->typePC;
 	}
