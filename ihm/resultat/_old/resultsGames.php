@@ -26,7 +26,7 @@ function screenGame($list){
  //       $affichageJeuT.=
 ?>    
 <table border= 1px solid black>
-    <caption><?php $jeu->getNom() ?></caption>
+    <caption><?=  $jeu->getNom() ?></caption>
     <tr>
         <th>Nombre de joueurs</th>
         <th>Editeur</th>
@@ -39,17 +39,17 @@ function screenGame($list){
         <th>Description</th>
     </tr>
     <tr>
-        <td><?php $jeu->getNbJoueursMin() ?> à <?php $jeu->getNbJoueursMax() ?></td>
-        <td><?php $jeu->getEditeur() ?></td>
-        <td><?php str_truncate($jeu->getRegles(),100) ?> ...</td>
-        <td><?php $jeu->getDifficulte() ?></td>
-        <td><?php $jeu->getpublic() ?></td>
-        <td><?php $jeu->getListePiecese() ?></td>
-        <td><?php $jeu->getDureePartie() ?></td>
-        <td><?php $jeu->getAnneeSortie() ?></td>
-        <td><?php str_truncate($jeu->getDescription(),100) ?> ...</td>
+        <td><?= $jeu->getNbJoueursMin() ?> à <?= $jeu->getNbJoueursMax() ?></td>
+        <td><?= $jeu->getEditeur() ?></td>
+        <td><?= str_truncate($jeu->getRegles(),100) ?> ...</td>
+        <td><?= $jeu->getDifficulte() ?></td>
+        <td><?= $jeu->getpublic() ?></td>
+        <td><?= $jeu->getListePiecese() ?></td>
+        <td><?= $jeu->getDureePartie() ?></td>
+        <td><?= $jeu->getAnneeSortie() ?></td>
+        <td><?= str_truncate($jeu->getDescription(),100) ?> ...</td>
     </tr>
 </table><?php
     endforeach;
-       return $affichageJeuT;
+//       return $affichageJeuT;
     }

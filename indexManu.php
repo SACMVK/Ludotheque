@@ -36,7 +36,7 @@ caption {
  }
 </style>
 
-<?php require ('./ihm/pages/effets.php'); ?>
+
 </head>
 
 
@@ -88,9 +88,9 @@ else {
     
     $listGames=[$jeuT1,$jeuT2,$jeuT3];
 
-    include ('ihm/pages/resultsGames.php');
+    include ('ihm/resultat/_old/resultsGames.php');
     $afficheListeJeuT = screenGame($listGames);
-    echo $afficheListeJeuT;
+    //echo $afficheListeJeuT;
     
     $jeuTOne = array('nbJoueursMin'=>2,
                     'nbJoueursMax'=>2,
