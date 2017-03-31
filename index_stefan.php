@@ -13,27 +13,9 @@
             "bar" => "foo",
         );
         ?>
+        <?php include '_old/tr.php'; ?>
 
 
-
-        <table>
-            <tr>
-                <td>nom cle</td>
-                <td>nom valeur</td>
-            </tr>
-            <?php
-            if (!empty($array)) {
-                foreach ($array as $key => $value) {
-                    include '_old/tr.php';
-                }
-            } else {
-                echo '<tr><td>Aucun résultat</td></tr>';
-            }
-            ?>
-
-
-        </table>
-
-    </body>
+</body>
 </html>
 

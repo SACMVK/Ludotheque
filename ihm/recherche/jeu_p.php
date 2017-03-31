@@ -1,4 +1,2 @@
-<?php
-
-echo "rechercher un jeu physique (exemplaire)";
+rechercher un jeu physique (exemplaire)
 

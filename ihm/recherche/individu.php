@@ -1,4 +1,2 @@
-<?php
-
-echo "rechercher un utilisateur";
+rechercher un utilisateur
 
