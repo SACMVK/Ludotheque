@@ -6,6 +6,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  * 
+ * Manu
  * Permet de rechercher les users en fonction selon les critères suivants:
  *      - departement
  *      - ville
@@ -24,6 +25,7 @@ function screenGame($list){
     ?><h1>Jeux disponibles</h1><?php
     foreach ($list as $jeu) :
  //       $affichageJeuT.=
+        if (!empty($list)):
 ?>    
 <table border= 1px solid black>
     <caption><?=  $jeu->getNom() ?></caption>
@@ -50,6 +52,13 @@ function screenGame($list){
         <td><?= str_truncate($jeu->getDescription(),100) ?> ...</td>
     </tr>
 </table><?php
+        else:?>
+<table border= 1px solid black>
+    <tr>
+        <td>Aucun résultat</td>
+    </tr>
+</table><?php
+        endif;
     endforeach;
 //       return $affichageJeuT;
     }
