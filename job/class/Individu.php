@@ -4,10 +4,10 @@ class Individu {
 	// AhMaD: les attributs pour individu ca-a-dire un utilisateur et peut etre une groupe
 	private $idUser;
 	private $address = array ();
-        private $ville;
-        private $rue;
-        private $codePostal;
-        private $dpt;
+                    private $ville;
+                    private $rue;
+                    private $codePostal;
+                    private $dpt;
 	private $email;
 	private $telephone;
 	private $pseudo;
@@ -42,7 +42,7 @@ class Individu {
 	// AhMaD: getter et setter, on vas les utiliser pour chercher les informations ou les modifier
 	// iduser
 	
-    // email
+    // id
 	public function  getIdUser() {
 		return $this->idUser;
 	}

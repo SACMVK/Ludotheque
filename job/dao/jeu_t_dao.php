@@ -96,7 +96,7 @@ Function insert($valueToInsert){
         $stmtPCT = $pdo->prepare($requetePCT); 
         $stmtJeuT = $pdo->prepare($requeteJeuT);
         
-        // M : Vérification si l'editeur existe dans le dictionnaire, sinon, je l'ajoute à celui ci
+        // M : Vérification si   l'editeur existe dans le dictionnaire, sinon, je l'ajoute à celui ci
         if ($count==0){
             $requeteEditeur_d= "INSERT INTO ".TABLE_EDITEUR_D."(editeur) VALUES (:editeur);";
             $stmtEditeur_d = $pdo->prepare($requeteEditeur_d);

@@ -12,9 +12,7 @@
 <?php require_once ('ihm/header/header.php');?>
 <?php require_once ('ihm/menus/menuAdmin.php');?>
 <?php require_once ('job/class/Individu.php');?>
-    <?php require_once ('job/class/Jeu_P.php');?>
-    <?php require_once ('job/class/Jeu_T.php');
-    require_once ('job/class/resulte_recherche_individu.php');
+    require_once ('resultat/individu_liste.php');
     
     require_once ('job/class/Individu.php');
 $compte1 = new Individu('vannes', 'victor hugo', 56000, 'morhbien', 'user1@gmail.fr', 065346526, 'user1', 2017, 1224, 'admin', 'user1', 'user1', '1999');
@@ -24,7 +22,7 @@ $liste=array();
 $liste[]=$compte1;
 $liste[]=$compte2;
 $liste[]=$compte3;
-afficher($liste);
+
 ?>
 <br />
 <?php require_once ('ihm/footer/footer.php');?>
