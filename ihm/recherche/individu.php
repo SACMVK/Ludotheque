@@ -1,12 +1,10 @@
-<?php
-require_once '../../controller/controllerRequete.php ';
-?>
+
 
 <div class="container" id="wrap">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
-            <form action=" createRequestFromPOST()" method="post" accept-charset="utf-8" class="form" role="form">   
+            <form action=" " method="post" accept-charset="utf-8" class="form" role="form">   
                 <legend> Trouver un compte</legend>
 
                 <input type="text" name="nom" class="form-control input-lg" maxlength="12" placeholder="Nom"  /> 
