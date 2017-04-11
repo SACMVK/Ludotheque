@@ -1,7 +1,7 @@
 <?php
 
 // AhMaD: include connexion anec BD
-require 'connexion_dao.php';
+        include 'job/dao/Connexion_Dao.php';
 
 // AhMaD: les variables static
 const TABLE_INDIVIDU = "individu";

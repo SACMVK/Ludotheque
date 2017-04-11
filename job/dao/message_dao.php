@@ -33,12 +33,12 @@ Function select($requete) {
         $idDest = $donnees['idDest'];
         $texte = $donnees['texte'];
         $sujet = $donnees['sujet'];
-        $typeMessage = $donnees['typeMessage'];
 
 
 
 
-        $listeMessages[] = new Message($idExped, $idDest, $typeMessage, $sujet, $texte, $idMessage);
+
+        $listeMessages[] = new Message($idExped, $idDest, $sujet, $texte, $idMessage);
 //echo $donnees['texte'] ."   ". $donnees['sujet'] ."   ". $donnees['typeMessage'];
 // fermeture de la connexion
         closeConnexion($pdo);
@@ -60,13 +60,12 @@ Function insert($list) {
 
 // on recupere le contenu de la table message
 //prepare =avant query pour éviter faille de sécurité
-    $stmt = $pdo->prepare("INSERT INTO " . $table . "(idExped, idDest, typeMessage, sujet, texte) VALUES( :idExped, :idDest,:typeMessage, :sujet, :texte )");
+    $stmt = $pdo->prepare("INSERT INTO " . $table . "(idExped, idDest, sujet, texte) VALUES( :idExped, :idDest, :sujet, :texte )");
 
 // execution de la requete
     $stmt->execute(array(
         "idExped" => $idExped = $list['idExped'],
         "idDest" => $idDest = $list['idDest'],
-        "typeMessage" => $typeMessage = $list['typeMessage'],
         "sujet" => $sujet = $list['sujet'],
         "texte" => $texte = $list['texte']
     ));
@@ -87,12 +86,11 @@ Function alter($requete) {
 
 
 
-    $stmt = $pdo->prepare("UPDATE " . $table . " SET 'idExped' = :idExped, 'idDest' = :idDest, 'typeMessage' = :typeMessage, 'sujet' = :sujet, 'texte' = :texte, 'idMessage' = :idMessage)");
+    $stmt = $pdo->prepare("UPDATE " . $table . " SET 'idExped' = :idExped, 'idDest' = :idDest, 'sujet' = :sujet, 'texte' = :texte, 'idMessage' = :idMessage)");
 
     $stmt->execute(array(
         ":idExped" => $idExped['idExped'],
         ":idDest" => $idDest['idDest'],
-        ":typeMessage" => $typeMessage['typeMessage'],
         ":sujet" => $sujet['sujet'],
         ":texte" => $texte[texte],
         ":idMessage" => $idMessage['idMessage']
