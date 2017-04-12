@@ -27,14 +27,18 @@
 //        supprimer_donnees_jeu_t();
         
         // stefan : on créé les données en partant des tables dont les autres tables dépendantes
-        $nombreIndividus = 5;//1000
-        $nombreMessages = 3;//3000
-        $nombreJeuxP = 3;//5000
-        $nombreJeuxT = 3;//100
+        $nombreIndividus = 10;//1000
+        $nombreMessages = 10;//3000
+        $nombreJeuxP = 30;//5000
+        $nombreJeuxT = 10;//10000
         
+        echo "<br><h2>".$nombreIndividus." individus</h2><br>";
         generer_donnees_individu($nombreIndividus);
+        echo "<br><h2>".$nombreJeuxT." jeux_t</h2><br>";
         generer_donnees_jeu_t($nombreJeuxT);
+        echo "<br><h2>".$nombreJeuxP." jeux_p</h2><br>";
         generer_donnees_jeu_p($nombreJeuxP, $nombreJeuxT, $nombreIndividus);
+        echo "<br><h2>".$nombreMessages." messages</h2><br>";
         generer_donnees_message($nombreMessages, $nombreIndividus);
         ?>
     </body>

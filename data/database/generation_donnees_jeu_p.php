@@ -2,7 +2,7 @@
 
 function  supprimer_donnees_jeu_p(){
     $pdo = openConnexion();
-    $requeteDelete = "DELETE * FROM jeu_p";
+    $requeteDelete = "DELETE FROM jeu_p";
     $stmt = $pdo->prepare($requeteDelete);
     $stmt->execute();
     closeConnexion($pdo);
@@ -17,7 +17,7 @@ function generer_donnees_jeu_p(int $nombreJeuxP, int $nombreJeuxT , int $nombreI
         $list["idProprietaire"] = rand(1, $nombreIndividus);
         $list["etat"] = $listEtats[rand(0, count($listEtats)-1)];
         
-        echo "idPC : ".$list["idPC"]."<br>idProprietaire : ".$list["idProprietaire"]."<br>etat".$list["etat"]."<br><br>";
+        echo "idPC : ".$list["idPC"]."<br>idProprietaire : ".$list["idProprietaire"]."<br>Etat du jeu : ".$list["etat"]."<br><br>";
         
         //insert($list);
     }

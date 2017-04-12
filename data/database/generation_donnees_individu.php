@@ -2,10 +2,10 @@
 
 function supprimer_donnees_individu() {
     $pdo = openConnexion();
-    $requeteDelete = "DELETE * FROM individu";
+    $requeteDelete = "DELETE FROM individu";
     $stmt = $pdo->prepare($requeteDelete);
     $stmt->execute();
-    $requeteDelete = "DELETE * FROM compte";
+    $requeteDelete = "DELETE FROM compte";
     $stmt = $pdo->prepare($requeteDelete);
     $stmt->execute();
     closeConnexion($pdo);
@@ -13,20 +13,89 @@ function supprimer_donnees_individu() {
 
 function generer_donnees_individu(int $nombreIndividus) {
     for ($indice = 0; $indice < $nombreIndividus; $indice++) {
-        $prenom = getPrenom();
-        $nom = getNom();
+
+        $list['prenom'] = getPrenom();
+        $list['nom'] = getNom();
+        $list['email'] = getMail($list['prenom'], $list['nom']);
         $departement = getDepartement();
-        echo "<b>" . $prenom . " " . $nom . "</b><br>";
-        echo getMail($prenom, $nom) . "<br>";
-        echo "Droits d'utilisateur : " . getDroit() . "<br>";
-        echo "Né(e) le : " . getDate_(1950) . "<br>";
-        echo "Inscrit(e) le : " . getDate_(2016) . "<br>";
-        echo getAdresse() . " à " . getVille() . " dans le " . $departement[0] . " (" . $departement[1] . ")<br><br>";
+        $list['numDept'] = $departement[0];
+        $list['codePostal'] = getCodePostal($departement[0]);
+        $list['droit'] = getDroits();
+        $list['dateNaiss'] = getDate_(1950, 2010);
+        $list['dateInscription'] = getDate_(2016);
+        $list['adresse'] = getAdresse();
+        $list['ville'] = getVille();
+        $list['telephone'] = getTelephone();
+        $list['pseudo'] = getPseudo($list['prenom'], $list['nom']);
+        $list['mdp'] = getMdp();
+
+        echo "<b>" . $list['prenom'] . " " . $list['nom'] . "</b><br>";
+        echo $list['email'] . "<br>";
+        echo $list['telephone'] . "<br>";
+        echo "Droits d'utilisateur : " . $list['droit'] . "<br>";
+        echo "Né(e) le : " . $list['dateNaiss'] . "<br>";
+        echo "Pseudo : " . $list['pseudo'] . "<br>";
+        echo "Mot de passe : " . $list['mdp'] . "<br>";
+        echo "Inscrit(e) le : " . $list['dateInscription'] . "<br>";
+        echo $list['adresse'] . " à " . $list['ville'] . ", " . $list['codePostal'] . " dans le " . $list['numDept'] . " (" . $departement[1] . ")<br><br>";
+
         //insert($list);
     }
 }
 
-function getDroit() {
+function getPseudo($prenom, $nom) {
+    $prenom = wd_remove_accents(strtolower($prenom));
+    $nom = wd_remove_accents(strtolower($nom));
+    $listeMots = [
+        " lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "mauris", "id", "nisi", "congue", "placerat", "leo", "eu", "ultrices", "erat", "phasellus", "convallis", "varius",
+        "nunc", "at", "rhoncus", "nulla", "semper", "a", "curabitur", "eu", "consectetur", "velit", "sit", "amet", "consectetur", "ante", "nunc", "lorem", "arcu", "sagittis", "tristique", "odio",
+        "ut", "ultricies", "porta", "eros", "aliquam", "ex", "felis", "placerat", "a", "tortor", "consequat", "imperdiet", "aliquam", "risus", "integer", "purus", "purus", "scelerisque", "quis", "leo",
+        "nec", "bibendum", "molestie", "erat", "pellentesque", "vestibulum", "nisl", "ac", "massa", "consequat", "eget", "consectetur", "nunc", "hendrerit", "nullam", "lobortis", "lorem", "et", "tincidunt", "pulvinar",
+        "metus", "turpis", "fermentum", "neque", "et", "facilisis", "diam", "orci", "vitae", "risus", "nam", "ac", "dui", "ullamcorper", "interdum", "nisi", "sit", "amet", "luctus", "lectus",
+        "diam", "vitae", "eleifend", "dui", "elementum", "eu", "suspendisse", "ac", "enim", "at", "justo", "lacinia", "pretium", "praesent", "at", "sem", "quis", "nibh", "fermentum", "imperdiet"];
+    $choix = rand(0, 5);
+    switch ($choix) {
+        case 0:
+            $pseudo = $prenom . $nom;
+            break;
+        case 1:
+            $pseudo = $nom . $prenom;
+            break;
+        case 2:
+            $pseudo = $prenom . rand(10, 1000);
+            break;
+        case 3:
+            $pseudo = $nom . rand(10, 1000);
+            break;
+        case 4:
+            $pseudo = $listeMots[rand(0, count($listeMots) - 1)];
+            break;
+        case 5:
+            $pseudo = $listeMots[rand(0, count($listeMots) - 1)] . rand(10, 1000);
+            break;
+    }
+    return $pseudo;
+}
+
+function getMdp() {
+    $mDP = "";
+    $alphaNum = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    $longueurMDP = rand(4, 8);
+    for ($i = 0; $i < $longueurMDP; $i++) {
+        $mDP .= $alphaNum[rand(0, count($alphaNum) - 1)];
+    }
+    return $mDP;
+}
+
+function getTelephone() {
+    return "0" . rand(600000000, 799999999);
+}
+
+function getCodePostal($departement) {
+    return $departement . rand(0, 9) . "00";
+}
+
+function getDroits() {
     $pdo = openConnexion();
     $requete = "SELECT * FROM droit_d;";
     $stmt = $pdo->prepare($requete);
@@ -40,8 +109,12 @@ function getDroit() {
 }
 
 // stefan : nom pourri car on ne peut utiliser getDate()
-function getDate_(int $dateMini) {
-    $annee = rand($dateMini, getDate()['year']);
+function getDate_(int $dateMini, int $dateMax = 0) {
+    // stefan : on ne peut mettre getDate()['year'] directement à la déclaration
+    if ($dateMax == 0) {
+        $dateMax = getDate()['year'];
+    }
+    $annee = rand($dateMini, $dateMax);
     $moisMax = 12;
     if ($annee == getDate()['year']) {
         $moisMax = intval(getDate()['month']);

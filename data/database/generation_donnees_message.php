@@ -2,7 +2,7 @@
 
 function supprimer_donnees_message() {
     $pdo = openConnexion();
-    $requeteDelete = "DELETE * FROM message";
+    $requeteDelete = "DELETE FROM message";
     $stmt = $pdo->prepare($requeteDelete);
     $stmt->execute();
     closeConnexion($pdo);
@@ -10,20 +10,20 @@ function supprimer_donnees_message() {
 
 function generer_donnees_message(int $nombreMessages, int $nombreIndividus) {
 
-    $listeSujets = ["Bonjour", "Coucou", "test", "Emprunt", "Merci", "Excellent jeu !"];
-
-
     for ($indice = 0; $indice < $nombreMessages; $indice++) {
         $list['idExped'] = rand(1, $nombreIndividus);
         $list['idDest'] = rand(1, $nombreIndividus);
-        $list['sujet'] = $listeSujets[rand(0, count($listeSujets) - 1)];
+        $list['sujet'] = getTexte(true);
         $list['texte'] = getTexte();
-        echo "idExped : " . $list['idExped'] . "<br>idDest : " . $list['idDest'] . "<br>sujet : " . $list['sujet'] . "<br>texte :<br>" . $list['texte']."<br><br>";
+        echo "idExped : " . $list['idExped'] . "<br>idDest : " . $list['idDest'] . "<br>sujet : " . $list['sujet'] . "<br>texte :<br>" . $list['texte'] . "<br><br>";
         //insert($list);
     }
 }
 
-function getTexte() {
+
+
+
+function getTexte(bool $sujet = false) {
     $listeMots = [
         " lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "mauris", "id", "nisi", "congue", "placerat", "leo", "eu", "ultrices", "erat", "phasellus", "convallis", "varius",
         "nunc", "at", "rhoncus", "nulla", "semper", "a", "curabitur", "eu", "consectetur", "velit", "sit", "amet", "consectetur", "ante", "nunc", "lorem", "arcu", "sagittis", "tristique", "odio",
@@ -77,32 +77,57 @@ function getTexte() {
         "diam", "vitae", "eleifend", "dui", "elementum", "eu", "suspendisse", "ac", "enim", "at", "justo", "lacinia", "pretium", "praesent", "at", "sem", "quis", "nibh", "fermentum", "imperdiet"];
 
 
-    $nombreMaxMotsDansPhrase = 10;
-    $nombreMaxPhrase = 6;
-    $nombreMinMotsDansPhrase = 3;
-    $nombreMinPhrase = 1;
 
-    $nombreMotsDansPhrase = rand($nombreMinMotsDansPhrase, $nombreMaxMotsDansPhrase);
-    $nombrePhrases = rand($nombreMinPhrase, $nombreMaxPhrase);
+
+
 
     $text = "";
-    for ($i = 0; $i < $nombrePhrases; $i++) {
-        for ($j = 0; $j < $nombreMotsDansPhrase; $j++) {
-            $mot = $listeMots[rand(0, count($listeMots)-1)];
-            if ($j == 0) {
-                $mot = ucfirst($mot)." ";
+
+
+    if ($sujet) {
+        $nombreMaxMotsSujet = 8;
+        $nombreMotsSujet = rand(1, $nombreMaxMotsSujet);
+        for ($j = 0; $j < $nombreMotsSujet; $j++) {
+            $text .= $listeMots[rand(0, count($listeMots) - 1)];
+            if ($j != $nombreMotsSujet - 1) {
+                $text .= " ";
             }
-            else if ($j == $nombreMotsDansPhrase-1){
-                $mot .= ".";
-            }
-            else {
-                $mot .= " ";
-            }
-            $text .= $mot;
         }
-        if ($i != $nombrePhrases-1){
-            $text .= " ";
+        $casse = rand(0, 3);
+        if ($casse == 2) {
+            $text = strtoupper($text);
+        }
+        else if ($casse == 1){
+            $text = ucfirst($text);
+        }
+    } else {
+        $nombreMaxMotsDansPhrase = 10;
+        $nombreMaxPhrase = 6;
+        $nombreMinMotsDansPhrase = 3;
+        $nombreMinPhrase = 1;
+
+        $nombreMotsDansPhrase = rand($nombreMinMotsDansPhrase, $nombreMaxMotsDansPhrase);
+        $nombrePhrases = rand($nombreMinPhrase, $nombreMaxPhrase);
+        for ($i = 0; $i < $nombrePhrases; $i++) {
+            for ($j = 0; $j < $nombreMotsDansPhrase; $j++) {
+                $mot = $listeMots[rand(0, count($listeMots) - 1)];
+                if ($j == 0) {
+                    $mot = ucfirst($mot) . " ";
+                } else if ($j == $nombreMotsDansPhrase - 1) {
+                    $mot .= ".";
+                } else {
+                    $mot .= " ";
+                }
+                $text .= $mot;
+            }
+            if ($i != $nombrePhrases - 1) {
+                $text .= " ";
+            }
         }
     }
+
+
+
+
     return $text;
 }
