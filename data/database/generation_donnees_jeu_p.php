@@ -9,7 +9,7 @@ function  supprimer_donnees_jeu_p(){
 }
 
 function generer_donnees_jeu_p(int $nombreJeuxP, int $nombreJeuxT , int $nombreIndividus){
-    for ($indice = 0; $indice<$nombreJeuxP; $indice++)
+    for ($indice = 1; $indice<=$nombreJeuxP; $indice++)
     {
         $listEtats = getEtats();
         
@@ -17,9 +17,11 @@ function generer_donnees_jeu_p(int $nombreJeuxP, int $nombreJeuxT , int $nombreI
         $list["idProprietaire"] = rand(1, $nombreIndividus);
         $list["etat"] = $listEtats[rand(0, count($listEtats)-1)];
         
-        echo "idPC : ".$list["idPC"]."<br>idProprietaire : ".$list["idProprietaire"]."<br>Etat du jeu : ".$list["etat"]."<br><br>";
-        
-        //insert($list);
+        //echo "idPC : ".$list["idPC"]."<br>idProprietaire : ".$list["idProprietaire"]."<br>Etat du jeu : ".$list["etat"]."<br><br>";
+        echo 'INSERT INTO jeu_p (idJeuP, idPC, idProprietaire, etat)';
+        echo 'VALUES ("'.$indice.'", "'.$list["idPC"].'", "'.$list["idProprietaire"].'", "'.$list["etat"].'");';
+echo '<br>';        
+//insert($list);
     }
 }
 

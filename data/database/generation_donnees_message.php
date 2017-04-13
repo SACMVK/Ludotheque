@@ -15,8 +15,14 @@ function generer_donnees_message(int $nombreMessages, int $nombreIndividus) {
         $list['idDest'] = rand(1, $nombreIndividus);
         $list['sujet'] = getTexte(true);
         $list['texte'] = getTexte();
-        echo "idExped : " . $list['idExped'] . "<br>idDest : " . $list['idDest'] . "<br>sujet : " . $list['sujet'] . "<br>texte :<br>" . $list['texte'] . "<br><br>";
-        //insert($list);
+        //echo "idExped : " . $list['idExped'] . "<br>idDest : " . $list['idDest'] . "<br>sujet : " . $list['sujet'] . "<br>texte :<br>" . $list['texte'] . "<br><br>";
+        
+echo 'INSERT INTO message ( idExped, idDest, sujet, texte)';
+echo '<br>';
+echo 'VALUES ( "'.$list['idExped'].'","' .$list['idDest'].'", "'.$list['sujet'].'"," '.$list['texte'].'");';
+echo '<br>';
+
+//insert($list);
     }
 }
 

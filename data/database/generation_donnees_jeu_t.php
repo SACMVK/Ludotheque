@@ -12,7 +12,7 @@ function supprimer_donnees_jeu_t() {
 }
 
 function generer_donnees_jeu_t(int $nombreJeuxT) {
-    for ($indice = 0; $indice < $nombreJeuxT; $indice++) {
+    for ($indice = 1; $indice <= $nombreJeuxT; $indice++) {
 
         $list['typePC'] = "Jeux de société";
         $list['anneeSortie'] = getSortie();
@@ -28,18 +28,22 @@ function generer_donnees_jeu_t(int $nombreJeuxT) {
         $list['listePieces'] = getListePiece();
         $list['dureePartie'] = getDuree();
 
-        echo "<b>" . $list['nom'] . "</b> de " . $list['editeur'] . "<br>";
-        echo $list['typePC'] . " sorti en " . $list['anneeSortie'] . "<br>";
-        echo "Le jeu en quelques mots : ".$list['description'] . "<br>";
-        echo "De " . $list['nbJoueursMin'] . " à " . $list['nbJoueursMax'] . " joueurs<br>";
-        echo "Niveau de difficulté : " . $list['difficulte'] . "<br>";
-        echo "Destiné à : " . $list['public'] . "<br>";
-        echo "Duré moyenne de la partie : " . $list['dureePartie'] . "<br>";
-        echo "Une boite comprend les éléments suivants : " . $list['listePieces'] . "<br>";
-        echo "Enoncé sommaire des règles : " . $list['regles'] . "<br><br>";
-
-
-        //insert($list);
+//        echo "<b>" . $list['nom'] . "</b> de " . $list['editeur'] . "<br>";
+//        echo $list['typePC'] . " sorti en " . $list['anneeSortie'] . "<br>";
+//        echo "Le jeu en quelques mots : ".$list['description'] . "<br>";
+//        echo "De " . $list['nbJoueursMin'] . " à " . $list['nbJoueursMax'] . " joueurs<br>";
+//        echo "Niveau de difficulté : " . $list['difficulte'] . "<br>";
+//        echo "Destiné à : " . $list['public'] . "<br>";
+//        echo "Duré moyenne de la partie : " . $list['dureePartie'] . "<br>";
+//        echo "Une boite comprend les éléments suivants : " . $list['listePieces'] . "<br>";
+//        echo "Enoncé sommaire des règles : " . $list['regles'] . "<br><br>";
+echo "INSERT INTO produit_culturel_t (typePC, anneeSortie, description)";
+echo "VALUES ('".$list['typePC']."', '".$list['anneeSortie']."', '".$list['description']."');";
+echo "<br>";
+echo "INSERT INTO jeu_t (idPC, nbJoueursMin, nbJoueursMax, nom, editeur, regles, difficulte, public, listePieces, dureePartie)";
+echo "VALUES (".$indice.", '".$list['nbJoueursMin']."', '".$list['nbJoueursMax']."', '".$list['nom']."', '".$list['editeur']."', '".$list['regles']."', '".$list['difficulte']."', '".$list['public']."', ".$list['listePieces'].", '".$list['dureePartie']."');";
+echo "<br>";   
+//insert($list);
     }
 }
 
