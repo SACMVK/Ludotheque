@@ -43,7 +43,6 @@ caption {
 <body>
 
 <?php
-
 include ('ihm/header/header.php');
 
 //require_once('ihm/menus/menuAdmin.php');//
@@ -75,7 +74,9 @@ else {
      <script src="ihm/js/jquery.min.js"></script>
     <script src="ihm/js/bootstrap.min.js"></script>
     <script src="ihm/js/MUSA_carousel-extended.js"></script>
-*/?>
+*/
+include ('ihm/recherche/jeu_t.php')
+?>
 
  <div id=listejeu>
         <?php
