@@ -12,7 +12,7 @@ function supprimer_donnees_individu() {
 }
 
 function generer_donnees_individu(int $nombreIndividus) {
-    for ($indice = 0; $indice < $nombreIndividus; $indice++) {
+    for ($indice = 1; $indice <= $nombreIndividus; $indice++) {
 
         $list['prenom'] = getPrenom();
         $list['nom'] = getNom();
@@ -29,16 +29,21 @@ function generer_donnees_individu(int $nombreIndividus) {
         $list['pseudo'] = getPseudo($list['prenom'], $list['nom']);
         $list['mdp'] = getMdp();
 
-        echo "<b>" . $list['prenom'] . " " . $list['nom'] . "</b><br>";
-        echo $list['email'] . "<br>";
-        echo $list['telephone'] . "<br>";
-        echo "Droits d'utilisateur : " . $list['droit'] . "<br>";
-        echo "Né(e) le : " . $list['dateNaiss'] . "<br>";
-        echo "Pseudo : " . $list['pseudo'] . "<br>";
-        echo "Mot de passe : " . $list['mdp'] . "<br>";
-        echo "Inscrit(e) le : " . $list['dateInscription'] . "<br>";
-        echo $list['adresse'] . " à " . $list['ville'] . ", " . $list['codePostal'] . " dans le " . $list['numDept'] . " (" . $departement[1] . ")<br><br>";
-
+//        echo "<b>" . $list['prenom'] . " " . $list['nom'] . "</b><br>";
+//        echo $list['email'] . "<br>";
+//        echo $list['telephone'] . "<br>";
+//        echo "Droits d'utilisateur : " . $list['droit'] . "<br>";
+//        echo "Né(e) le : " . $list['dateNaiss'] . "<br>";
+//        echo "Pseudo : " . $list['pseudo'] . "<br>";
+//        echo "Mot de passe : " . $list['mdp'] . "<br>";
+//        echo "Inscrit(e) le : " . $list['dateInscription'] . "<br>";
+//        echo $list['adresse'] . " à " . $list['ville'] . ", " . $list['codePostal'] . " dans le " . $list['numDept'] . " (" . $departement[1] . ")<br><br>";
+echo 'INSERT INTO compte (adresse,ville,email,telephone,pseudo,dateInscription,mdp,codePostal,numDept,droit)';
+echo 'VALUES ("'.$list['adresse'].'","'.$list['ville'].'","'.$list['email'].'","'.$list['telephone'].'","'.$list['pseudo'].'","'.$list['dateInscription'].'","'.$list['mdp'].'","'.$list['codePostal'].'","'.$list['numDept'].'","'.$list['droit'].'");';
+echo '<br>';
+echo 'INSERT INTO individu (idUser,nom,prenom,dateNaiss)';
+echo 'VALUES ('.$indice.',"'.$list['nom'].'","'.$list['prenom'].'","'.$list['dateNaiss'].'");';
+echo '<br>';
         //insert($list);
     }
 }
@@ -132,7 +137,7 @@ function getDate_(int $dateMini, int $dateMax = 0) {
         $jourMax = intval(getDate()['mday']);
     }
     $jour = rand(1, $jourMax);
-    return $jour . "/" . $mois . "/" . $annee;
+    return $annee . "-" . $mois . "-" . $jour;
 }
 
 function getDepartement() {
@@ -149,13 +154,16 @@ function getDepartement() {
 }
 
 // stefan : fonction prise sur internet basé sur les expressions régulières
-function wd_remove_accents($str, $charset = 'utf-8') {
-    $str = htmlentities($str, ENT_NOQUOTES, $charset);
+// suppression des accents
+// petit ajout pour supprimer les espaces
+function wd_remove_accents($str) {
+    $str = htmlentities($str, ENT_NOQUOTES, 'utf-8');
 
     $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
     $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
     $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
-
+    // stefan : ajout d'une ligne pour supprimer les espaces
+    str_replace(" ","",$str);
     return $str;
 }
 
