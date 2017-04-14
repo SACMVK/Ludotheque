@@ -35,15 +35,15 @@ INSERT INTO message (idMessage, idExped, idDest, sujet, texte) VALUES (NULL, '1'
 # Insertion de données de la table jeu_a_pour_genre OK
 INSERT INTO jeu_a_pour_genre (idPC, genre) VALUES ('1', 'Plateau');
 
-# Insertion de données de la table commentaire_user TODO
+# Insertion de données de la table commentaire_user OK
 INSERT INTO commentaire_user (idNU, commentaireU) VALUES ('1', 'sympa!');
 
-# Insertion de données de la table commentaire_p_c_t TODO
+# Insertion de données de la table commentaire_p_c_t OK
 INSERT INTO commentaire_p_c_t (idPC, commentaireT, idUser) VALUES ('1', 'un bon jeu de plateau', '2');
 
-# Insertion de données de la table commentaire_jeu_p TODO
+# Insertion de données de la table commentaire_jeu_p OK
 INSERT INTO commentaire_jeu_p (idJeuP, commentaireJP) VALUES ('1', 'boite pas complète');
 
-# Insertion de données de la table a_pour_image TODO
+# Insertion de données de la table a_pour_image OK
 INSERT INTO a_pour_image (idPC, source) VALUES ('1', 'C:\\Users\\admin\\Pictures\\235839.jpg');
 
