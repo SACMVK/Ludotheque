@@ -32,7 +32,7 @@ echo "INSERT INTO produit_culturel_t (typePC, anneeSortie, description)";
 echo "VALUES ('".$list['typePC']."', '".$list['anneeSortie']."', '".$list['description']."');";
 echo "<br>";
 echo "INSERT INTO jeu_t (idPC, nbJoueursMin, nbJoueursMax, nom, editeur, regles, difficulte, public, listePieces, dureePartie)";
-echo "VALUES (".$indice.", '".$list['nbJoueursMin']."', '".$list['nbJoueursMax']."', '".$list['nom']."', '".$list['editeur']."', '".$list['regles']."', '".$list['difficulte']."', '".$list['public']."', ".$list['listePieces'].", '".$list['dureePartie']."');";
+echo "VALUES (".$indice.", '".$list['nbJoueursMin']."', '".$list['nbJoueursMax']."', '".$list['nom']."', '".$list['editeur']."', '".$list['regles']."', '".$list['difficulte']."', '".$list['public']."', '".$list['listePieces']."', '".$list['dureePartie']."');";
 echo "<br>";   
 //insert($list);
     }
@@ -74,7 +74,7 @@ function getListePiece() {
     }
     // stefan : test s'il n'y a besoin d'aucun matériel
     if (strlen($listePieces) == 0) {
-        $listePieces = "Aucun matériel n'est nécessaire !";
+        $listePieces = "Aucun matériel n\'est nécessaire !";
     } else {
         // stefan : on supprime la dernière virgule et l'espace qui suit
         $listePieces = substr($listePieces, 0, strlen($listePieces) - 2);

@@ -2,8 +2,20 @@
 
 function generer_donnees_genre_individu(int $nombreGenre, int $nombreIndividus) {
     for ($indice = 1; $indice <= $nombreGenre; $indice++) {
+
+
+// stefan : la clé primaire est la somme des deux, il faut vérifier qu'elle est unique
+        $listeGenreIndividu [] = ["",""];
+        do {
+            $idIndividu = rand(1, $nombreIndividus);
+            $genre = getGenreIndividu();
+            $genreInvidu = [$idIndividu,$genre];
+        } while (in_array($genreInvidu, $listeGenreIndividu));
+        $listeGenreIndividu [] = $genreInvidu;
+
+
         echo 'INSERT INTO user_prefere_genre (idUser, genre)';
-        echo 'VALUES ("' . rand(1, $nombreIndividus) . '", "' . getGenreIndividu() . '");';
+        echo 'VALUES ("' . $genreInvidu[0] . '", "' . $genreInvidu[1] . '");';
         echo '<br>';
     }
 }

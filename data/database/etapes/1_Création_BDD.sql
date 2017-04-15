@@ -11,8 +11,6 @@ use ludotheque;
 #    Tables : 
 #  * compte -
 #  * individu -
-
-
 #  * jeu_p -
 #  * commentaire_jeu_p -
 #  * pret_p 
@@ -26,6 +24,8 @@ use ludotheque;
 #  * genre
 #  * message
 #  * notification
+#  * pret_a_pour_message
+#  * expedition
 
 #    Tables dictionnaires :
 #  * droit_d
@@ -46,7 +46,7 @@ CREATE TABLE compte (
   numDept smallint(2) unsigned NOT NULL, #FK dico dpt
   email varchar(255) NOT NULL UNIQUE, #index UNIQUE car évite qu un email soit enregistré deux fois
   telephone int(15) NOT NULL,
-  pseudo varchar(30) NOT NULL UNIQUE, #index UNIQUE évite doublon psuedos
+  pseudo varchar(30) NOT NULL UNIQUE, #index UNIQUE évite doublon pseudos
   dateInscription date NOT NULL,
   mdp varchar(50) NOT NULL,
   codePostal int(5) unsigned NOT NULL,
@@ -75,7 +75,6 @@ CREATE TABLE jeu_p (
   idJeuP smallint(8) unsigned NOT NULL AUTO_INCREMENT,  
   idPC SMALLINT(8) UNSIGNED NOT NULL, #FK   à modicer en idPC si modif dans la table jeu_t
   idProprietaire smallint(8) unsigned NOT NULL, #FK
-  etat varchar(50) NOT NULL, #FK dico
 
   PRIMARY KEY (idJeuP)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -97,13 +96,35 @@ CREATE TABLE pret_p (
   idPret smallint(8) unsigned NOT NULL AUTO_INCREMENT, #PK
   idJeuP smallint(8) unsigned NOT NULL,  #FK
   idEmprunteur smallint(8) unsigned NOT NULL, #FK idUser
-  dateDebut date NOT NULL,
-  dateRendu date NOT NULL,
-  jeuRenduATemps boolean,
+  propositionEmprunteurDateDebut date NOT NULL,
+  propositionEmprunteurDateRendu date NOT NULL,
+  propositionPreteurDateDebut date,
+  propositionPreteurDateRendu date,
   notification SMALLINT(8) UNSIGNED NOT NULL,#FK
+  statutDemande VARCHAR(20) NOT NULL,#FK
 
   PRIMARY KEY (idPret) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Création de la table expedition (M)
+DROP TABLE IF EXISTS expedition;
+
+CREATE TABLE expedition (
+  idPret smallint(8) unsigned NOT NULL, #FK
+  envoiDateEnvoi date,
+  envoiDateReception date,
+  envoiEtatJeu varchar(50), #FK
+  envoiPiecesManquantes boolean,
+  retourDateEnvoi date,
+  retourDateReception date,
+  retourEtatJeu varchar(50), #FK
+  retourPiecesManquantes boolean,
+
+
+  PRIMARY KEY (idPret) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 # Création de la table departement (M)
 DROP TABLE IF EXISTS departement;
@@ -181,11 +202,12 @@ create table jeu_t(
 DROP TABLE IF EXISTS commentaire_p_c_t;
 
 create table commentaire_p_c_t(
+  idCommentaire smallint(8) unsigned NOT NULL AUTO_INCREMENT,
   idPC SMALLINT(8) UNSIGNED NOT NULL, #FK
   commentaireT TEXT,
   idUser SMALLINT(8) unsigned NOT NULL, #FK
 
-  PRIMARY KEY (idPC, idUser) #combinaison des 2 FK constitue la PK
+  PRIMARY KEY (idCommentaire)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Création de la table jeu_a_pour_genre
@@ -207,7 +229,7 @@ create table genre(
   PRIMARY KEY (genre)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-# Création de la table message
+# Création de la table notification
 DROP TABLE IF EXISTS notification;
 
 create table notification(
@@ -217,7 +239,7 @@ create table notification(
   sujetEmprunteur VARCHAR(200) NOT NULL,
   corpsEmprunteur VARCHAR(500) NOT NULL,
   
-  PRIMARY KEY (notification)
+  PRIMARY KEY (idNotification)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Création de la table message
@@ -241,7 +263,7 @@ DROP TABLE IF EXISTS pret_a_pour_message;
 create table pret_a_pour_message(
   idPret SMALLINT(8) UNSIGNED NOT NULL,#PK 
   idMessage SMALLINT(8) UNSIGNED NOT NULL, #PK 
-  idExpidNotificationed SMALLINT(8) UNSIGNED NOT NULL, #PK 
+  idNotification SMALLINT(8) UNSIGNED NOT NULL, #PK 
   
   PRIMARY KEY (idMessage)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -260,7 +282,7 @@ CREATE TABLE droit_d (
   PRIMARY KEY (droit)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-# Création de la table Dico etat du jeu_p (M)
+# Création de la table Dico etat du etat_d (M)
 DROP TABLE IF EXISTS etat_d;
 
 CREATE TABLE etat_d (
@@ -352,13 +374,10 @@ ADD CONSTRAINT fk_idUser_individu FOREIGN KEY (idUser) REFERENCES compte(idUser)
 ALTER TABLE jeu_p 
 ADD CONSTRAINT fk_idPC_jeu_p FOREIGN KEY (idPC) REFERENCES jeu_t(idPC);
 
-  # Clé étrangère idProprietaire **
+  # Clé étrangère idProprietaire
 ALTER TABLE jeu_p 
 ADD CONSTRAINT fk_idProprietaire_jeu_p FOREIGN KEY (idProprietaire) REFERENCES compte(idUser);
 
-  # Clé étrangère etat
-ALTER TABLE jeu_p 
-ADD CONSTRAINT fk_etat_jeu_p FOREIGN KEY (etat) REFERENCES etat_d(etat);
 
 # Clés étrangères de la table commentaire_jeu_p
   # Clé étrangère idJeuP
@@ -376,7 +395,11 @@ ADD CONSTRAINT fk_idEmprunteur_pret_p FOREIGN KEY (idEmprunteur) REFERENCES comp
 
   # Clé étrangère notification
 ALTER TABLE pret_p 
-ADD CONSTRAINT fk_notification_pret_p FOREIGN KEY (notification) REFERENCES notification(notification);
+ADD CONSTRAINT fk_notification_pret_p FOREIGN KEY (notification) REFERENCES notification(idNotification);
+
+  # Clé étrangère statut demande
+ALTER TABLE pret_p 
+ADD CONSTRAINT fk_statut_demande FOREIGN KEY (statutDemande) REFERENCES statut_demande_d(statut);
 
 # Clés étrangères de la table user_prefere_genre
   # Clé étrangère idUser
@@ -414,11 +437,6 @@ ADD CONSTRAINT fk_difficulte_jeu_t FOREIGN KEY (difficulte) REFERENCES difficult
 ALTER TABLE jeu_t 
 ADD CONSTRAINT fk_public_jeu_t FOREIGN KEY (public) REFERENCES public_d(public);
 
-#    PAS UTILE
-  # Clé étrangère illustrateurPrincipal
-#ALTER TABLE jeu_t 
-#ADD CONSTRAINT fk_illustrateurPrincipal_jeu_t FOREIGN KEY (illustrateurPrincipal) REFERENCES illustrateurPrincipal_d(illustrateurPrincipal);
-
 # Clés étrangères de la table commentaire_p_c_t
   # Clé étrangère idPC
 ALTER TABLE commentaire_p_c_t 
@@ -445,3 +463,19 @@ ADD CONSTRAINT fk_idExped_message FOREIGN KEY (idExped) REFERENCES compte(idUser
   # Clé étrangère idDest
 ALTER TABLE message 
 ADD CONSTRAINT fk_idDest_message FOREIGN KEY (idDest) REFERENCES compte(idUser);
+
+# Clés étrangères de la table pret_a_pour_message
+ALTER TABLE pret_a_pour_message 
+ADD CONSTRAINT fk_idPret FOREIGN KEY (idPret) REFERENCES pret_p(idPret);
+ALTER TABLE pret_a_pour_message 
+ADD CONSTRAINT fk_idMessage FOREIGN KEY (idMessage) REFERENCES message(idMessage);
+ALTER TABLE pret_a_pour_message 
+ADD CONSTRAINT fk_idNotification FOREIGN KEY (idNotification) REFERENCES notification(idNotification);
+
+# Clés étrangères de la table expedition
+ALTER TABLE expedition 
+ADD CONSTRAINT fk_idPretExpedition FOREIGN KEY (idPret) REFERENCES pret_p(idPret);
+ALTER TABLE expedition 
+ADD CONSTRAINT fk_idEtatEnvoi FOREIGN KEY (envoiEtatJeu) REFERENCES etat_d(etat);
+ALTER TABLE expedition 
+ADD CONSTRAINT fk_idEtatReception FOREIGN KEY (retourEtatJeu) REFERENCES etat_d(etat);

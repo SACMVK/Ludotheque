@@ -8,7 +8,7 @@
         <?php
         // stefan : fichiers et méthodes de génération de données en masse
         include '../../../job/dao/Connexion_Dao.php';
-        include '../../_old/saveTexte.php';
+        include '../../../_old/saveTexte.php';
         // individu
         include '31_32_individu.php';
         include '33_genre_jeu_individu.php';
@@ -22,11 +22,15 @@
 // jeu_p
 
         include '61_jeu_p.php';
+        
+        
+        // message
+        include '71_message.php';
+        
 // pret
-        include '71_prets.php';
-        include '73_commentaires_jeu_p.php';
-// message
-        include '81_message.php';
+        include '81_prets.php';
+        include '83_commentaires_jeu_p.php';
+
 
 
         include '../renommage_recadrage_images.php';
@@ -43,29 +47,35 @@
         $nombreGenreJeu = 2000; //2000
 
         $dimensionsImageReduite = [640, 640];
-        $repertoireTemp = "data/images/temp/";
-        $repertoireVignettes = "data/images/vignettes/";
+        $repertoireTemp = "../../images/temp/";
+        $repertoireVignettes = "../../images/vignettes/";
 
         $nombrePretsEnCours = 10;
         $nombrePretsFinis = 10;
-        $nombreCommentaires_user = 10;
-        $nombreCommentaires_pc = 10;
-        $nombreCommentaires_jeu_p = 10; // commentaires que sur jeux empruntés
+
+        $nombreCommentaires_pc = 800;
+        $nombreCommentaires_jeu_p = 10;
+        //
         //generer_donnees_individu($nombreIndividus);
-        //generer_donnees_jeu_t($nombreJeuxT);
-        //generer_donnees_jeu_p($nombreJeuxP, $nombreJeuxT, $nombreIndividus);
-        //generer_donnees_message($nombreMessages, $nombreIndividus);
         //generer_donnees_genre_individu($nombreGenreIndividu,$nombreIndividus);
+        //generer_donnees_jeu_t($nombreJeuxT);
         //generer_donnees_genre_jeu($nombreGenreJeu,$nombreJeuxT);
-        //renommerReduireDeplacerFichier($repertoireTemp, $repertoireVignettes, $dimensionsImageReduite)
         //generation_donnees_jeu_t_aPourImage($nombreJeuxT, $repertoireVignettes);
+        //generer_commentaires_pc($nombreCommentaires_pc, $nombreJeuxT, $nombreIndividus);
+        
+        //generer_donnees_jeu_p($nombreJeuxP, $nombreJeuxT, $nombreIndividus);
+        generer_donnees_message($nombreMessages, $nombreIndividus);
+        
+        
+        //renommerReduireDeplacerFichier($repertoireTemp, $repertoireVignettes, $dimensionsImageReduite)
 
 
-        generer_prets($nombrePretsEnCours, $nombrePretsFinis, $nombreIndividus, $nombreJeuxP);
-        generer_notation_user($nombrePretsFinis, $nombreIndividus);
-        generer_commentaires_user($nombreCommentaires_user, $listeNotation);
-        generer_commentaires_pc($nombreCommentaires_pc, $nombreJeuxT, $nombreIndividus);
-        generer_commentaires_jeu_p($nombreCommentaires_jeu_p);
+
+        //generer_prets($nombrePretsEnCours, $nombrePretsFinis, $nombreIndividus, $nombreJeuxP);
+        //generer_notation_user($nombrePretsFinis, $nombreIndividus);
+        //generer_commentaires_user($nombreCommentaires_user, $listeNotation);
+        
+        //generer_commentaires_jeu_p($nombreCommentaires_jeu_p);
         ?>
     </body>
 </html>

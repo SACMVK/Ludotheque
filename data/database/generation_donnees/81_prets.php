@@ -17,3 +17,15 @@ function genererExpedition(){
     
 }
 
+function getEtats(){
+    	$pdo = openConnexion();
+	$requete = "SELECT * FROM etat_d;";
+	$stmt = $pdo->prepare($requete);
+	$stmt->execute() ;
+	$listEtats = null;
+	while ($ligne = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		$listEtats [] = $ligne['etat'];
+	}
+	closeConnexion($pdo);
+	return $listEtats;
+}

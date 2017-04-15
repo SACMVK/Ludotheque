@@ -5,7 +5,7 @@ use ludotheque;
 INSERT INTO droit_d (droit) VALUES ("Administrateur"), ("Modérateur"), ("Utilisateur");
 
 # Insertion de données de la table etat_d
-INSERT INTO etat_d (etat) VALUES ("Neuf"), ("Bon état"),("Usé"), ("Abimé"), ("Pièces manquantes");
+INSERT INTO etat_d (etat) VALUES ("Neuf"), ("Bon état"),("Usé"), ("Abimé");
 
 # Insertion de données de la table type_p_c_d
 INSERT INTO type_p_c_d (typePC) VALUES ("Jeux de société"), ("Jeux vidéos"), ("Livres");
