@@ -6002,4 +6002,4 @@ INSERT INTO message ( idExped, idDest, sujet, texte)
 VALUES ( "778","431", "porta aliquet et dolor leo"," Phasellus velit feugiat hendrerit lorem eros quis posuere nisl. Sit ac aenean aptent porta dictum nulla eget ligula. Et semper pulvinar enim sodales luctus ullamcorper quis at. Lacus at sit congue risus sem mollis mi ipsum. Sapien non quis interdum nibh phasellus sapien augue aliquam. Libero consequat sit iaculis aliquet quis tellus fermentum felis.");
 INSERT INTO message ( idExped, idDest, sujet, texte)
 VALUES ( "55","471", "molestie vel quis senectus suspendisse"," Luctus enim maximus bibendum felis adipiscing posuere. Ex libero iaculis purus dictum sit pellentesque. Dictum quis pharetra at nulla dignissim sit. A at sed sapien ex sit tristique. Etiam nullam facilisis sit auctor quam rhoncus. Velit in massa id sed suspendisse ut.");
-0
+
