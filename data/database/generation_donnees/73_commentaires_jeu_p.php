@@ -1,27 +1,29 @@
 <?php
 
-function generer_commentaires_user(int $nombreCommentaires_user, int $nombreIndividus) {
-    for ($indice = 0; $indice < $nombreCommentaires_user; $indice++) {
-        echo 'INSERT INTO commentaire_user (idNU, commentaireU)';
-        echo 'VALUES ("' . rand(1, $nombreIndividus) . '", "' . getCommentaire() . '");';
-        echo '<br>';
-    }
-}
 
-function generer_commentaires_pc(int $nombreCommentaires_pc, int $nombreJeuxT, int $nombreIndividus) {
-    for ($indice = 0; $indice < $nombreCommentaires_pc; $indice++) {
-        echo 'INSERT INTO commentaire_p_c_t (idPC, commentaireT, idUser)';
-        echo 'VALUES ("' . rand(1, $nombreJeuxT) . '", "' . getCommentaire() . '", "' . rand(1, $nombreIndividus) . '");';
-        echo '<br>';
-    }
-}
 
-function generer_commentaires_jeu_p(int $nombreCommentaires_jeu_p, int $nombreJeuxP) {
+
+
+function generer_commentaires_jeu_p(int $nombreCommentaires_jeu_p) {
+    $listeEmprunts = getListeEmprunt();
     for ($indice = 0; $indice < $nombreCommentaires_jeu_p; $indice++) {
         echo 'INSERT INTO commentaire_jeu_p (idJeuP, commentaireJP)';
-        echo ' VALUES ("' . rand(1, $nombreJeuxP) . '", "' . getCommentaire() . '");';
+        echo ' VALUES ("' . $listeEmprunts[rand(1, count($listeEmprunts)-1)] . '", "' . getCommentaire() . '");';
         echo '<br>';
     }
+}
+
+function getListeEmprunt() {
+    $pdo = openConnexion();
+    $requete = "SELECT * FROM pret_p;";
+    $stmt = $pdo->prepare($requete);
+    $stmt->execute();
+    $liste = null;
+    while ($ligne = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $liste [] = $ligne['idPret'];
+    }
+    closeConnexion($pdo);
+    return $liste[rand(0, count($liste) - 1)];
 }
 
 function getCommentaire() {

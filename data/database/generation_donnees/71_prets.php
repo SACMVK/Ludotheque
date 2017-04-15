@@ -12,3 +12,8 @@ function generer_prets(int $nombrePretsEnCours, int $nombrePretsFinis, int $nomb
         echo '<br>';
     }
 }
+
+function genererExpedition(){
+    
+}
+

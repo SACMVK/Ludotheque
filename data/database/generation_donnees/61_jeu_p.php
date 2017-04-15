@@ -1,12 +1,6 @@
 <?php
 
-function  supprimer_donnees_jeu_p(){
-    $pdo = openConnexion();
-    $requeteDelete = "DELETE FROM jeu_p";
-    $stmt = $pdo->prepare($requeteDelete);
-    $stmt->execute();
-    closeConnexion($pdo);
-}
+
 
 function generer_donnees_jeu_p(int $nombreJeuxP, int $nombreJeuxT , int $nombreIndividus){
     for ($indice = 1; $indice<=$nombreJeuxP; $indice++)

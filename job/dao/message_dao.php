@@ -28,17 +28,17 @@ Function select($requete) {
     while ($donnees = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 // creation des variable correspondant aux attributs de la class Message
-        $idMessage = $donnees['idMessage'];
-        $idExped = $donnees['idExped'];
-        $idDest = $donnees['idDest'];
-        $texte = $donnees['texte'];
-        $sujet = $donnees['sujet'];
+        $idMessage = $requete['idMessage'];
+        $idExped = $requete['idExped'];
+        $idDest = $requete['idDest'];
+        $texte = $requete['texte'];
+        $sujet = $requete['sujet'];
+        $dateEnvoi = $requete['dateEnvoi'];
 
 
 
 
-
-        $listeMessages[] = new Message($idExped, $idDest, $sujet, $texte, $idMessage);
+        $listeMessages[] = new Message($idExped, $idDest, $dateEnvoi, $sujet, $texte, $idMessage);
 //echo $donnees['texte'] ."   ". $donnees['sujet'] ."   ". $donnees['typeMessage'];
 // fermeture de la connexion
         closeConnexion($pdo);
@@ -60,12 +60,13 @@ Function insert($list) {
 
 // on recupere le contenu de la table message
 //prepare =avant query pour éviter faille de sécurité
-    $stmt = $pdo->prepare("INSERT INTO " . $table . "(idExped, idDest, sujet, texte) VALUES( :idExped, :idDest, :sujet, :texte )");
+    $stmt = $pdo->prepare("INSERT INTO " . $table . "(idExped, idDest, dateEnvoi, sujet, texte) VALUES( :idExped, :idDest, :dateEnvoi, :sujet, :texte )");
 
 // execution de la requete
     $stmt->execute(array(
         "idExped" => $idExped = $list['idExped'],
         "idDest" => $idDest = $list['idDest'],
+        "dateEnvoi" => $dateEnvoi = $list['dateEnvoi'],
         "sujet" => $sujet = $list['sujet'],
         "texte" => $texte = $list['texte']
     ));
@@ -86,16 +87,17 @@ Function alter($requete) {
 
 
 
-    $stmt = $pdo->prepare("UPDATE " . $table . " SET 'idExped' = :idExped, 'idDest' = :idDest, 'sujet' = :sujet, 'texte' = :texte, 'idMessage' = :idMessage)");
+    $stmt = $pdo->prepare("UPDATE " . $table . " SET 'idExped' = :idExped, 'idDest' = :idDest, 'dateEnvoi' = :dateEnvoi, 'sujet' = :sujet, 'texte' = :texte, 'idMessage' = :idMessage)");
 
     $stmt->execute(array(
-        ":idExped" => $idExped['idExped'],
-        ":idDest" => $idDest['idDest'],
-        ":sujet" => $sujet['sujet'],
-        ":texte" => $texte[texte],
-        ":idMessage" => $idMessage['idMessage']
+        ":idExped" => $requete['idExped'],
+        ":idDest" => $requete['idDest'],
+        ":dateEnvoi" => $requete['dateEnvoi'],
+        ":sujet" => $requete['sujet'],
+        ":texte" => $requete[texte],
+        ":idMessage" => $requete['idMessage']
     ));
-    echo ("le message a été modifier");
+    //echo ("le message a été modifié");
 
 
 

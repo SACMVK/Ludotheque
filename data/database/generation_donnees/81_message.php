@@ -1,168 +1,29 @@
 <?php
 
-function supprimer_donnees_jeu_t() {
-    $pdo = openConnexion();
-    $requeteDelete = "DELETE FROM jeu_t";
-    $stmt = $pdo->prepare($requeteDelete);
-    $stmt->execute();
-    $requeteDelete = "DELETE FROM produit_culturel_t";
-    $stmt = $pdo->prepare($requeteDelete);
-    $stmt->execute();
-    closeConnexion($pdo);
-}
 
-function generer_donnees_jeu_t(int $nombreJeuxT) {
-    for ($indice = 1; $indice <= $nombreJeuxT; $indice++) {
 
-        $list['typePC'] = "Jeux de société";
-        $list['anneeSortie'] = getSortie();
-        $list['description'] = getTexteJeu(1);
-        $nombreJoueurs = getNombreJoueurs();
-        $list['nbJoueursMin'] = $nombreJoueurs[0];
-        $list['nbJoueursMax'] = $nombreJoueurs[1];
-        $list['nom'] = getNomJeu();
-        $list['editeur'] = getEditeur();
-        $list['regles'] = getTexteJeu();
-        $list['difficulte'] = getDifficulte();
-        $list['public'] = getPublic();
-        $list['listePieces'] = getListePiece();
-        $list['dureePartie'] = getDuree();
+function generer_donnees_message(int $nombreMessages, int $nombreIndividus) {
 
-//        echo "<b>" . $list['nom'] . "</b> de " . $list['editeur'] . "<br>";
-//        echo $list['typePC'] . " sorti en " . $list['anneeSortie'] . "<br>";
-//        echo "Le jeu en quelques mots : ".$list['description'] . "<br>";
-//        echo "De " . $list['nbJoueursMin'] . " à " . $list['nbJoueursMax'] . " joueurs<br>";
-//        echo "Niveau de difficulté : " . $list['difficulte'] . "<br>";
-//        echo "Destiné à : " . $list['public'] . "<br>";
-//        echo "Duré moyenne de la partie : " . $list['dureePartie'] . "<br>";
-//        echo "Une boite comprend les éléments suivants : " . $list['listePieces'] . "<br>";
-//        echo "Enoncé sommaire des règles : " . $list['regles'] . "<br><br>";
-echo "INSERT INTO produit_culturel_t (typePC, anneeSortie, description)";
-echo "VALUES ('".$list['typePC']."', '".$list['anneeSortie']."', '".$list['description']."');";
-echo "<br>";
-echo "INSERT INTO jeu_t (idPC, nbJoueursMin, nbJoueursMax, nom, editeur, regles, difficulte, public, listePieces, dureePartie)";
-echo "VALUES (".$indice.", '".$list['nbJoueursMin']."', '".$list['nbJoueursMax']."', '".$list['nom']."', '".$list['editeur']."', '".$list['regles']."', '".$list['difficulte']."', '".$list['public']."', ".$list['listePieces'].", '".$list['dureePartie']."');";
-echo "<br>";   
+    for ($indice = 0; $indice < $nombreMessages; $indice++) {
+        $list['idExped'] = rand(1, $nombreIndividus);
+        $list['idDest'] = rand(1, $nombreIndividus);
+        $list['sujet'] = getTexte(true);
+        $list['texte'] = getTexte();
+        //echo "idExped : " . $list['idExped'] . "<br>idDest : " . $list['idDest'] . "<br>sujet : " . $list['sujet'] . "<br>texte :<br>" . $list['texte'] . "<br><br>";
+        
+echo 'INSERT INTO message ( idExped, idDest, sujet, texte)';
+echo '<br>';
+echo 'VALUES ( "'.$list['idExped'].'","' .$list['idDest'].'", "'.$list['sujet'].'"," '.$list['texte'].'");';
+echo '<br>';
+
 //insert($list);
     }
 }
 
-function getDuree() {
-    switch (rand(0, 2)) {
-        case 0:$duree = rand(1, 3) . " heures";
-            break;
-        default :$duree = (rand(1, 10) * 5) . " minutes";
-            break;
-    }
-    return $duree;
-}
 
-function getListePiece() {
-    $listePieces = "";
-    // stefan : plus on augmente l'intervalle, plus les chances d'avoir l'élément sont faibles
-    if (rand(0, 1) == 0) {
-        $listePieces .= rand(1, 20) . " pions, ";
-    }
-    if (rand(0, 1) == 0) {
-        $listePieces .= rand(1, 2) . " plateau(x), ";
-    }
-    if (rand(0, 1) == 0) {
-        $listePieces .= rand(1, 3) . " dé(s), ";
-    }
-    if (rand(0, 2) == 0) {
-        $listePieces .= rand(10, 32) . " cartes, ";
-    }
-    if (rand(0, 2) == 0) {
-        $listePieces .= rand(10, 32) . " tuiles, ";
-    }
-    if (rand(0, 3) == 0) {
-        $listePieces .= rand(1, 32) . " figurine(s), ";
-    }
-    if (rand(0, 1) == 0) {
-        $listePieces .= "1 tapis, ";
-    }
-    // stefan : test s'il n'y a besoin d'aucun matériel
-    if (strlen($listePieces) == 0) {
-        $listePieces = "Aucun matériel n'est nécessaire !";
-    } else {
-        // stefan : on supprime la dernière virgule et l'espace qui suit
-        $listePieces = substr($listePieces, 0, strlen($listePieces) - 2);
-        // stefan : on remplace la dernière virgule par un "et" s'il y a plus d'un élément
-        if (substr_count($listePieces, ",") > 0) {
-            $listePieces = substr($listePieces, 0, strrpos($listePieces, ",")) . " et " . substr($listePieces, strrpos($listePieces, ",") + 1, strlen($listePieces));
-        }
-    }
-    return $listePieces;
-}
 
-function getPublic() {
-    $pdo = openConnexion();
-    $requete = "SELECT * FROM public_d;";
-    $stmt = $pdo->prepare($requete);
-    $stmt->execute();
-    $liste_public = null;
-    while ($ligne = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $liste_public [] = $ligne['public'];
-    }
-    closeConnexion($pdo);
-    return $liste_public[rand(0, count($liste_public) - 1)];
-}
 
-function getDifficulte() {
-    $pdo = openConnexion();
-    $requete = "SELECT * FROM difficulte_d;";
-    $stmt = $pdo->prepare($requete);
-    $stmt->execute();
-    $liste_difficulte = null;
-    while ($ligne = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $liste_difficulte [] = $ligne['difficulte'];
-    }
-    closeConnexion($pdo);
-    return $liste_difficulte[rand(0, count($liste_difficulte) - 1)];
-}
-
-function getEditeur() {
-    $pdo = openConnexion();
-    $requete = "SELECT * FROM editeur_d;";
-    $stmt = $pdo->prepare($requete);
-    $stmt->execute();
-    $liste_editeurs = null;
-    while ($ligne = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $liste_editeurs [] = $ligne['editeur'];
-    }
-    closeConnexion($pdo);
-    return $liste_editeurs[rand(0, count($liste_editeurs) - 1)];
-}
-
-function getNomJeu() {
-    $consonne = ["b", "c", "ch", "d", "f", "g", "j", "k", "l", "ll", "m", "n", "p", "r", "s", "ss", "t", "v"];
-    $voyelle = ["a", "e", "i", "o", "u", "ou", "au", "eu", "eau", "ai", "ei", "ui"];
-    $nomJeu = "";
-    $longeurNomJeu = rand(3, 5);
-    $consonneIsDebut = rand(0, 1);
-    for ($i = $consonneIsDebut; $i < $longeurNomJeu; $i++) {
-        if ($i % 2 == 0) {
-            $nomJeu .= $consonne[rand(0, count($consonne) - 1)];
-        } else {
-            $nomJeu .= $voyelle[rand(0, count($voyelle) - 1)];
-        }
-    }
-    return ucfirst($nomJeu);
-}
-
-function getNombreJoueurs() {
-    $min = rand(1, 8);
-    $max = rand(1, 8);
-    $nombre = [$min, $max];
-    sort($nombre);
-    return $nombre;
-}
-
-function getSortie() {
-    return rand(1900, getDate()['year']);
-}
-
-function getTexteJeu(int $nombrePhrases = 0) {
+function getTexte(bool $sujet = false) {
     $listeMots = [
         " lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "mauris", "id", "nisi", "congue", "placerat", "leo", "eu", "ultrices", "erat", "phasellus", "convallis", "varius",
         "nunc", "at", "rhoncus", "nulla", "semper", "a", "curabitur", "eu", "consectetur", "velit", "sit", "amet", "consectetur", "ante", "nunc", "lorem", "arcu", "sagittis", "tristique", "odio",
@@ -220,35 +81,53 @@ function getTexteJeu(int $nombrePhrases = 0) {
 
 
 
-
-
-    $nombreMaxMotsDansPhrase = 10;
-    $nombreMaxPhrase = 6;
-    $nombreMinMotsDansPhrase = 3;
-    $nombreMinPhrase = 1;
-
-    if ($nombrePhrases == 0) {
-        $nombrePhrases = rand($nombreMinPhrase, $nombreMaxPhrase);
-    }
-    $nombreMotsDansPhrase = rand($nombreMinMotsDansPhrase, $nombreMaxMotsDansPhrase);
-
     $text = "";
-    for ($i = 0; $i < $nombrePhrases; $i++) {
-        for ($j = 0; $j < $nombreMotsDansPhrase; $j++) {
-            $mot = $listeMots[rand(0, count($listeMots) - 1)];
-            if ($j == 0) {
-                $mot = ucfirst($mot) . " ";
-            } else if ($j == $nombreMotsDansPhrase - 1) {
-                $mot .= ".";
-            } else {
-                $mot .= " ";
+
+
+    if ($sujet) {
+        $nombreMaxMotsSujet = 8;
+        $nombreMotsSujet = rand(1, $nombreMaxMotsSujet);
+        for ($j = 0; $j < $nombreMotsSujet; $j++) {
+            $text .= $listeMots[rand(0, count($listeMots) - 1)];
+            if ($j != $nombreMotsSujet - 1) {
+                $text .= " ";
             }
-            $text .= $mot;
         }
-        if ($i != $nombrePhrases - 1) {
-            $text .= " ";
+        $casse = rand(0, 3);
+        if ($casse == 2) {
+            $text = strtoupper($text);
+        }
+        else if ($casse == 1){
+            $text = ucfirst($text);
+        }
+    } else {
+        $nombreMaxMotsDansPhrase = 10;
+        $nombreMaxPhrase = 6;
+        $nombreMinMotsDansPhrase = 3;
+        $nombreMinPhrase = 1;
+
+        $nombreMotsDansPhrase = rand($nombreMinMotsDansPhrase, $nombreMaxMotsDansPhrase);
+        $nombrePhrases = rand($nombreMinPhrase, $nombreMaxPhrase);
+        for ($i = 0; $i < $nombrePhrases; $i++) {
+            for ($j = 0; $j < $nombreMotsDansPhrase; $j++) {
+                $mot = $listeMots[rand(0, count($listeMots) - 1)];
+                if ($j == 0) {
+                    $mot = ucfirst($mot) . " ";
+                } else if ($j == $nombreMotsDansPhrase - 1) {
+                    $mot .= ".";
+                } else {
+                    $mot .= " ";
+                }
+                $text .= $mot;
+            }
+            if ($i != $nombrePhrases - 1) {
+                $text .= " ";
+            }
         }
     }
+
+
+
 
     return $text;
 }

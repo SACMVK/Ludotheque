@@ -27,4 +27,4 @@
 <script src="ihm/js/star.js"></script>
 
 <!-- Victor: calendrier-->
-<?php require ('ihm/forms/calendar.php');?>
+<?php require ('ihm/forms_a_ranger/calendar.php');?>

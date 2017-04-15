@@ -1,15 +1,6 @@
 <?php
 
-function supprimer_donnees_individu() {
-    $pdo = openConnexion();
-    $requeteDelete = "DELETE FROM individu";
-    $stmt = $pdo->prepare($requeteDelete);
-    $stmt->execute();
-    $requeteDelete = "DELETE FROM compte";
-    $stmt = $pdo->prepare($requeteDelete);
-    $stmt->execute();
-    closeConnexion($pdo);
-}
+
 
 function generer_donnees_individu(int $nombreIndividus) {
     for ($indice = 1; $indice <= $nombreIndividus; $indice++) {

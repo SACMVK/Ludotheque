@@ -1,4 +1,4 @@
-#DROP DATABASE ludotheque;
+DROP DATABASE ludotheque;
 CREATE DATABASE IF NOT EXISTS ludotheque;
 
 use ludotheque;
@@ -44,7 +44,7 @@ CREATE TABLE compte (
   adresse varchar(300) NOT NULL,
   ville varchar(30) NOT NULL,
   numDept smallint(2) unsigned NOT NULL, #FK dico dpt
-  email varchar(255) NOT NULL UNIQUE, #index UNIQUE car évite qu'un email soit enregistré duex fois
+  email varchar(255) NOT NULL UNIQUE, #index UNIQUE car évite qu un email soit enregistré deux fois
   telephone int(15) NOT NULL,
   pseudo varchar(30) NOT NULL UNIQUE, #index UNIQUE évite doublon psuedos
   dateInscription date NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE pret_p (
   idEmprunteur smallint(8) unsigned NOT NULL, #FK idUser
   dateDebut date NOT NULL,
   dateRendu date NOT NULL,
-  jeuRenduATemps boolean DEFAULT false NOT NULL,
+  jeuRenduATemps boolean,
   notification SMALLINT(8) UNSIGNED NOT NULL,#FK
 
   PRIMARY KEY (idPret) 

@@ -7,31 +7,33 @@
     <body>
         <?php
         // stefan : fichiers et méthodes de génération de données en masse
-        include 'job/dao/Connexion_Dao.php';
+        include '../../../job/dao/Connexion_Dao.php';
+        include '../../_old/saveTexte.php';
+        // individu
+        include '31_32_individu.php';
+        include '33_genre_jeu_individu.php';
+// jeu_t
+        include '41_42_generation_donnees_jeu_t.php';
+        include '43_genre_jeu.php';
+        include '44_jeu_a_pour_image.php';
 
-        // stefan : Ce n'est pas au bon endroit : comme les méthodes portent le même nom, il va y avoir des conflits
-//        include 'job/dao/individu_dao.php';
-//        include 'job/dao/jeu_t_dao.php';
-//        include 'job/dao/jeu_p_dao.php';
-//        include 'job/dao/message_dao.php';
+        include '51_commentaires_jeu_t.php';
 
-        include '_old/saveTexte.php';
-        
-        include 'data/database/generation_donnees_individu.php';
-        include 'data/database/generation_donnees_jeu_t.php';
-        include 'data/database/generation_donnees_jeu_p.php';
-        include 'data/database/generation_donnees_message.php';
-        include 'data/database/generation_donnees_genre_individu.php';
-        include 'data/database/generation_donnees_genre_jeu.php';
-        include 'data/database/generation_images.php';
-        include 'data/database/generation_donnees_jeu_t_aPourImage.php';
-        include 'data/database/generation_donnes_commentaires.php';
+// jeu_p
 
-        // stefan : on commence par vider les tables ayant des clés étrangères
-//        supprimer_donnees_message();
-//        supprimer_donnees_jeu_p();
-//        supprimer_donnees_individu();
-//        supprimer_donnees_jeu_t();
+        include '61_jeu_p.php';
+// pret
+        include '71_prets.php';
+        include '73_commentaires_jeu_p.php';
+// message
+        include '81_message.php';
+
+
+        include '../renommage_recadrage_images.php';
+
+
+
+
         // stefan : on créé les données en partant des tables dont les autres tables dépendantes
         $nombreIndividus = 1000; //1000
         $nombreMessages = 3000; //3000
@@ -48,8 +50,7 @@
         $nombrePretsFinis = 10;
         $nombreCommentaires_user = 10;
         $nombreCommentaires_pc = 10;
-        $nombreCommentaires_jeu_p = 10;// commentaires que sur jeux empruntés
-        
+        $nombreCommentaires_jeu_p = 10; // commentaires que sur jeux empruntés
         //generer_donnees_individu($nombreIndividus);
         //generer_donnees_jeu_t($nombreJeuxT);
         //generer_donnees_jeu_p($nombreJeuxP, $nombreJeuxT, $nombreIndividus);
@@ -58,17 +59,13 @@
         //generer_donnees_genre_jeu($nombreGenreJeu,$nombreJeuxT);
         //renommerReduireDeplacerFichier($repertoireTemp, $repertoireVignettes, $dimensionsImageReduite)
         //generation_donnees_jeu_t_aPourImage($nombreJeuxT, $repertoireVignettes);
-        
-        
-        generer_prets($nombrePretsEnCours,$nombrePretsFinis, $nombreIndividus, $nombreJeuxP);
-        $listeNotation = generer_notation_user($nombrePretsFinis);
+
+
+        generer_prets($nombrePretsEnCours, $nombrePretsFinis, $nombreIndividus, $nombreJeuxP);
+        generer_notation_user($nombrePretsFinis, $nombreIndividus);
         generer_commentaires_user($nombreCommentaires_user, $listeNotation);
         generer_commentaires_pc($nombreCommentaires_pc, $nombreJeuxT, $nombreIndividus);
-        generer_commentaires_jeu_p($nombreCommentaires_jeu_p, $nombreJeuxP);
-        
-        
-        
-        
+        generer_commentaires_jeu_p($nombreCommentaires_jeu_p);
         ?>
     </body>
 </html>
