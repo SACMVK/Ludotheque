@@ -11,6 +11,7 @@
         session_start();
         // stefan : Ce fichier permet d'enregistrer des variables en cours d'exécution (je ne sais pas me servir du mode debug
         include '_old/saveTexte.php';
+        include 'job/dao/fonctions_dao.php';
         ?>
         <!-- stefan : ccs juste pour les tests fonctionnels -->
         <link rel="stylesheet" type="text/css" href="ihm/css/A_gestion4blocs.css">

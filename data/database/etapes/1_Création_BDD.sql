@@ -73,7 +73,7 @@ DROP TABLE IF EXISTS jeu_p;
 
 CREATE TABLE jeu_p (
   idJeuP smallint(8) unsigned NOT NULL AUTO_INCREMENT,  
-  idPC SMALLINT(8) UNSIGNED NOT NULL, #FK   à modicer en idPC si modif dans la table jeu_t
+  idPC SMALLINT(8) UNSIGNED NOT NULL, #FK   à modifier en idPC si modif dans la table jeu_t
   idProprietaire smallint(8) unsigned NOT NULL, #FK
 
   PRIMARY KEY (idJeuP)
@@ -97,9 +97,9 @@ CREATE TABLE pret_p (
   idJeuP smallint(8) unsigned NOT NULL,  #FK
   idEmprunteur smallint(8) unsigned NOT NULL, #FK idUser
   propositionEmprunteurDateDebut date NOT NULL,
-  propositionEmprunteurDateRendu date NOT NULL,
+  propositionEmprunteurDateFin date NOT NULL,
   propositionPreteurDateDebut date,
-  propositionPreteurDateRendu date,
+  propositionPreteurDateFin date,
   notification SMALLINT(8) UNSIGNED NOT NULL,#FK
   statutDemande VARCHAR(20) NOT NULL,#FK
 

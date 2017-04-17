@@ -50,8 +50,6 @@
         $repertoireTemp = "../../images/temp/";
         $repertoireVignettes = "../../images/vignettes/";
 
-        $nombrePretsEnCours = 10;
-        $nombrePretsFinis = 10;
 
         $nombreCommentaires_pc = 800;
         $nombreCommentaires_jeu_p = 10;
@@ -64,16 +62,15 @@
         //generer_commentaires_pc($nombreCommentaires_pc, $nombreJeuxT, $nombreIndividus);
         
         //generer_donnees_jeu_p($nombreJeuxP, $nombreJeuxT, $nombreIndividus);
-        generer_donnees_message($nombreMessages, $nombreIndividus);
+        //generer_donnees_message($nombreMessages, $nombreIndividus);
         
         
         //renommerReduireDeplacerFichier($repertoireTemp, $repertoireVignettes, $dimensionsImageReduite)
 
 
 
-        //generer_prets($nombrePretsEnCours, $nombrePretsFinis, $nombreIndividus, $nombreJeuxP);
-        //generer_notation_user($nombrePretsFinis, $nombreIndividus);
-        //generer_commentaires_user($nombreCommentaires_user, $listeNotation);
+        generer_prets($nombreIndividus, $nombreJeuxP);
+
         
         //generer_commentaires_jeu_p($nombreCommentaires_jeu_p);
         ?>

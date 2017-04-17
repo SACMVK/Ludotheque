@@ -12,7 +12,7 @@ class Message {
     private $texte = "";
 
     //charlotte :constructeur 
-    //M : Nous avons modifé la table message dans la base, et retiré typeMessage !!! A VERIFIER AVEC CHARLOTTE
+
 
     function __construct($idExped, $idDest, $dateEnvoi, $sujet, $texte, $idMessage = -1) {
         $this->idMessage = $idMessage;
