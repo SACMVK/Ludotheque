@@ -50,7 +50,7 @@ Function select($requete) {
 
 // &$ = passage par reference
 //  = Vous pouvez passer une variable par référence à une fonction, de manière à ce que celle-ci puisse la modifier
-Function insert($list) {
+Function insert($requete) {
 
 
 // ouverture de la connexion
@@ -64,11 +64,11 @@ Function insert($list) {
 
 // execution de la requete
     $stmt->execute(array(
-        "idExped" => $idExped = $list['idExped'],
-        "idDest" => $idDest = $list['idDest'],
-        "dateEnvoi" => $dateEnvoi = $list['dateEnvoi'],
-        "sujet" => $sujet = $list['sujet'],
-        "texte" => $texte = $list['texte']
+        "idExped" => $requete['idExped'],
+        "idDest" => $requete['idDest'],
+        "dateEnvoi" => $requete['dateEnvoi'],
+        "sujet" => $requete['sujet'],
+        "texte" => $requete['texte']
     ));
 
 //$id = getMaxId($table);
