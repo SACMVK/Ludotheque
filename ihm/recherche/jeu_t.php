@@ -4,33 +4,6 @@
 <div class="container" id="wrap">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <?php
-            //Ou placer cette fonction?
-            Function selectDico($table,$colonne){
-                $pdo = openConnexion();
-                        $reponse = "SELECT * FROM ".$table."";
-                        $stmt = $pdo->prepare($reponse);
-                        $stmt->execute() ;
-                        ?>
-                        <option value="aucune"> </option>
-                        <?php
-                        $ResDico=array();
-                        while ($donnees = $stmt->fetch(PDO::FETCH_ASSOC))
-                            {
-                            /*if (!in_array($donnees[$colonne], $ResDico)) 
-                                    {$ResDico[]=$donnees[$colonne];
-                            }*/ //Je souhaite insérer la valeurs si elle n'est pas déjà présente dans la liste
-                            $ResDico[]=$donnees[$colonne];
-                            asort($ResDico);
-                            foreach ($ResDico as $valueDico) {
-                                
-                            }?>
-                        <option value="<?php echo $valueDico; ?>"><?php echo $valueDico; ?></option>
-                        <?php }         
-            
-            }
-            ?>
-
             <form action=" " method="post" accept-charset="utf-8" class="form" role="form">
                 <label class="form-control input-lg" maxlength="12">Type de produit recherché
                     <select name="typePC">

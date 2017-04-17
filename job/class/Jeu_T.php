@@ -15,11 +15,12 @@ class Jeu_T{
         private $anneeSortie;
         private $description;
         private $typePC;
+        private $genre;
 
 	/* M - Pour pouvoir faire de la surcharge et donc avoir accès à un second
          *  constructeur on définit la clé primaire nécessaire aux recherches par id à -1 par défaut
          */
-	function __construct($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$anneeSortie,$description,$typePC,$idPC=-1/*,$idJeuT=-1*/) {
+	function __construct($nbJoueursMin,$nbJoueursMax,$nom,$editeur,$regles,$difficulte,$public,$listePieces,$dureePartie,$anneeSortie,$description,$typePC,$genre,$idPC=-1/*,$idJeuT=-1*/) {
                 //$this->idJeuT = $idJeuT;
                 $this->idPC = $idPC;
 		
@@ -35,6 +36,7 @@ class Jeu_T{
 		$this->anneeSortie = $anneeSortie;
                 $this->description = $description;
                 $this->typePC = $typePC;
+                $this->genre = $genre;
 	}
 	
 	//M : Getters and Setters
@@ -140,6 +142,14 @@ class Jeu_T{
 	}
 	public function setTypePC($typePC) {
 		return $this->typePC;
+	}
+        
+        //M : $typePC
+	public function getGenre() {
+		return $this->genre;
+	}
+	public function setGenre($genre) {
+		return $this->genre;
 	}
         
 	// AhMaD: ToString pour afficher l'objet, le point pour concaténer, cela comme (+) en java
