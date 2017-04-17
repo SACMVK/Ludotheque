@@ -53,6 +53,10 @@ echo '<br><br><br><br>';
 include ('job/dao/Jeu_T_Dao.php');
 select('');
 
+include ('job/dao/dao_generique_join.php');
+echo selectJoin('produit_culturel_t','jeu_t','jeu_a_pour_genre','idPC');
+
+
 /* charlotte : empty ne fonctionne pas car il vérifie si $_GET['page']=null, hors $_GET['page'] n'existe pas
  * in_array ne fonctionne pas non plus, pour une raison indéterminée
  * isset (is set) vérifie non =null mais vérifie si la variable existe ou pas avec une valeur
