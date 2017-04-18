@@ -66,12 +66,14 @@
         
         
         //renommerReduireDeplacerFichier($repertoireTemp, $repertoireVignettes, $dimensionsImageReduite)
-
+       
+        //echo (dateToJour("2017-08-31"))."<br>";
+        //echo (jourToDate(650));
 
 
         generer_prets($nombreIndividus, $nombreJeuxP);
 
-        
+
         //generer_commentaires_jeu_p($nombreCommentaires_jeu_p);
         ?>
     </body>
