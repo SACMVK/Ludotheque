@@ -9,6 +9,7 @@ class emprunt {
     public $idEmprunteur = null;
     public $nomEmprunteur = null;
     public $dateInscriptionPreteur = null;
+    public $dateInscriptionEmprunteur = null;
     public $statut = null;
     public $notification = null;
     public $propositionEmprunteurDateDebut = null;
@@ -30,13 +31,13 @@ class emprunt {
 
     public function __toString() {
         $texte = $this->nomPreteur[1] . " " . $this->nomPreteur[0] . " | id " . $this->idPreteur . " | inscrit depuis " . $this->dateInscriptionPreteur . "<br>";
-        $texte .= $this->nomEmprunteur[1] . " " . $this->nomEmprunteur[0] . " | id " . $this->idEmprunteur . "<br>";
+        $texte .= $this->nomEmprunteur[1] . " " . $this->nomEmprunteur[0] . " | id " . $this->idEmprunteur . " | inscrit depuis " . $this->dateInscriptionEmprunteur . "<br>";
         $texte .= $this->nomJeu . " | id " . $this->idJeuP . "<br>";
         $texte .= "<b>Etat de la demande</b> : " . $this->statut;
         $texte .= " (étape " . $this->notification . ")<br>";
-        $texte .= "Proposition dates d'emprunt : du ". $this->propositionEmprunteurDateDebut . " au " . $this->propositionEmprunteurDateFin. "<br>";
-        if ($this->propositionPreteurDateDebut != null){
-            $texte .= "Contre-proposition dates de prêt : du ". $this->propositionPreteurDateDebut . " au " . $this->propositionPreteurDateFin. "<br>";
+        $texte .= "Proposition dates d'emprunt : du " . $this->propositionEmprunteurDateDebut . " au " . $this->propositionEmprunteurDateFin . "<br>";
+        if ($this->propositionPreteurDateDebut != null) {
+            $texte .= "Contre-proposition dates de prêt : du " . $this->propositionPreteurDateDebut . " au " . $this->propositionPreteurDateFin . "<br>";
         }
         $texte .= $this->printNotification();
         if ($this->envoiEtatJeu != null) {
@@ -79,8 +80,15 @@ class emprunt {
     }
 
     private function printNotification() {
-        $AnciennesValeurs = ["#nomJeu#", "#nomPreteur#", "#nomEmprunteur#"];
-        $NouvellesValeurs = [$this->nomJeu, $this->nomPreteur[1] . " " . $this->nomPreteur[0], $this->nomEmprunteur[1] . " " . $this->nomEmprunteur[0]];
+        $AnciennesValeurs = ["#nomJeu#", "#nomPreteur#", "#nomEmprunteur#", "#dateDebut#", "#dateFin#", "#envoiDateEnvoi#", "#envoiDateReception#", "#retourDateEnvoi#", "#retourDateReception#"];
+        if ($this->propositionPreteurDateDebut == null) {
+            $dateDebutValidee = $this->propositionEmprunteurDateDebut;
+            $dateFinValidee = $this->propositionEmprunteurDateFin;
+        } else {
+            $dateDebutValidee = $this->propositionPreteurDateDebut;
+            $dateFinValidee = $this->propositionPreteurDateFin;
+        }
+        $NouvellesValeurs = [$this->nomJeu, $this->nomPreteur[1] . " " . $this->nomPreteur[0], $this->nomEmprunteur[1] . " " . $this->nomEmprunteur[0], $dateDebutValidee, $dateFinValidee,$this->envoiDateEnvoi,$this->envoiDateReception,$this->retourDateEnvoi,$this->retourDateReception];
 
         $pdo = openConnexion();
         $requete = "SELECT * FROM notification WHERE idNotification='" . $this->notification . "';";
