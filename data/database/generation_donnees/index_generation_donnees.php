@@ -22,23 +22,25 @@
 // jeu_p
 
         include '61_jeu_p.php';
-        
-        
+
+
         // message
         include '71_message.php';
-        
+
 // pret
         include '81_prets.php';
-        include '83_commentaires_jeu_p.php';
+
 
 
 
         include '../renommage_recadrage_images.php';
 
-
-
-
+        //renommerReduireDeplacerFichier($repertoireTemp, $repertoireVignettes, $dimensionsImageReduite)
         // stefan : on créé les données en partant des tables dont les autres tables dépendantes
+        $aujourdhui = "2017-04-20";
+
+
+
         $nombreIndividus = 1000; //1000
         $nombreMessages = 3000; //3000
         $nombreJeuxP = 5000; //5000
@@ -52,7 +54,7 @@
 
 
         $nombreCommentaires_pc = 800;
-        $nombreCommentaires_jeu_p = 10;
+
         //
         //generer_donnees_individu($nombreIndividus);
         //generer_donnees_genre_individu($nombreGenreIndividu,$nombreIndividus);
@@ -60,18 +62,13 @@
         //generer_donnees_genre_jeu($nombreGenreJeu,$nombreJeuxT);
         //generation_donnees_jeu_t_aPourImage($nombreJeuxT, $repertoireVignettes);
         //generer_commentaires_pc($nombreCommentaires_pc, $nombreJeuxT, $nombreIndividus);
-        
         //generer_donnees_jeu_p($nombreJeuxP, $nombreJeuxT, $nombreIndividus);
-        //generer_donnees_message($nombreMessages, $nombreIndividus);
-        
-        
-        //renommerReduireDeplacerFichier($repertoireTemp, $repertoireVignettes, $dimensionsImageReduite)
-       
+        //generer_donnees_message($nombreMessages, $nombreIndividus,  $aujourdhui);
         //echo (dateToJour("2017-08-31"))."<br>";
         //echo (jourToDate(650));
 
 
-        generer_prets($nombreIndividus, $nombreJeuxP);
+        generer_prets($nombreIndividus, $nombreJeuxP, $aujourdhui);
 
 
         //generer_commentaires_jeu_p($nombreCommentaires_jeu_p);

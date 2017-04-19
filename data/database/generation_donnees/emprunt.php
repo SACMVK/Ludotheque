@@ -3,6 +3,7 @@
 class emprunt {
 
     public $idJeuP = null;
+    public $idJeuT = null;
     public $nomJeu = null;
     public $idPreteur = null;
     public $nomPreteur = null;
@@ -67,15 +68,16 @@ class emprunt {
     }
 
     private function getEtat() {
-        $pdo = openConnexion();
-        $requete = "SELECT * FROM etat_d;";
-        $stmt = $pdo->prepare($requete);
-        $stmt->execute();
-        $listEtats = null;
-        while ($ligne = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $listEtats [] = $ligne['etat'];
-        }
-        closeConnexion($pdo);
+//        $pdo = openConnexion();
+//        $requete = "SELECT * FROM etat_d;";
+//        $stmt = $pdo->prepare($requete);
+//        $stmt->execute();
+//        $listEtats = null;
+//        while ($ligne = $stmt->fetch(PDO::FETCH_ASSOC)) {
+//            $listEtats [] = $ligne['etat'];
+//        }
+//        closeConnexion($pdo);
+        $listEtats = ["Neuf", "Bon état","Usé", "Abimé"];
         return $listEtats[rand(0, count($listEtats) - 1)];
     }
 

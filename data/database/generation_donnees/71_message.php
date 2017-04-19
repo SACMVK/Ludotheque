@@ -2,18 +2,41 @@
 
 
 
-function generer_donnees_message(int $nombreMessages, int $nombreIndividus) {
+function generer_donnees_message(int $nombreMessages, int $nombreIndividus, string $aujourdhui) {
 
-    for ($indice = 0; $indice < $nombreMessages; $indice++) {
+    // Fonction définie dans 81_prets
+    $listeUsers = getAllUsers();
+    
+$aujourdhui = dateToJour($aujourdhui);
+ 
+    for ($indice = 1; $indice <= $nombreMessages; $indice++) {
+
+        // fonctions dateToJour et jourToDate définies dans 81_prets
+ 
+        $idExped = rand(1, $nombreIndividus);
+        $dateInscriptionExped = $listeUsers[$idExped]["dateInscription"];
+        $inscriptionExped = dateToJour($dateInscriptionExped);
+
+        $idDest = rand(1, $nombreIndividus);
+        $dateInscriptionDest = $listeUsers[$idDest]["dateInscription"];
+        $inscriptionDest = dateToJour($dateInscriptionDest);
+        
+        $inscriptionDest > $inscriptionExped ? $inscriptionMax = $inscriptionDest : $inscriptionMax = $inscriptionExped;
+ 
+        
+        
         $list['idExped'] = rand(1, $nombreIndividus);
         $list['idDest'] = rand(1, $nombreIndividus);
         $list['sujet'] = getTexte(true);
         $list['texte'] = getTexte();
+
+        $list['dateEnvoi'] = jourToDate(rand($inscriptionMax, $aujourdhui));
+ 
         //echo "idExped : " . $list['idExped'] . "<br>idDest : " . $list['idDest'] . "<br>sujet : " . $list['sujet'] . "<br>texte :<br>" . $list['texte'] . "<br><br>";
         
-echo 'INSERT INTO message ( idExped, idDest, sujet, texte)';
+echo 'INSERT INTO message ( idExped, idDest, sujet, texte, dateEnvoi)';
 echo '<br>';
-echo 'VALUES ( "'.$list['idExped'].'","' .$list['idDest'].'", "'.$list['sujet'].'"," '.$list['texte'].'");';
+echo 'VALUES ( "'.$list['idExped'].'","' .$list['idDest'].'", "'.$list['sujet'].'"," '.$list['texte'].'"," '.$list['dateEnvoi'].'");';
 echo '<br>';
 
 //insert($list);

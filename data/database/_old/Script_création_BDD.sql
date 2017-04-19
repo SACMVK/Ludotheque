@@ -107,10 +107,10 @@ CREATE TABLE jeu_p (
 DROP TABLE IF EXISTS commentaire_jeu_p;
 
 CREATE TABLE commentaire_jeu_p (
-  idJeuP smallint(8) unsigned NOT NULL,  #FK
+  idPret smallint(8) unsigned NOT NULL,  #FK
   commentaireJP text NOT NULL,
 
-  PRIMARY KEY (idJeuP)
+  PRIMARY KEY (idPret)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Création de la table pret_p (M)
@@ -394,7 +394,7 @@ ADD CONSTRAINT fk_etat_jeu_p FOREIGN KEY (etat) REFERENCES etat_d(etat);
 ALTER TABLE commentaire_jeu_p 
 ADD CONSTRAINT fk_idJeuP_commentaire_jeu_p FOREIGN KEY (idJeuP) REFERENCES jeu_p(idJeuP);
 
-#Clés étrangères de la table pret_p
+# Clés étrangères de la table pret_p
   # Clé étrangère idJeuP
 ALTER TABLE pret_p 
 ADD CONSTRAINT fk_idJeuP_pret_p FOREIGN KEY (idJeuP) REFERENCES jeu_p(idJeuP);

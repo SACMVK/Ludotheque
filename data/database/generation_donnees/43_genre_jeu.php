@@ -1,13 +1,14 @@
 <?php
 
 function generer_donnees_genre_jeu(int $nombreGenreJeu, int $nombreJeuxT) {
+    $listeGenre = getAllGenreJeu();
     for ($indice = 1; $indice <= $nombreGenreJeu; $indice++) {
         
         // stefan : la clé primaire est la somme des deux, il faut vérifier qu'elle est unique
         $listeGenreJeu [] = ["",""];
         do {
             $idJeu = rand(1, $nombreJeuxT);
-            $genre = getGenreJeu();
+            $genre = $listeGenre[rand(0, count($listeGenre) - 1)];
             $genreJeu = [$idJeu,$genre];
         } while (in_array($genreJeu, $listeGenreJeu));
         $listeGenreJeu [] = $genreJeu;
@@ -20,7 +21,7 @@ function generer_donnees_genre_jeu(int $nombreGenreJeu, int $nombreJeuxT) {
     }
 }
 
-function getGenreJeu() {
+function getAllGenreJeu() {
     $pdo = openConnexion();
     $requete = "SELECT * FROM genre;";
     $stmt = $pdo->prepare($requete);
@@ -30,5 +31,5 @@ function getGenreJeu() {
         $liste [] = $ligne['genre'];
     }
     closeConnexion($pdo);
-    return $liste[rand(0, count($liste) - 1)];
+    return $liste;
 }

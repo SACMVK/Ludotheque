@@ -12,7 +12,6 @@ use ludotheque;
 #  * compte -
 #  * individu -
 #  * jeu_p -
-#  * commentaire_jeu_p -
 #  * pret_p 
 #  * departement
 #  * user_prefere_genre
@@ -26,6 +25,7 @@ use ludotheque;
 #  * notification
 #  * pret_a_pour_message
 #  * expedition
+#  * note_jeu_t
 
 #    Tables dictionnaires :
 #  * droit_d
@@ -59,7 +59,7 @@ CREATE TABLE compte (
 DROP TABLE IF EXISTS individu;
 
 CREATE TABLE individu (
-  idUser smallint(8) unsigned NOT NULL, #FK
+  idUser smallint(8) UNSIGNED NOT NULL, #FK
   nom varchar(50) NOT NULL,
   prenom varchar(50) NOT NULL,
   dateNaiss date NOT NULL,
@@ -72,21 +72,23 @@ CREATE TABLE individu (
 DROP TABLE IF EXISTS jeu_p;
 
 CREATE TABLE jeu_p (
-  idJeuP smallint(8) unsigned NOT NULL AUTO_INCREMENT,  
+  idJeuP smallint(8) UNSIGNED NOT NULL AUTO_INCREMENT,  
   idPC SMALLINT(8) UNSIGNED NOT NULL, #FK   à modifier en idPC si modif dans la table jeu_t
   idProprietaire smallint(8) unsigned NOT NULL, #FK
 
   PRIMARY KEY (idJeuP)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-# Création de la table commentaire_jeu_p (M)
-DROP TABLE IF EXISTS commentaire_jeu_p;
+# Création de la table note_jeu_t (M)
+DROP TABLE IF EXISTS note_jeu_t;
 
-CREATE TABLE commentaire_jeu_p (
-  idJeuP smallint(8) unsigned NOT NULL,  #FK
-  commentaireJP text NOT NULL,
+CREATE TABLE note_jeu_t (
+  idNote smallint(8) UNSIGNED NOT NULL AUTO_INCREMENT,  
+  idPC smallint(8) UNSIGNED NOT NULL,  #FK
+  idUser smallint(8) UNSIGNED NOT NULL,  #FK
+  note smallint(8) UNSIGNED NOT NULL,
 
-  PRIMARY KEY (idJeuP)
+  PRIMARY KEY (idNote)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Création de la table pret_p (M)
@@ -177,6 +179,16 @@ create table a_pour_image(
   source VARCHAR(50) NOT NULL,
 
   PRIMARY KEY (idPC)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Création de la table commentaire_jeu_p (M)
+DROP TABLE IF EXISTS commentaire_jeu_p;
+
+CREATE TABLE commentaire_jeu_p (
+  idPret smallint(8) unsigned NOT NULL,  #FK
+  commentaire text NOT NULL,
+
+  PRIMARY KEY (idPret)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Création de la table jeu_t
@@ -379,10 +391,8 @@ ALTER TABLE jeu_p
 ADD CONSTRAINT fk_idProprietaire_jeu_p FOREIGN KEY (idProprietaire) REFERENCES compte(idUser);
 
 
-# Clés étrangères de la table commentaire_jeu_p
-  # Clé étrangère idJeuP
-ALTER TABLE commentaire_jeu_p 
-ADD CONSTRAINT fk_idJeuP_commentaire_jeu_p FOREIGN KEY (idJeuP) REFERENCES jeu_p(idJeuP);
+
+
 
 #Clés étrangères de la table pret_p
   # Clé étrangère idJeuP
@@ -479,3 +489,17 @@ ALTER TABLE expedition
 ADD CONSTRAINT fk_idEtatEnvoi FOREIGN KEY (envoiEtatJeu) REFERENCES etat_d(etat);
 ALTER TABLE expedition 
 ADD CONSTRAINT fk_idEtatReception FOREIGN KEY (retourEtatJeu) REFERENCES etat_d(etat);
+
+
+# Clés étrangères de la table note_jeu_t
+  # Clé étrangère idJeuP
+ALTER TABLE note_jeu_t 
+ADD CONSTRAINT fk_note_jeu_t_idPC FOREIGN KEY (idPC) REFERENCES jeu_t(idPC);
+ALTER TABLE note_jeu_t 
+ADD CONSTRAINT fk_note_jeu_t_idUser FOREIGN KEY (idUser) REFERENCES compte(idUser);
+
+
+# Clés étrangères de la table commentaire_jeu_p
+  # Clé étrangère idJeuP
+ALTER TABLE commentaire_jeu_p 
+ADD CONSTRAINT fk_idJeuP_commentaire_jeu_p FOREIGN KEY (idPret) REFERENCES pret_p(idPret);
