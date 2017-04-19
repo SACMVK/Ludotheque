@@ -49,7 +49,7 @@ Function selectJoin($tablePK1,$table2,$table3,$onPK){
 	$pdo = openConnexion();
 
 	
-	/* M : prÃ©paration de la requete - permet d'adapter les requetes en fonctions de variables
+	/* M : préparation de la requete - permet d'adapter les requetes en fonctions de variables
 	 */
 	$requete = "SELECT * FROM ".$table2." JOIN ".$tablePK1." ON ".$tablePK1.".".$onPK."=".$table2.".".$onPK." JOIN ".$table3." ON ".$table3.".".$onPK."=".$table2.".".$onPK.";";
         $fieldsT1[] = getFieldsName($pdo,$tablePK1);  //Liste des noms des colonnes de la première table qui dispose de l'id PK
@@ -63,9 +63,9 @@ Function selectJoin($tablePK1,$table2,$table3,$onPK){
 	$stmt->execute() ;
 
         //test qu'est ce que j'ai mis dans les array avec var_dump
-        //var_dump($fieldsT1);
+        var_dump($fieldsT1);
         var_dump($fieldsT2);
-        //var_dump($fieldsT3);
+        var_dump($fieldsT3);
 
 	/* M : DÃ©claration de la variable liste que l'on va retourner
 	 */
@@ -90,7 +90,8 @@ Function selectJoin($tablePK1,$table2,$table3,$onPK){
                 $$fieldsT3[$k] = $donnees[$fieldsT3][$k];
             }*/
          foreach ($fieldsT2 as $keyT2 => $valueT2) {
-             echo 'valueT2 ='.$keyT2.$valueT2; //test ce qui est mis dans la key et dans la value
+             echo 'valueT2 ='.$keyT2.(String)$valueT2; //test ce qui est mis dans la key et dans la value
+             echo 'hello';
              $$valueT2 = $donnees[$valueT2];
          }
 
