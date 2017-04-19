@@ -27,7 +27,7 @@ function getFieldsName ($pdo, $tableName) {
  * @param $fieldsTable : Liste des noms des colonnes de la table
  */
 function argConstruct($fieldsTable) {
-    $valconst=[];
+    $valconst=array();
     for($i = 1, $size = count($fieldsTable); $i < $size; ++$i) {
         $valconst .= $$fieldsTable[$i].',';
         
@@ -62,7 +62,11 @@ Function selectJoin($tablePK1,$table2,$table3,$onPK){
 	 */
 	$stmt->execute() ;
 
-	echo implode($fieldsT1);
+        //test qu'est ce que j'ai mis dans les array avec var_dump
+        //var_dump($fieldsT1);
+        var_dump($fieldsT2);
+        //var_dump($fieldsT3);
+
 	/* M : DÃ©claration de la variable liste que l'on va retourner
 	 */
 	$liste_Objet = array();
@@ -76,22 +80,33 @@ Function selectJoin($tablePK1,$table2,$table3,$onPK){
              *  en fonction du constructeur dÃ©fini dans Jeu_T
              */
 
-            for($i = 1, $size = count($fieldsT2); $i < $size; ++$i) {
-                $$fieldsT2[$i] = $donnees[$fieldsT2[$i]]; // a vérifier car m'indique une erreur de conversion array to string, je ne sais pas si mon ajout de nom de variable est OK
+            /*for($i = 1, $size = count($fieldsT2); $i < $size; ++$i) {
+                $$fieldsT2[$i] = $donnees[$fieldsT2][$i]; // a vérifier car m'indique une erreur de conversion array to string, je ne sais pas si mon ajout de nom de variable est OK
             }
             for($j = 0, $size = count($fieldsT1); $j < $size; ++$j) {
-                $$fieldsT1[$j] = $donnees[$fieldsT1[$j]];
+                $$fieldsT1[$j] = $donnees[$fieldsT1][$j];
             }
             for($k = 0, $size = count($fieldsT3); $k < $size; ++$k) {
-                $$fieldsT3[$k] = $donnees[$fieldsT3[$k]];
-            }
+                $$fieldsT3[$k] = $donnees[$fieldsT3][$k];
+            }*/
+         foreach ($fieldsT2 as $keyT2 => $valueT2) {
+             echo 'valueT2 ='.$keyT2.$valueT2; //test ce qui est mis dans la key et dans la value
+             $$valueT2 = $donnees[$valueT2];
+         }
+
+         foreach ($fieldsT1 as $keyT1 => $valueT1) {
+             $$keyT1 = $donnees[$valueT1];
+         }      
+         foreach ($fieldsT3 as $keyT3 => $valueT3) {
+             $$keyT3 = $donnees[$valueT3];
+         }
             
             /* crÃ©ation du nouvel objet Jeu_T */
             $argsT2=implode(",",argConstruct($fieldsT2));
             $argsT1=implode(",",argConstruct($fieldsT1));
             $argsT3=implode(",",argConstruct($fieldsT3));
             
-            $$table2 = new Jeu_T($argsT2.$argsT1.$argsT3.$donnees[$fieldsT1[0]]);// Il faudrait renommer la classe comme la table donc dans le cas des jeu_t changer au lieu de Jeu_T
+            $$table2 = new Jeu_T($argsT2.$argsT1.$argsT3.$donnees[$fieldsT1][0]);// Il faudrait renommer la classe comme la table donc dans le cas des jeu_t changer au lieu de Jeu_T
             
             // ajout de l'objet Ã  la liste
             $liste_Objet []= $$table2;
