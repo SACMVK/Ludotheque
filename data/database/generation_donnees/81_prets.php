@@ -166,7 +166,8 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
     $idMessage = $nombreMessages;
 
 
-    foreach ($listeEmprunt as $idEmprunt => $emprunt2) {
+    foreach ($listeEmprunt as $id => $emprunt2) {
+        $idEmprunt = $id+1;
 //echo $emprunt2."<br>";
 //echo "<b>".$idEmprunt."</b><br>";
 //        echo $emprunt2->nomPreteur[0] . " " . $emprunt2->nomPreteur[1];
@@ -196,7 +197,7 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
                 echo 'INSERT INTO expedition (idPret,  envoiDateEnvoi,  envoiDateReception,  envoiEtatJeu,  envoiPiecesManquantes)';
                 echo 'VALUES ("' . $idEmprunt . '", "' . $emprunt2->envoiDateEnvoi . '", "' . $emprunt2->envoiDateReception . '", "' . $emprunt2->envoiEtatJeu . '", "' . $emprunt2->envoiPiecesManquantes . '");';
                 echo '<br>';
-                echo 'INSERT INTO commentaire_jeu_p (idJeuP, commentaire)';
+                echo 'INSERT INTO commentaire_jeu_p (idPret, commentaire)';
                 echo 'VALUES ("' . $idEmprunt . '", "' . getCommentaire() . '");';
                 echo '<br>';
             } else if ($emprunt2->retourDateReception == null) {
@@ -251,7 +252,7 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
         foreach ($listeNotification as $idNotification) {
             // il y a un message dans 30 % des cas
             if (rand(0, 100) <= 100 && $idNotification <= $emprunt2->notification) {
-                $idMessage += 1;
+                
                 $exp = $emprunt2->idPreteur;
                 $dest = $emprunt2->idEmprunteur;
                 if (in_array($idNotification, [1, 5, 6, 8, 9])) {
@@ -310,7 +311,7 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
                         $date = $emprunt2->retourDateReception;
                         break;
                 }
-
+                $idMessage += 1;
                 echo 'INSERT INTO message ( idExped, idDest, sujet, texte, dateEnvoi)';
                 echo 'VALUES ( "' . $exp . '","' . $dest . '", "' . getTexte(true) . '"," ' . getTexte() . '"," ' . $date . '");';
                 echo '<br>';
