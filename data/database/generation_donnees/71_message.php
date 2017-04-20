@@ -23,7 +23,7 @@ $aujourdhui = dateToJour($aujourdhui);
         
         $inscriptionDest > $inscriptionExped ? $inscriptionMax = $inscriptionDest : $inscriptionMax = $inscriptionExped;
  
-        
+
         
         $list['idExped'] = rand(1, $nombreIndividus);
         $list['idDest'] = rand(1, $nombreIndividus);

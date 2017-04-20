@@ -46,7 +46,7 @@
         $nombreJeuxP = 5000; //5000
         $nombreJeuxT = 200; //200
         $nombreGenreIndividu = 3000; //3000
-        $nombreGenreJeu = 2000; //2000
+        $nombreGenreJeu = 500; //500
 
         $dimensionsImageReduite = [640, 640];
         $repertoireTemp = "../../images/temp/";
@@ -59,19 +59,17 @@
         //generer_donnees_individu($nombreIndividus);
         //generer_donnees_genre_individu($nombreGenreIndividu,$nombreIndividus);
         //generer_donnees_jeu_t($nombreJeuxT);
-        //generer_donnees_genre_jeu($nombreGenreJeu,$nombreJeuxT);
+        //generer_donnees_genre_jeu($nombreJeuxT);
         //generation_donnees_jeu_t_aPourImage($nombreJeuxT, $repertoireVignettes);
         //generer_commentaires_pc($nombreCommentaires_pc, $nombreJeuxT, $nombreIndividus);
         //generer_donnees_jeu_p($nombreJeuxP, $nombreJeuxT, $nombreIndividus);
-        //generer_donnees_message($nombreMessages, $nombreIndividus,  $aujourdhui);
-        //echo (dateToJour("2017-08-31"))."<br>";
-        //echo (jourToDate(650));
+        //generer_donnees_message($nombreMessages, $nombreIndividus, $aujourdhui);
 
 
-        generer_prets($nombreIndividus, $nombreJeuxP, $aujourdhui);
+
+        generer_prets($nombreIndividus, $nombreJeuxP, $aujourdhui, $nombreMessages);
 
 
-        //generer_commentaires_jeu_p($nombreCommentaires_jeu_p);
         ?>
     </body>
 </html>

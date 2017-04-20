@@ -2,22 +2,22 @@
 
 include 'emprunt.php';
 
-function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourdhui) {
+function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourdhui, int $nombreMessages) {
 
     // Création de la liste des emprunts
     $listeEmprunt = null;
 
     $listeJeux = getAllNomJeux();
     $listeUsers = getAllUsers();
-    
+
 
     $aujourdhui = dateToJour($aujourdhui);
+
+    $inscriptionMax = -1;
 
     // pour chaque jeu ...
     for ($indiceJeu = 1; $indiceJeu <= $nombreJeuxP; $indiceJeu++) {
         // .. on détermine un nombre d'emprunt ...
-
-
         $nomJeu = $listeJeux[$indiceJeu]["nom"];
         $idJeuT = $listeJeux[$indiceJeu]["idPC"];
         $idPreteur = $listeJeux[$indiceJeu]["idProprietaire"];
@@ -25,28 +25,29 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
         $dateInscriptionPreteur = $listeUsers[$idPreteur]["dateInscription"];
         $inscriptionPreteur = dateToJour($dateInscriptionPreteur);
 
-        $idEmprunteur = rand(1, $nombreEmprunteurs);
-        $nomEmprunteur = [$listeUsers[$idEmprunteur]["nom"], $listeUsers[$idEmprunteur]["prenom"]];
-        $dateInscriptionEmprunteur = $listeUsers[$idPreteur]["dateInscription"];
-        $inscriptionEmprunteur = dateToJour($dateInscriptionEmprunteur);
 
-        $inscriptionPreteur > $inscriptionEmprunteur ? $inscriptionMax = $inscriptionPreteur : $inscriptionMax = $inscriptionEmprunteur;
-        //echo "Date Max inscription : " . jourToDate($inscriptionMax) . "<br>";
-        $nombreMaxPrets = (int) ($inscriptionMax / 60);
-        //echo "Nombre max d'emprunts : " . $nombreMaxPrets . "<br>";
+        $nombreMaxPrets = (int) ($inscriptionPreteur / 60);
         $nombreEmpruntJeuP = rand(0, $nombreMaxPrets);
-        //echo "Nombre d'emprunts : " . $nombreEmpruntJeuP . "<br>";
-        //echo "<br>";
+
+//        echo "idJeuP : " . $indiceJeu . "<br>";
+//        echo "Nombre max d'emprunts : " . $nombreMaxPrets . "<br>";
+//        echo "Nombre d'emprunts : " . $nombreEmpruntJeuP . "<br>";
 
         $joursPrets = null;
         $joursPrets[] = -1;
         $datesPrets = null;
         $datesPrets[] = [-1, -1];
-
+        $listeEmprunteurs = null;
+        $listeEmprunteurs [] = "null";
 
         if ($nombreEmpruntJeuP != 0) {
             // Création liste de dates d'emprunt
             for ($indiceEmprunt = 1; $indiceEmprunt <= $nombreEmpruntJeuP; $indiceEmprunt++) {
+                // On a un nouvel emprunteur pour chaque emprunt
+                $idEmprunteur = rand(1, $nombreEmprunteurs);
+                $dateInscriptionEmprunteur = $listeUsers[$idEmprunteur]["dateInscription"];
+                $inscriptionEmprunteur = dateToJour($dateInscriptionEmprunteur);
+                $inscriptionPreteur > $inscriptionEmprunteur ? $inscriptionMax = $inscriptionPreteur : $inscriptionMax = $inscriptionEmprunteur;
                 // implantation d'un compteur pour éviter une boucle infinie
                 do {
                     $dateDebutPret = rand($inscriptionMax, dateToJour("2017-08-31"));
@@ -62,8 +63,10 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
                     $joursPrets [] = $jourPret;
                 }
                 $datesPrets [] = $datesPret;
+                $listeEmprunteurs [] = $idEmprunteur;
             }
         }
+
         if ($nombreEmpruntJeuP != 0) {
 
 
@@ -76,16 +79,16 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
                 $emprunt->idPreteur = $idPreteur;
                 $emprunt->nomPreteur = $nomPreteur;
                 $emprunt->dateInscriptionPreteur = $dateInscriptionPreteur;
-                $emprunt->idEmprunteur = $idEmprunteur;
-                $emprunt->nomEmprunteur = $nomEmprunteur;
-                $emprunt->dateInscriptionEmprunteur = $dateInscriptionEmprunteur;
+                $emprunt->idEmprunteur = $listeEmprunteurs[$indiceEmprunt];
+                $emprunt->nomEmprunteur = [$listeUsers[$listeEmprunteurs[$indiceEmprunt]]["nom"], $listeUsers[$listeEmprunteurs[$indiceEmprunt]]["prenom"]];
+                $emprunt->dateInscriptionEmprunteur = $listeUsers[$listeEmprunteurs[$indiceEmprunt]]["dateInscription"];
 
 
 
 
                 // Il y a contre-proposition du prêteur dans 15% des cas
                 // Dans les 85%, ce sont les dates de l'emprunteur qui sont validées
-                if (rand(0, 100) > 15) {
+                if (rand(0, 100) <= 15) {
                     $emprunt->propositionEmprunteurDateDebut = jourToDate($datesPrets[$indiceEmprunt][0]);
                     $emprunt->propositionEmprunteurDateFin = jourToDate($datesPrets[$indiceEmprunt][1]);
                 } else {
@@ -125,29 +128,33 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
                     $retourDateEnvoi = $datesPrets[$indiceEmprunt][1] - rand(0, 2);
                     $retourDateReception = $datesPrets[$indiceEmprunt][1] + rand(1, 4);
                     if ($envoiDateEnvoi > $aujourdhui) {
-                        $emprunt->notification = 2;
+                        if ($emprunt->propositionPreteurDateDebut == null) {
+                            $emprunt->notification = 2;
+                        } else {
+                            $emprunt->notification = 6;
+                        }
                         $emprunt->genererExpedition(0);
                     } else if ($envoiDateReception > $aujourdhui) {
                         $emprunt->envoiDateEnvoi = jourToDate($envoiDateEnvoi);
-                        $emprunt->notification = 6;
+                        $emprunt->notification = 7;
                         $emprunt->genererExpedition(1);
                     } else if ($retourDateEnvoi > $aujourdhui) {
                         $emprunt->envoiDateEnvoi = jourToDate($envoiDateEnvoi);
                         $emprunt->envoiDateReception = jourToDate($envoiDateReception);
-                        $emprunt->notification = 7;
+                        $emprunt->notification = 8;
                         $emprunt->genererExpedition(2);
                     } else if ($retourDateReception > $aujourdhui) {
                         $emprunt->envoiDateEnvoi = jourToDate($envoiDateEnvoi);
                         $emprunt->envoiDateReception = jourToDate($envoiDateReception);
                         $emprunt->retourDateEnvoi = jourToDate($retourDateEnvoi);
-                        $emprunt->notification = 8;
+                        $emprunt->notification = 9;
                         $emprunt->genererExpedition(3);
                     } else {
                         $emprunt->envoiDateEnvoi = jourToDate($envoiDateEnvoi);
                         $emprunt->envoiDateReception = jourToDate($envoiDateReception);
                         $emprunt->retourDateEnvoi = jourToDate($retourDateEnvoi);
                         $emprunt->retourDateReception = jourToDate($retourDateReception);
-                        $emprunt->notification = 9;
+                        $emprunt->notification = 10;
                         $emprunt->genererExpedition(4);
                     }
                 }
@@ -156,11 +163,16 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
             }
         }
     }
+    $idMessage = $nombreMessages;
+
 
     foreach ($listeEmprunt as $idEmprunt => $emprunt2) {
-        $idEmprunt += 1;
-//                echo $emprunt2;
-//                echo "<br>";
+//echo $emprunt2."<br>";
+//echo "<b>".$idEmprunt."</b><br>";
+//        echo $emprunt2->nomPreteur[0] . " " . $emprunt2->nomPreteur[1];
+//        echo "<br>";
+//        echo $emprunt2->nomEmprunteur[0] . " " . $emprunt2->nomEmprunteur[1];
+//        echo "<br>";
         if ($emprunt2->propositionPreteurDateDebut != null) {
             echo 'INSERT INTO pret_p (idJeuP, idEmprunteur, propositionEmprunteurDateDebut, propositionEmprunteurDateFin, propositionPreteurDateDebut, propositionPreteurDateFin, notification, statutDemande )';
             echo 'VALUES ("' . $emprunt2->idJeuP . '", "' . $emprunt2->idEmprunteur . '", "' . $emprunt2->propositionEmprunteurDateDebut . '", "' . $emprunt2->propositionEmprunteurDateFin . '", "' . $emprunt2->propositionPreteurDateDebut . '", "' . $emprunt2->propositionPreteurDateFin . '", "' . $emprunt2->notification . '", "' . $emprunt2->statut . '");';
@@ -172,6 +184,7 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
         }
         if ($emprunt2->statut != "Annulée") {
             if ($emprunt2->envoiDateEnvoi == null) {
+                // création d'une expédition vide qui sera updatée
                 echo 'INSERT INTO expedition (idPret)';
                 echo 'VALUES ("' . $idEmprunt . '");';
                 echo '<br>';
@@ -204,7 +217,110 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
                 echo '<br>';
             }
         }
+        // génération aléatoire de message pour chaque étape
+        switch ($emprunt2->statut) {
+            case "Validée":
+                if ($emprunt2->propositionPreteurDateDebut != null) {
+                    $listeNotification = [1, 2, 7, 8, 9, 10];
+                } else {
+                    $listeNotification = [1, 4, 6, 7, 8, 9, 10];
+                }
+                break;
+            case "En cours":
+                switch ($emprunt2->notification) {
+                    case 1:
+                        $listeNotification = [1];
+                        break;
+                    case 4:
+                        $listeNotification = [1, 4];
+                        break;
+                }
+                break;
+            case "Annulée":
+                switch ($emprunt2->notification) {
+                    case 3:
+                        $listeNotification = [1, 3];
+                        break;
+                    case 5:
+                        $listeNotification = [1, 4, 5];
+                        break;
+                }
+                break;
+        }
+
+        foreach ($listeNotification as $idNotification) {
+            // il y a un message dans 30 % des cas
+            if (rand(0, 100) <= 100 && $idNotification <= $emprunt2->notification) {
+                $idMessage += 1;
+                $exp = $emprunt2->idPreteur;
+                $dest = $emprunt2->idEmprunteur;
+                if (in_array($idNotification, [1, 5, 6, 8, 9])) {
+                    $dest = $emprunt2->idPreteur;
+                    $exp = $emprunt2->idEmprunteur;
+                }
+                $debutEchanges = rand($inscriptionMax, dateToJour($emprunt2->propositionEmprunteurDateDebut));
+
+                switch ($idNotification) {
+                    // demande initiale
+                    case 1:
+                        $date = jourToDate($debutEchanges);
+                        break;
+                    // demande validée
+                    case 2:
+                        if ($emprunt2->envoiDateEnvoi != null) {
+                            $date = jourToDate(rand($debutEchanges, dateToJour($emprunt2->envoiDateEnvoi)));
+                        } else {
+                            $date = jourToDate($debutEchanges + rand(0, 5));
+                        }
+                        break;
+                    // annulation sans contreproposition
+                    case 3:
+                        $date = jourToDate($debutEchanges + rand(0, 5));
+                        break;
+                    // contreproposition
+                    case 4:
+                        if ($emprunt2->statut == "Annulée") {
+                            $date = jourToDate($debutEchanges + rand(0, 5));
+                        } else {
+                            if ($emprunt2->envoiDateEnvoi != null) {
+                                $date = jourToDate((int) ((dateToJour($emprunt2->envoiDateEnvoi) - $debutEchanges) / 3) + $debutEchanges);
+                            } else {
+                                $date = jourToDate($debutEchanges + rand(0, 5));
+                            }
+                        }
+                        break;
+                    // annulation contreproposition
+                    case 5:
+                        $date = jourToDate($debutEchanges + rand(6, 10));
+                        break;
+                    // validation entre contreproposition et envoi
+                    case 6:
+                        $date = jourToDate((int) ((dateToJour($emprunt2->envoiDateEnvoi) - $debutEchanges) / 3 * 2) + $debutEchanges);
+                        break;
+                    case 7:
+                        $date = $emprunt2->envoiDateEnvoi;
+                        break;
+                    case 8:
+                        $date = $emprunt2->envoiDateReception;
+                        break;
+                    case 9:
+                        $date = $emprunt2->retourDateEnvoi;
+                        break;
+                    case 10:
+                        $date = $emprunt2->retourDateReception;
+                        break;
+                }
+
+                echo 'INSERT INTO message ( idExped, idDest, sujet, texte, dateEnvoi)';
+                echo 'VALUES ( "' . $exp . '","' . $dest . '", "' . getTexte(true) . '"," ' . getTexte() . '"," ' . $date . '");';
+                echo '<br>';
+                echo 'INSERT INTO pret_a_pour_message ( idPret, idMessage, idNotification)';
+                echo 'VALUES ( "' . $idEmprunt . '","' . $idMessage . '", "' . $idNotification . '");';
+                echo '<br>';
+            }
+        }
     }
+    echo '<br><br>';
 }
 
 function dateToJour(string $date) {
@@ -242,59 +358,6 @@ function jourToDate(int $nombreJours) {
     }
     return $annee . "-" . $mois . "-" . $nombreJours;
 }
-
-//function getIdPreteur($idJeuP) {
-//    $pdo = openConnexion();
-//    $requete = "SELECT * FROM jeu_p WHERE jeu_p.idJeuP='" . $idJeuP . "';";
-//    $stmt = $pdo->prepare($requete);
-//    $stmt->execute();
-//    $list = null;
-//    while ($ligne = $stmt->fetch(PDO::FETCH_ASSOC)) {
-//        $list = $ligne ["idProprietaire"];
-//    }
-//    closeConnexion($pdo);
-//    return $list;
-//}
-//
-//function getNomJeuT($idJeuP) {
-//    $pdo = openConnexion();
-//    $requete = "SELECT * FROM jeu_p JOIN jeu_t ON jeu_p.idPC = jeu_t.idPC WHERE jeu_p.idJeuP='" . $idJeuP . "';";
-//    $stmt = $pdo->prepare($requete);
-//    $stmt->execute();
-//    $list = null;
-//    while ($ligne = $stmt->fetch(PDO::FETCH_ASSOC)) {
-//        $list = $ligne ["nom"];
-//    }
-//    closeConnexion($pdo);
-//    return $list;
-//}
-//
-//function getNomUser($idUser) {
-//    $pdo = openConnexion();
-//    $requete = "SELECT * FROM compte JOIN individu ON compte.idUser = individu.idUser WHERE compte.idUser='" . $idUser . "';";
-//    $stmt = $pdo->prepare($requete);
-//    $stmt->execute();
-//    $list = null;
-//    while ($ligne = $stmt->fetch(PDO::FETCH_ASSOC)) {
-//        $list [] = $ligne ["nom"];
-//        $list [] = $ligne ["prenom"];
-//    }
-//    closeConnexion($pdo);
-//    return $list;
-//}
-//
-//function getInscriptionUser($idUser) {
-//    $pdo = openConnexion();
-//    $requete = "SELECT * FROM compte JOIN individu ON compte.idUser = individu.idUser WHERE compte.idUser='" . $idUser . "';";
-//    $stmt = $pdo->prepare($requete);
-//    $stmt->execute();
-//    $list = null;
-//    while ($ligne = $stmt->fetch(PDO::FETCH_ASSOC)) {
-//        $list = $ligne ["dateInscription"];
-//    }
-//    closeConnexion($pdo);
-//    return $list;
-//}
 
 function getAllNomJeux() {
     $pdo = openConnexion();

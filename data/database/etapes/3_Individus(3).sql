@@ -1,6 +1,3 @@
-use ludotheque;
-
-
 INSERT INTO compte (adresse,ville,email,telephone,pseudo,dateInscription,mdp,codePostal,numDept,droit)VALUES ("84 passage des Tourelles","Calais","aaron_leclercq@orange.com","0689123535","aaronleclercq","2017-1-1","npzzhqbb","61700","61","Utilisateur");
 INSERT INTO individu (idUser,nom,prenom,dateNaiss)VALUES ("1","Leclercq","Aaron","1968-11-9");
 INSERT INTO compte (adresse,ville,email,telephone,pseudo,dateInscription,mdp,codePostal,numDept,droit)VALUES ("75 allée Saint-Fargeau","Vitry-sur-Seine","lambert-eva@wanadoo.net","0614135742","eva44","2016-10-13","b8zwuof","57900","57","Administrateur");

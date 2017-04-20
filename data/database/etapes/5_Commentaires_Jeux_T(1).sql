@@ -1,5 +1,3 @@
-use ludotheque;
-
 INSERT INTO commentaire_p_c_t (idPC, commentaireT, idUser)VALUES ("61", "Amet eget ligula velit ut nec sit mauris. Nulla imperdiet ullamcorper auctor lacus vel in sollicitudin. Et placerat purus purus amet tristique orci sed. Volutpat pretium aliquam et vitae pellentesque congue mi. Vitae adipiscing cras dictum suspendisse etiam imperdiet elementum. In odio quis ligula sem sollicitudin cras orci.", "308");
 INSERT INTO commentaire_p_c_t (idPC, commentaireT, idUser)VALUES ("69", "Id metus lacinia rutrum enim erat est feugiat interdum sed. Nec eget ad semper sit ac id nec quis ac. Semper lectus mauris ut ornare ultricies ipsum massa leo tortor. Pellentesque amet consectetur odio erat et neque lacus congue nibh.", "243");
 INSERT INTO commentaire_p_c_t (idPC, commentaireT, idUser)VALUES ("194", "Sociosqu quam sollicitudin id quis in imperdiet amet. Imperdiet eu sit dui semper velit varius interdum.", "306");

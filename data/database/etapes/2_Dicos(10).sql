@@ -1,6 +1,4 @@
-use ludotheque;
-
-## DICOS
+# DICOS
 # Insertion de données de la table droit_d
 INSERT INTO droit_d (droit) VALUES ("Administrateur"), ("Modérateur"), ("Utilisateur");
 
@@ -41,6 +39,7 @@ INSERT INTO notification (sujetPreteur, corpsPreteur, sujetEmprunteur, corpsEmpr
 INSERT INTO notification (sujetPreteur, corpsPreteur, sujetEmprunteur, corpsEmprunteur) VALUES ("Annulation emprunt", "Vous avez refusé la demande d'emprunt de votre jeu #nomJeu# par #nomEmprunteur# du #dateDebut# au #dateFin#. La demande d'emprunt est close.", "Demande d'emprunt rejetée", "Votre demande d'emprunt du jeu #nomJeu# à #nomPreteur# du #dateDebut# au #dateFin# a été rejetée. La demande d'emprunt est close.");
 INSERT INTO notification (sujetPreteur, corpsPreteur, sujetEmprunteur, corpsEmprunteur) VALUES ("Demande d'emprunt :  nouvelles dates", "Vous avez proposé à #nomEmprunteur# de nouvelles dates pour sa demande d'emprunt de votre jeu #nomJeu# : du #dateDebut# au #dateFin#.", "Demande d'emprunt :  nouvelles dates", "#nomPreteur# vous propose de nouvelles dates pour votre demande d'emprunt de son jeu #nomJeu# : du #dateDebut# au #dateFin#.");
 INSERT INTO notification (sujetPreteur, corpsPreteur, sujetEmprunteur, corpsEmprunteur) VALUES ("Demande de modification de dates rejetée", "#nomEmprunteur# n'a pas accepté les nouvelles dates d'emprunt du jeu #nomJeu# que vous lui aviez proposé. La demande d'emprunt est close.", "Rejet nouvelles dates d'emprunt", "Vous avez rejeté les nouvelles dates d'emprunt du jeu #nomJeu# de #nomPreteur# (du #dateDebut# au #dateFin#). La demande d'emprunt est close.");
+INSERT INTO notification (sujetPreteur, corpsPreteur, sujetEmprunteur, corpsEmprunteur) VALUES ("Validation de votre demande d'emprunt", "#nomEmprunteur# a validé votre demande d'emprunt de son jeu #nomJeu# du #dateDebut# au #dateFin#.", "Validation emprunt", "Vous avez validé la demande d'emprunt de votre jeu #nomJeu# par #nomPreteur# du #dateDebut# au #dateFin#.");
 INSERT INTO notification (sujetPreteur, corpsPreteur, sujetEmprunteur, corpsEmprunteur) VALUES ("Envoi du jeu", "Vous avez envoyé votre jeu #nomJeu# à #nomEmprunteur# le #envoiDateEnvoi#.", "Envoi du jeu", "#nomPreteur# vous a envoyé son jeu #nomJeu# le #envoiDateEnvoi#.");
 INSERT INTO notification (sujetPreteur, corpsPreteur, sujetEmprunteur, corpsEmprunteur) VALUES ("Réception du jeu", "#nomEmprunteur# confirme qu'il a bien reçu votre jeu #nomJeu# le #envoiDateReception#.", "Réception du jeu", "Vous avez confirmé à #nomPreteur# que vous avez bien reçu son jeu #nomJeu# le #envoiDateReception#.");
 INSERT INTO notification (sujetPreteur, corpsPreteur, sujetEmprunteur, corpsEmprunteur) VALUES ("Renvoi du jeu", "#nomEmprunteur# vous a renvoyé votre jeu #nomJeu# le #retourDateEnvoi#.", "Renvoi du jeu", "Vous avez confirmé à #nomPreteur# que vous lui avez renvoyé son jeu #nomJeu# le #retourDateEnvoi#.");

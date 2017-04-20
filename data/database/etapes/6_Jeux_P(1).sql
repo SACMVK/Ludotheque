@@ -1,6 +1,4 @@
-use ludotheque;
-
- INSERT INTO jeu_p (idJeuP, idPC, idProprietaire)VALUES ("1", "3", "909");
+INSERT INTO jeu_p (idJeuP, idPC, idProprietaire)VALUES ("1", "3", "909");
 INSERT INTO jeu_p (idJeuP, idPC, idProprietaire)VALUES ("2", "107", "919");
 INSERT INTO jeu_p (idJeuP, idPC, idProprietaire)VALUES ("3", "55", "182");
 INSERT INTO jeu_p (idJeuP, idPC, idProprietaire)VALUES ("4", "178", "804");
