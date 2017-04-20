@@ -167,7 +167,7 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
 
 
     foreach ($listeEmprunt as $id => $emprunt2) {
-        $idEmprunt = $id+1;
+        $idEmprunt = $id + 1;
 //echo $emprunt2."<br>";
 //echo "<b>".$idEmprunt."</b><br>";
 //        echo $emprunt2->nomPreteur[0] . " " . $emprunt2->nomPreteur[1];
@@ -248,19 +248,22 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
                 }
                 break;
         }
-
+        if ($emprunt2->envoiDateEnvoi != null) {
+            $debutEchanges = rand($inscriptionMax, dateToJour($emprunt2->envoiDateEnvoi));
+        } else {
+            $debutEchanges = rand($inscriptionMax, dateToJour($emprunt2->propositionEmprunteurDateDebut));
+        }
+//        echo "<br>" . jourToDate($debutEchanges) . "<br>";
         foreach ($listeNotification as $idNotification) {
             // il y a un message dans 30 % des cas
-            if (rand(0, 100) <= 100 && $idNotification <= $emprunt2->notification) {
-                
+            if (rand(0, 100) <= 30 && $idNotification <= $emprunt2->notification) {
+
                 $exp = $emprunt2->idPreteur;
                 $dest = $emprunt2->idEmprunteur;
                 if (in_array($idNotification, [1, 5, 6, 8, 9])) {
                     $dest = $emprunt2->idPreteur;
                     $exp = $emprunt2->idEmprunteur;
                 }
-                $debutEchanges = rand($inscriptionMax, dateToJour($emprunt2->propositionEmprunteurDateDebut));
-
                 switch ($idNotification) {
                     // demande initiale
                     case 1:
@@ -296,7 +299,7 @@ function generer_prets(int $nombreEmprunteurs, int $nombreJeuxP, string $aujourd
                         break;
                     // validation entre contreproposition et envoi
                     case 6:
-                        $date = jourToDate((int) ((dateToJour($emprunt2->envoiDateEnvoi) - $debutEchanges) / 3 * 2) + $debutEchanges);
+                        $date = jourToDate((int) ((dateToJour($emprunt2->envoiDateEnvoi) - $debutEchanges) * 2 / 3 ) + $debutEchanges);
                         break;
                     case 7:
                         $date = $emprunt2->envoiDateEnvoi;
