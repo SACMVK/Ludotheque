@@ -36,7 +36,7 @@ function insert($list_Values) {
 
     //AhMaD:la requete pour inserter dans le tableau compte
     $requete_compte = "INSERT INTO " . TABLE_COMPTE . " (adresse,ville,numDept,email,telephone,pseudo,dateInscription,mdp,codePostal,droit)
-                                  VALUES ($adresse,$ville,$numDept,'$email',$telephone,$pseudo,$dateInscription,$mdp,$codePostal,'$droit');";
+                                  VALUES ("$adresse","$ville,$numDept,$email,$telephone,$pseudo,$dateInscription,$mdp,$codePostal,$droit);";
 
     //AhMaD: préparer la requête pour ensuite l'exécuter
     $stmt_compte = $pdo->prepare($requete_compte);
