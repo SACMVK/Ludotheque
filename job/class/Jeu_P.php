@@ -3,13 +3,12 @@
 class Jeu_P {
 	// AhMaD: les attributs pour Jeu_T
 	private $idJeuP;
-	private $idJeuT;
-	private $idProprietaire;
+	private $idJeuT= new Jeu_T();
+	private $idProprietaire = new Individu();
 	private $etat;
 	
 
-// AhMaD: Le connecteur aves (id user =-1) cela pour eviter faire deuxime constructeur pour le BD.
-        //comme ca si tu crée un nouveau objet avec id il vas prendre le prendre sinon l'id=-1 par defaut  
+// AhMaD: Le connecteur 
 	function __construct( $idProprietaire, $etat,  $idJeuT,$idJeuP=-1) {
 		$this->idJeuP = $idJeuP;
 		$this->idJeuT = $idJeuT;
@@ -17,7 +16,7 @@ class Jeu_P {
 		$this->etat = $etat;
 		
 	}
-	// AhMaD: getter et setter, on vas les utiliser pour chercher les informations ou les modifier
+	// AhMaD: getter et setter
 	// idJeuP
 	function getIdJeuP() {
 		return $this->idJeuP;
@@ -40,7 +39,7 @@ class Jeu_P {
 		return $this->etat;
 	}
 	function setEtat($etat) {
-		return $this->$etat = $etat;
+		return $this->etat = $etat;
 	}
 
 
@@ -50,7 +49,7 @@ class Jeu_P {
 		return $this->idJeuT;
 	}
 	function setIdJeuT($idJeuT) {
-		return $this->idJeuT;
+		return $this->idJeuT=$idJeuT;
 	}
 
 	// AhMaD: ToString pour afficher l'objet, le point pour concaténer, cela comme (+) en java

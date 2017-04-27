@@ -11,14 +11,9 @@
 
                 <input type="text" name="prenom" class="form-control input-lg" maxlength="12" placeholder="Prénom"  />   
 
-                <input type="date" name="dateNaiss" class="form-control input-lg" min="1920-01-01" maxlength="10" placeholder="Date De Naissance (mm/dd/yyyy)"/>
-
-                <input type="text" name="ville" class="form-control input-lg" maxlength="12" placeholder="Ville"/>
+				<input type="text" name="ville" class="form-control input-lg" maxlength="12" placeholder="Ville"/>
                 
                 <input type="number" name="numDept" class="form-control input-lg" maxlength="5" placeholder="Numero de département"/>
-
-
-                <input type="email" name="email" class="form-control input-lg" placeholder="E-mail"/>
 
                 <input type="hidden" name="page" value="individu selectList"  />
            
