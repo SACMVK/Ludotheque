@@ -1,9 +1,11 @@
 <?php
-// Fonction qui permet de n'afficher que les $length premiers caractères
+// M : Fonction qui permet de n'afficher que les $length premiers caractères
 function str_truncate($text, $length){
     if(strlen($text) <= $length) return $text;
     return trim(substr($text, 0, $length));
 }
+
+// M : Affihage de la liste des jeu_t
 ?>
 
 <table border= 1px solid black>

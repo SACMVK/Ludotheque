@@ -7,18 +7,18 @@ class Message {
     private $idMessage = -1;
     private $idExped = -1;
     private $idDest = -1;
-    private $typeMessage = "";
+    private $dateEnvoi = "";
     private $sujet = "";
     private $texte = "";
 
     //charlotte :constructeur 
-    //M : Nous avons modifé la table message dans la base, et retiré typeMessage !!! A VERIFIER AVEC CHARLOTTE
 
-    function __construct($idExped, $idDest, $typeMessage, $sujet, $texte, $idMessage = -1) {
+
+    function __construct($idExped, $idDest, $dateEnvoi, $sujet, $texte, $idMessage = -1) {
         $this->idMessage = $idMessage;
         $this->idExped = $idExped;
         $this->idDest = $idDest;
-        $this->typeMessage = $typeMessage;
+        $this->dateEnvoi = $dateEnvoi;
         $this->sujet = $sujet;
         $this->texte = $texte;
     }
@@ -54,12 +54,12 @@ class Message {
     // type de Message
 
 
-    public function getTypeMessage() {
+    public function getDateEnvoi() {
         return $this->typeMessage;
     }
 
-    public function setTypeMessage($typeMessage) {
-        return $this->typeMessage = $typeMessage;
+    public function setDateEnvoi($dateEnvoi) {
+        return $this->dateEnvoi = $dateEnvoi;
     }
 
     // sujet
@@ -86,7 +86,7 @@ class Message {
 
     // charlotte: ToString pour afficher 
     public function __toString() {
-        return ( "idMessage= " . $this->idMessage . ", idExpediteur :" . $this->idExped . ", idDestinataire: " . $this->idDest . ", typeMessage: " . $this->typeMessage . "sujet : " . $this->sujet . "texte : " . $this->texte);
+        return ( "idMessage= " . $this->idMessage . ", idExpediteur :" . $this->idExped . ", idDestinataire: " . $this->idDest . ", date d'envoi: " . $this->dateEnvoi . "sujet : " . $this->sujet . "texte : " . $this->texte);
     }
 
 }

@@ -38,7 +38,7 @@ Function select($requete){
 	 */
 	while ($donnees = $stmt->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera récupérée et placée dans un array.
         {
-            echo $donnees['nom'];
+            //echo $donnees['nom'];
             
             /* M :création des variable en local qui récupèrent les données de la table pour chaque champs de l'objet
              *  en fonction du constructeur défini dans Jeu_T

@@ -43,7 +43,6 @@ caption {
 <body>
 
 <?php
-
 include ('ihm/header/header.php');
 
 //require_once('ihm/menus/menuAdmin.php');//
@@ -53,6 +52,10 @@ include ('job/class/Jeu_T.php'); //j'inclu la classe au début car j'en
 echo '<br><br><br><br>';
 include ('job/dao/Jeu_T_Dao.php');
 select('');
+
+include ('job/dao/dao_generique_join.php');
+echo selectJoin('produit_culturel_t','jeu_t','jeu_a_pour_genre','idPC');
+
 
 /* charlotte : empty ne fonctionne pas car il vérifie si $_GET['page']=null, hors $_GET['page'] n'existe pas
  * in_array ne fonctionne pas non plus, pour une raison indéterminée
@@ -75,7 +78,9 @@ else {
      <script src="ihm/js/jquery.min.js"></script>
     <script src="ihm/js/bootstrap.min.js"></script>
     <script src="ihm/js/MUSA_carousel-extended.js"></script>
-*/?>
+*/
+include ('ihm/recherche/jeu_t.php')
+?>
 
  <div id=listejeu>
         <?php
